@@ -1,0 +1,250 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #000;
+  margin: 0;
+  padding: 20px;
+  color: #fff;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  width: 1400px;
+  height: 800px;
+}
+
+.grid-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-card {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: rgba(10, 10, 25, 0.9);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #333;
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+}
+
+.item-header {
+  padding: 15px;
+  position: relative;
+}
+
+.item-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: #e0e0e0;
+}
+
+.item-level {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background-image: linear-gradient(135deg, #1a4063, #0a1e31);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  border: 2px solid #4a90e2;
+  transform: rotate(45deg);
+}
+
+.item-level span {
+  transform: rotate(-45deg);
+}
+
+.item-type-select {
+  margin-top: 5px;
+}
+
+.item-type-select select {
+  background-color: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 16px;
+  padding: 5px 0;
+  width: 150px;
+  cursor: pointer;
+  outline: none;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 1px 15px;
+}
+
+.stat {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.stat-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+}
+
+.stat-name {
+  color: #aaa;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.stat-value {
+  font-size: 16px;
+  color: white;
+}
+
+.section {
+  padding: 15px;
+  border-top: 1px solid #333;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  color: #aaa;
+}
+
+.section-title {
+  font-size: 14px;
+}
+
+.section-count {
+  font-size: 14px;
+}
+
+select {
+  background-color: rgba(20, 20, 40, 0.6);
+  color: white;
+  border: 1px solid #444;
+  padding: 4px;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 10px;
+  cursor: pointer;
+  outline: none;
+}
+
+.x-hasError {
+  background-color: #551111;
+}
+
+.gem-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.gem-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #66a3ff;
+}
+
+.gem-text {
+  color: #66a3ff;
+}
+
+.enchant-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.enchant-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enchant-text {
+  color: #a48bf3;
+}
+
+.enchant-group-Other {
+  background-color: #333333;
+}
+
+.enchant-group-Attack {
+  background-color: #4f240e;
+}
+
+.enchant-group-Stamina {
+  background-color: #4b2659;
+}
+
+.enchant-group-Durability {
+  background-color: #435825;
+}
+
+.enchant-group-Healing {
+  background-color: #2f3a3a;
+}
+
+.enchant-group-Weight {
+  background-color: #294435;
+}
+
+.enchant-group-Focus {
+  background-color: #014b1e;
+}
+
+.enchant-group-Defense {
+  background-color: #313567;
+}
+
+.enchant-group-Indestructible {
+  background-color: #435825;
+}
+
+.enchant-group-Resistance {
+  background-color: #12650e;
+}
+
+.enchant-group-Movement {
+  background-color: #1d284b;
+}
+
+.enchant-group-Downside {
+  background-color: #000000;
+}
+
+
+.downside-text {
+  color: #ff6b6b;
+}
+
+.base-stat-icon {
+  font-size: 20px;
+}
+
+.resistance-icon {
+  font-size: 16px;
+}

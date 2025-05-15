@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>False Harbinger's Visage</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            margin: 0;
+            padding: 20px;
+            color: #fff;
+        }
+        .item-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: rgba(10, 10, 25, 0.9);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #333;
+            box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+        }
+        .item-header {
+            padding: 15px;
+            position: relative;
+        }
+        .item-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+            color: #e0e0e0;
+        }
+        .item-level {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background-image: linear-gradient(135deg, #1a4063, #0a1e31);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            border: 2px solid #4a90e2;
+            transform: rotate(45deg);
+        }
+        .item-level span {
+            transform: rotate(-45deg);
+        }
+        .item-type-select {
+            margin-top: 5px;
+        }
+        .item-type-select select {
+            background-color: transparent;
+            border: none;
+            color: #aaa;
+            font-size: 16px;
+            padding: 5px 0;
+            width: 150px;
+            cursor: pointer;
+            outline: none;
+        }
+        .stats-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 10px 15px;
+        }
+        .stat {
+            display: flex;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        .stat-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+        }
+        .stat-name {
+            color: #aaa;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+        .stat-value {
+            font-size: 20px;
+            color: white;
+        }
+        .section {
+            padding: 15px;
+            border-top: 1px solid #333;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+        .section-title {
+            font-size: 14px;
+        }
+        .section-count {
+            font-size: 14px;
+        }
+        select {
+            background-color: rgba(20, 20, 40, 0.6);
+            color: white;
+            border: 1px solid #444;
+            padding: 8px;
+            border-radius: 4px;
+            width: 100%;
+            margin-bottom: 10px;
+            cursor: pointer;
+            outline: none;
+        }
+        .gem-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .gem-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #66a3ff;
+        }
+        .gem-text {
+            color: #66a3ff;
+        }
+        .enchant-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .enchant-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .damage-icon {
+            color: #a48bf3;
+        }
+        .healing-icon {
+            color: #a48bf3;
+        }
+        .indestructible-icon {
+            color: #a48bf3;
+        }
+        .stamina-icon {
+            color: #a48bf3;
+        }
+        .unrepairable-icon {
+            color: #ff6b6b;
+        }
+        .damage-text {
+            color: #a48bf3;
+        }
+        .healing-text {
+            color: #a48bf3;
+        }
+        .indestructible-text {
+            color: #a48bf3;
+        }
+        .stamina-text {
+            color: #a48bf3;
+        }
+        .unrepairable-text {
+            color: #ff6b6b;
+        }
+        .base-stat-icon {
+            font-size: 20px;
+        }
+        .resistance-icon {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="item-card">
+        <div class="item-header">
+            <h1 class="item-name">False Harbinger's Visage</h1>
+            <div class="item-level"><span>14</span></div>
+            <div class="item-type-select">
+                <select>
+                    <option selected>Mesh Helmet</option>
+                    <option>Chain Helmet</option>
+                    <option>Plate Helmet</option>
+                    <option>Leather Helmet</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat">
+                <div class="stat-icon base-stat-icon">👕</div>
+                <div class="stat-value">135</div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon base-stat-icon">🛡️</div>
+                <div class="stat-value">4</div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon resistance-icon">🔥</div>
+                <div class="stat-name">Heat Resistance</div>
+                <div class="stat-value">118</div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon resistance-icon">❄️</div>
+                <div class="stat-name">Cold Resistance</div>
+                <div class="stat-value">133</div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon resistance-icon">⚡</div>
+                <div class="stat-name">Electric Resistance</div>
+                <div class="stat-value">121</div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon resistance-icon">☣️</div>
+                <div class="stat-name">Plague Resistance</div>
+                <div class="stat-value">116</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">Gems</div>
+                <div class="section-count">1/1</div>
+            </div>
+            <select>
+                <option selected>Max Health increased by 4%</option>
+                <option>Critical Hit increased by 3%</option>
+                <option>Armor Penetration increased by 5%</option>
+                <option>Magic Defense increased by 4%</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">Enchantments</div>
+                <div class="section-count">5/5</div>
+            </div>
+            
+            <select>
+                <option selected>Damage Taken decreased by up to 7% based on Durability</option>
+                <option>Damage Taken decreased by up to 5% based on Durability</option>
+                <option>Damage Taken decreased by up to 9% based on Durability</option>
+            </select>
+            
+            <select>
+                <option selected>Healing increased by up to 13% based on Durability</option>
+                <option>Healing increased by up to 10% based on Durability</option>
+                <option>Healing increased by up to 15% based on Durability</option>
+            </select>
+            
+            <select>
+                <option selected>Indestructible</option>
+                <option>Reinforced Structure</option>
+                <option>Unbreakable</option>
+            </select>
+            
+            <select>
+                <option selected>Stamina Recovery increased by up to 20% based on Durability</option>
+                <option>Stamina Recovery increased by up to 15% based on Durability</option>
+                <option>Stamina Recovery increased by up to 25% based on Durability</option>
+            </select>
+            
+            <select>
+                <option selected>Unrepairable</option>
+                <option>Fragile</option>
+                <option>Limited Repairs</option>
+            </select>
+        </div>
+    </div>
+</body>
+</html>
