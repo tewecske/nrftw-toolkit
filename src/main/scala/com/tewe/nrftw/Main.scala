@@ -32,6 +32,10 @@ val _ = Stylesheet // Use import to prevent DCE
         div(
           cls:= "grid-item",
           ItemBuilder(glovesPlagued),
+        ),
+        div(
+          cls:= "grid-item",
+          WeaponBuilder(glovesPlagued),
         )
       )
     }

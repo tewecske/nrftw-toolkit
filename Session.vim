@@ -14,18 +14,19 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
-badd +79 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
-badd +71 src/main/scala/com/tewe/nrftw/Items.scala
-badd +19 src/main/scala/com/tewe/nrftw/Main.scala
-badd +1 style.css
+badd +195 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+badd +33 src/main/scala/com/tewe/nrftw/Items.scala
+badd +38 src/main/scala/com/tewe/nrftw/Main.scala
+badd +151 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
-badd +0 .gitignore
+badd +1 .gitignore
+badd +98 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit .gitignore
+edit src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
 argglobal
 balt style.css
 setlocal fdm=manual
@@ -58,7 +59,6 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost

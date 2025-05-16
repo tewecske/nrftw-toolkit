@@ -145,6 +145,11 @@ select {
   outline: none;
 }
 
+option {
+  background-color: rgba(20, 20, 40, 0.6);
+  color: white;
+}
+
 .x-hasError {
   background-color: #551111;
 }
@@ -247,4 +252,193 @@ select {
 
 .resistance-icon {
   font-size: 16px;
+}
+
+.weapon-card {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: rgba(10, 10, 25, 0.9);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #333;
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+}
+
+.weapon-header {
+  padding: 15px;
+  position: relative;
+}
+
+.weapon-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: #e0e0e0;
+}
+
+.weapon-level {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background-image: linear-gradient(135deg, #1a4063, #0a1e31);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  border: 2px solid #4a90e2;
+  transform: rotate(45deg);
+}
+
+.weapon-level span {
+  transform: rotate(-45deg);
+}
+
+.weapon-type-select {
+  margin-top: 5px;
+}
+
+.weapon-type-select select {
+  background-color: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 16px;
+  padding: 5px 0;
+  width: 250px;
+  cursor: pointer;
+  outline: none;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px 15px;
+}
+
+.stat {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.stat-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+}
+
+.stat-value {
+  font-size: 20px;
+  color: white;
+}
+
+.scales-with {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+}
+
+.scales-text {
+  color: #aaa;
+  margin-right: 10px;
+}
+
+.scales-select {
+  background-color: transparent;
+  border: none;
+  color: #ccc;
+  padding: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.rune-slots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px 15px;
+  gap: 10px;
+}
+
+.rune-slot {
+  display: flex;
+  align-items: center;
+  background-color: rgba(30, 30, 50, 0.6);
+  border-radius: 4px;
+  padding: 8px;
+  border: 1px solid #444;
+}
+
+.slot-number {
+  width: 24px;
+  height: 24px;
+  background-color: #444;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.slot-select {
+  background-color: transparent;
+  border: none;
+  color: white;
+  flex-grow: 1;
+  cursor: pointer;
+  outline: none;
+}
+
+.resource-bar {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.cost {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.gain {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.resource-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cost-icon {
+  color: #4fd69c;
+}
+
+.gain-icon {
+  color: #f9d423;
+}
+
+.resource-label {
+  color: #aaa;
+  margin-right: 8px;
+}
+
+.resource-value {
+  font-size: 18px;
 }
