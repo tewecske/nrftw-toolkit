@@ -9,19 +9,34 @@ object ItemBuilder {
 
   val _ = Stylesheet // Use import to prevent DCE
 
-  case class ItemState(
-    enchant1: String,
-    enchant2: String,
-    enchant3: String,
-    enchant4: String,
-    downside: String, 
-    enchant1Error: Boolean = false,
-    enchant2Error: Boolean = false,
-    enchant3Error: Boolean = false,
-    enchant4Error: Boolean = false,
-  )
+  def createState(config: ItemBuilderConfig, initState: Option[String]): ItemState = {
+    val sortedEnchants = config.enchants.values.toList.sortBy(_.id)
+    val sortedEnchantDownsides = config.enchantDownsides.values.toList.sortBy(_.id)
 
-  def apply(config: ItemBuilderConfig): HtmlElement = {
+    initState.filter(!_.isBlank).fold {
+      ItemState(
+        enchant1 = sortedEnchants.head.id,
+        enchant2 = sortedEnchants.head.id,
+        enchant3 = sortedEnchants.head.id,
+        enchant4 = sortedEnchants.head.id,
+        downside = sortedEnchantDownsides.head.id
+      )
+      } { stringState =>
+        println(s"STATE: $stringState")
+        stringState match {
+          case s"$e1-$e2-$e3-$e4-$d" => ItemState(e1, e2, e3, e4, d)
+          case _ => 
+            ItemState(
+              enchant1 = sortedEnchants.head.id,
+              enchant2 = sortedEnchants.head.id,
+              enchant3 = sortedEnchants.head.id,
+              enchant4 = sortedEnchants.head.id,
+              downside = sortedEnchantDownsides.head.id
+            )
+        }
+      }
+  }
+  def apply(config: ItemBuilderConfig, stateVar: Var[ItemState]): HtmlElement = {
     def errors(itemState: ItemState): ItemState = {
       val groups = List(
         config.enchants(itemState.enchant1).group,
@@ -39,13 +54,6 @@ object ItemBuilder {
 
     val sortedEnchants = config.enchants.values.toList.sortBy(_.id)
     val sortedEnchantDownsides = config.enchantDownsides.values.toList.sortBy(_.id)
-    val stateVar = Var(ItemState(
-      enchant1 = sortedEnchants.head.id,
-      enchant2 = sortedEnchants.head.id,
-      enchant3 = sortedEnchants.head.id,
-      enchant4 = sortedEnchants.head.id,
-      downside = sortedEnchantDownsides.head.id
-    ))
 
     stateVar.update(state => errors(state))
 

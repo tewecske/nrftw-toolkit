@@ -9,18 +9,6 @@ object WeaponBuilder {
 
   val _ = Stylesheet // Use import to prevent DCE
 
-  case class ItemState(
-    enchant1: String,
-    enchant2: String,
-    enchant3: String,
-    enchant4: String,
-    downside: String, 
-    enchant1Error: Boolean = false,
-    enchant2Error: Boolean = false,
-    enchant3Error: Boolean = false,
-    enchant4Error: Boolean = false,
-  )
-
   // def enchants(enchants: List[Enchant], downsides: List[Enchant])
   def apply(config: ItemBuilderConfig): HtmlElement = {
     def errors(itemState: ItemState): ItemState = {

@@ -14,15 +14,23 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
-badd +74 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
-badd +390 src/main/scala/com/tewe/nrftw/Items.scala
-badd +49 src/main/scala/com/tewe/nrftw/Main.scala
+badd +25 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+badd +242 src/main/scala/com/tewe/nrftw/Items.scala
+badd +36 src/main/scala/com/tewe/nrftw/Main.scala
 badd +11 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
 badd +1 .gitignore
-badd +73 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
+badd +39 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
+badd +9 package.json
+badd +54 README.md
+badd +1 src/main/scala/com/tewe/nrftw/Main.less
+badd +15 src/main/scala/com/tewe/nrftw/ItemState.scala
+badd +11 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/api/AirstreamAliases.scala
+badd +199 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/state/Var.scala
+badd +26 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/core/Signal.scala
+badd +18 .metals/readonly/dependencies/scalajs-dom_sjs1_3-2.8.0-sources.jar/org/scalajs/dom/URLSearchParams.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
@@ -59,6 +67,7 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
+nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost
