@@ -14,21 +14,21 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
-badd +195 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
-badd +33 src/main/scala/com/tewe/nrftw/Items.scala
-badd +38 src/main/scala/com/tewe/nrftw/Main.scala
-badd +151 style.css
+badd +74 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+badd +390 src/main/scala/com/tewe/nrftw/Items.scala
+badd +49 src/main/scala/com/tewe/nrftw/Main.scala
+badd +11 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
 badd +1 .gitignore
-badd +98 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
+badd +73 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
+edit src/main/scala/com/tewe/nrftw/Main.scala
 argglobal
-balt style.css
+balt src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}

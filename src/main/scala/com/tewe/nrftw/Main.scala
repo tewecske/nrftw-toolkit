@@ -19,11 +19,26 @@ val _ = Stylesheet // Use import to prevent DCE
         cls := "grid-container",
         div(
           cls:= "grid-item",
+          WeaponBuilder(weaponPlagued),
+        ),
+        div(
+          cls:= "grid-item",
+          WeaponBuilder(shieldPlagued),
+        ),
+        div(
+          cls:= "grid-item",
+          WeaponBuilder(bowPlagued),
+        ),
+        div(
+          cls:= "grid-item",
           ItemBuilder(helmetPlagued),
         ),
         div(
           cls:= "grid-item",
           ItemBuilder(armorPlagued),
+        ),
+        div(
+          cls:= "grid-item",
         ),
         div(
           cls:= "grid-item",
@@ -35,8 +50,7 @@ val _ = Stylesheet // Use import to prevent DCE
         ),
         div(
           cls:= "grid-item",
-          WeaponBuilder(glovesPlagued),
-        )
+        ),
       )
     }
   )

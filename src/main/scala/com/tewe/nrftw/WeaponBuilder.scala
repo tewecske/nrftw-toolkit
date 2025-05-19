@@ -70,19 +70,18 @@ object WeaponBuilder {
        cls := "weapon-card",
        div(
          cls := "weapon-header",
-         h1(cls := "weapon-name", "Brutish Cudgel"),
+         h1(cls := "weapon-name", config.itemSlot.toString),
          div(cls := "weapon-level", span("13")),
-         div(
-           cls := "weapon-type-select",
-           select(
-             option(selected := true, "Two-Handed Great Club"),
-             option("Two-Handed Battle Hammer"),
-             option("Two-Handed War Axe"),
-             option("Two-Handed Greatsword")
-           )
-         )
+         // div(
+         //   cls := "weapon-type-select",
+         //   select(
+         //     option(selected := true, "Two-Handed Great Club"),
+         //     option("Two-Handed Greatsword")
+         //   )
+         // )
        ),
 
+        /*
        div(
          cls := "stats-container",
          div(
@@ -181,7 +180,6 @@ object WeaponBuilder {
          )
        ),
 
-     /*
        div(
          cls := "section",
          div(

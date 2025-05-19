@@ -67,59 +67,52 @@ object ItemBuilder {
     val slot = config.itemSlot.toString
       div(
         cls := "item-card",
-        // Item Header
         div(
           cls := "item-header",
           h1(cls := "item-name", slot),
           div(cls := "item-level", span("16")),
-          div(
-            cls := "item-type-select",
-            select(
-              option(selected := true, s"Mesh $slot"),
-              option(s"Plate $slot"),
-              option(s"Leather $slot"),
-              option(s"Cloth $slot")
-            )
-          )
+          // div(
+          //   cls := "item-type-select",
+          //   select(
+          //     option(selected := true, s"Mesh $slot"),
+          //     option(s"Plate $slot"),
+          //     option(s"Leather $slot"),
+          //     option(s"Cloth $slot")
+          //   )
+          // )
         ),
 
-        // Stats Container
+        /*
         div(
           cls := "stats-container",
-          // Armor stat
           div(
             cls := "stat",
             div(cls := "stat-icon base-stat-icon", "👕"),
             div(cls := "stat-value", "135")
           ),
-          // Shield stat
           div(
             cls := "stat",
             div(cls := "stat-icon base-stat-icon", "🛡️"),
             div(cls := "stat-value", "4")
           ),
-          // Heat Resistance
           div(
             cls := "stat",
             div(cls := "stat-icon resistance-icon", "🔥"),
             div(cls := "stat-name", "Heat Resistance"),
             div(cls := "stat-value", "118")
           ),
-          // Cold Resistance
           div(
             cls := "stat",
             div(cls := "stat-icon resistance-icon", "❄️"),
             div(cls := "stat-name", "Cold Resistance"),
             div(cls := "stat-value", "133")
           ),
-          // Electric Resistance
           div(
             cls := "stat",
             div(cls := "stat-icon resistance-icon", "⚡"),
             div(cls := "stat-name", "Electric Resistance"),
             div(cls := "stat-value", "121")
           ),
-          // Plague Resistance
           div(
             cls := "stat",
             div(cls := "stat-icon resistance-icon", "☣️"),
@@ -128,8 +121,6 @@ object ItemBuilder {
           )
         ),
 
-        // Gems Section
-        /*
         div(
           cls := "section",
           div(
