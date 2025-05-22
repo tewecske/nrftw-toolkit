@@ -70,13 +70,33 @@ val _ = Stylesheet // Use import to prevent DCE
   val bowStateVar = fullStateVar.zoomLazy(_.bowState)((state, bowState) => state.copy(bowState = bowState))
   val bowComponent = ItemBuilder(bowPlagued, bowStateVar)
 
+  val ring1Component = RingBuilder()
+
+  val firstRingVar = Var(rings.head)
+  val showModalVar = Var(false)
+  val ringModal = Modal(showModalVar, rings, ring => firstRingVar.update(_ => ring))
+  val ringComponentFull1 = RingBuilder.ringComponentFull(firstRingVar, showModalVar)
 
   renderOnDomContentLoaded(
     container = dom.document.querySelector("#app"),
     rootNode = {
       div(
+        ringModal,
+      div(
         fullStateVar.signal --> (state => dom.window.history.replaceState(null, "", s"?${state.shortState()}")),
         cls := "grid-container",
+        div(
+          cls:= "grid-item",
+          ringComponentFull1,
+        ),
+        div(
+          cls:= "grid-item",
+          ring1Component,
+        ),
+        div(
+          cls:= "grid-item",
+          ring1Component,
+        ),
         div(
           cls:= "grid-item",
           weaponComponent,
@@ -111,7 +131,12 @@ val _ = Stylesheet // Use import to prevent DCE
         div(
           cls:= "grid-item",
         ),
-      )
+      ),
+      div(
+        "Images are from",
+        a("Amasoful's sheet", href:= "https://docs.google.com/spreadsheets/d/1TE3qDU8Hfhcrl4mMQvI4eatCeItmr-UySZCbVRoGG0M/edit?gid=1268781098#gid=1268781098")
+          )
+        )
     }
   )
 }

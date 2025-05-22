@@ -9,10 +9,10 @@ body {
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   gap: 10px;
   width: 1400px;
-  height: 800px;
+  height: 1500px;
 }
 
 .grid-item {
@@ -441,4 +441,506 @@ option {
 
 .resource-value {
   font-size: 18px;
+}
+
+
+.ring-card {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: rgba(10, 10, 25, 0.9);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #333;
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+}
+
+.ring-header {
+  padding: 15px;
+  position: relative;
+}
+
+.ring-name-component {
+  margin-bottom: 5px;
+}
+
+.ring-select {
+  background-color: transparent;
+  border: none;
+  color: #e0e0e0;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 5px 0;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+}
+
+.ring-option-content {
+  display: flex;
+  align-items: center;
+}
+
+.ring-image {
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.ring-name {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.item-type {
+  color: #aaa;
+  margin-left: 46px;
+  font-size: 16px;
+}
+
+.resistances-container {
+  padding: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #333;
+}
+
+.resistance {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.resistance-type {
+  color: #aaa;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.resistance-value {
+  font-size: 20px;
+  color: #8df5c0;
+  font-weight: bold;
+}
+
+.section {
+  padding: 15px;
+  border-top: 1px solid #333;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  color: #aaa;
+}
+
+.section-title {
+  font-size: 16px;
+}
+
+.section-count {
+  font-size: 14px;
+}
+
+.enchantment {
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background-color: rgba(20, 20, 40, 0.6);
+}
+
+.lifesteal-text {
+  color: #a48bf3;
+}
+
+.negative-text {
+  color: #ff6b6b;
+}
+
+.item-quote {
+  font-style: italic;
+  padding: 15px;
+  color: #bbb;
+  border-top: 1px solid #333;
+  text-align: center;
+  font-size: 14px;
+}
+
+.required-level {
+  padding: 15px;
+  border-top: 1px solid #333;
+  color: #aaa;
+}
+
+.level-value {
+  font-weight: bold;
+  color: white;
+}
+
+.item-status {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid #333;
+}
+
+.durability {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.weight {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.durability-icon,
+.weight-icon {
+  margin-right: 8px;
+  width: 20px;
+  display: inline-block;
+  text-align: center;
+}
+
+.durability-value,
+.weight-value {
+  color: white;
+}
+
+
+
+/* Main Component Styles */
+.ring-big-container {
+  width: 350px;
+  background-color: #2b2b2b;
+  border: 1px solid #444;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  /* Indicate clickability */
+  transition: transform 0.2s ease-in-out;
+}
+
+.ring-big-container:hover {
+  transform: translateY(-5px);
+}
+
+.ring-big-container {
+  .ring-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .ring-image {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  .ring-titles {
+    flex-grow: 1;
+  }
+
+  .ring-name {
+    font-size: 1.5em;
+    margin: 0;
+    color: #a0c0ff;
+    /* A distinct color for the name */
+  }
+
+  .ring-type {
+    font-size: 0.9em;
+    margin: 0;
+    color: #bbb;
+  }
+
+  /* Resistances */
+  .resistances {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+  }
+
+  .resistance-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+  }
+
+  .resistance-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .resistance-icon.electric {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M11 20v-5H6l7-13v8h5l-7 10z"/></svg>');
+    /* Placeholder SVG */
+  }
+
+  .resistance-icon.plague {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>');
+    /* Placeholder SVG */
+  }
+
+  .resistance-text {
+    color: #ccc;
+  }
+
+  .resistance-value {
+    color: #7aff7a;
+    /* Green for positive resistance */
+    font-weight: bold;
+    margin-left: 5px;
+  }
+
+  /* Enchantments */
+  .enchantments {
+    margin-bottom: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #444;
+  }
+
+  .enchantments-title {
+    font-size: 1em;
+    color: #bbb;
+    margin-bottom: 10px;
+  }
+
+  .enchantment-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+  }
+
+  .enchantment-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .enchantment-icon.lifesteal {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+    /* Placeholder SVG for Lifesteal */
+  }
+
+  .enchantment-icon.max-health {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM7 11h10v2H7z"/></svg>');
+    /* Placeholder SVG for Max Health */
+  }
+
+  .enchantment-item .lifesteal .enchantment-text {
+    color: #e0b0ff;
+    /* Purple for positive enchantment */
+  }
+
+  .enchantment-item .max-health .enchantment-text {
+    color: #ff6b6b;
+    /* Red for negative enchantment */
+  }
+
+  /* Flavor Text */
+  .flavor-text {
+    font-style: italic;
+    font-size: 0.85em;
+    color: #999;
+    text-align: center;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #444;
+  }
+
+  /* Required Level */
+  .required-level {
+    font-size: 0.9em;
+    color: #bbb;
+    text-align: right;
+    margin-bottom: 10px;
+  }
+
+  /* Bottom Stats */
+  .bottom-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8em;
+    color: #bbb;
+    border-top: 1px dashed #444;
+    padding-top: 10px;
+  }
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .stat-icon {
+    width: 14px;
+    height: 14px;
+    margin-right: 3px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .stat-icon.durability {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 7h2v6h-2zm0 8h2v2h-2z"/></svg>');
+    /* Placeholder SVG */
+  }
+
+  .stat-icon.weight {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M21 4H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H3V6h18v12zm-8-7h2v2h-2zm0-4h2v2h-2zm-4 0h2v2H9zm0 4h2v2H9z"/></svg>');
+    /* Placeholder SVG */
+  }
+
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background-color: #333;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+  width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.modal-title {
+  color: #eee;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.compact-rings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  /* Responsive grid */
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Compact Component Styles */
+.ring-compact-container {
+  background-color: #2b2b2b;
+  border: 1px solid #444;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+.ring-compact-container:hover {
+  transform: translateY(-3px);
+  border-color: #7aff7a;
+}
+
+.ring-compact-container {
+  .ring-compact-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .compact-ring-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 3px;
+    object-fit: cover;
+  }
+
+  .compact-ring-titles {
+    flex-grow: 1;
+  }
+
+  .compact-ring-name {
+    font-size: 1.1em;
+    margin: 0;
+    color: #a0c0ff;
+  }
+
+  .compact-ring-type {
+    font-size: 0.8em;
+    margin: 0;
+    color: #bbb;
+  }
+
+  .compact-enchantments {
+    padding-top: 8px;
+    border-top: 1px dashed #444;
+  }
+
+  .compact-enchantments-title {
+    font-size: 0.9em;
+    color: #bbb;
+    margin-bottom: 8px;
+  }
+
+  .compact-enchantment-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+    font-size: 0.8em;
+  }
+
+  .compact-enchantment-icon {
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .compact-enchantment-icon.lifesteal {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+    /* Placeholder SVG for Lifesteal */
+  }
+
+  .compact-enchantment-icon.max-health {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM7 11h10v2H7z"/></svg>');
+    /* Placeholder SVG for Max Health */
+  }
+
+  .compact-enchantment-item .lifesteal .compact-enchantment-text {
+    color: #e0b0ff;
+  }
+
+  .compact-enchantment-item .max-health .compact-enchantment-text {
+    color: #ff6b6b;
+  }
 }

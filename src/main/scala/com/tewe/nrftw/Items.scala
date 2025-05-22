@@ -19,6 +19,17 @@ case class ItemBuilderConfig(
   enchantDownsides: Map[String, Enchant],
 )
 
+case class RingData(
+    name: String,
+    description: String,
+    requiredLevel: Int,
+    durability: Int,
+    weight: Double,
+    imageSrc: String,
+    enchantments: List[String]
+)
+
+
 val helmetGems = List(Gem("Max Health increased by 10%"))
 
 val helmetEnchants = List(
@@ -390,3 +401,80 @@ val bowPlagued = ItemBuilderConfig(
   enchantDownsides = bowEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
 )
 
+val rings = List(
+  RingData("Crow Ring", "Description of Crow Ring", 1, 100, 0.0, "/images/ring-crowRing.png", List(
+    "Max Stamina Increased by 30-50%",
+    "Drain Health in combat"
+  )),
+  RingData("Feather Ring", "Feather Ring", 1, 100, 0.0, "/images/ring-featherRing", List(
+    "Equip Load Increased by 10-20%"
+  )),
+  RingData("Rune Ring", "Description of Rune Ring", 1, 100, 0.0, "/images/ring-runeRing", List(
+    "Rune Damage increased by 10%-30%",
+    "Attack Damage decreased by 10%-20%"
+  )),
+  RingData("Solace Ring", "Description of Solace Ring", 1, 100, 0.0, "/images/ring-solaceRing", List(
+    "Regainable Health Increased by 10%-30%"
+  )),
+  RingData("Stone Tusk Ring", "Description of Stone Tusk Ring", 1, 100, 0.0, "/images/ring-stoneTuskRing", List(
+    "Armor Increased by 25%"
+  )),
+  RingData("Woven Ring", "Description of Woven Ring", 1, 100, 0.0, "/images/ring-wovenRing", List(
+    "Endless Climbing"
+  )),
+  RingData("Agility Ring", "Description of Agility Ring", 1, 100, 0.0, "/images/ring-agilityRing", List(
+    "Attack Stamina Cost Decreased by 20%",
+    "Movement Speed Increased by 10%",
+    "Sprint Stamina Cost Decreased by 25%"
+  )),
+  RingData("Band of Calmness", "Description of Band of Calmness", 11, 100, 0.0, "/images/ring-bandOfCalmness", List(
+    "Focus Gain Increased by 25%",
+    "Max Focus Increased by 50%"
+  )),
+  RingData("Golden Band", "Description of Golden Band", 11, 100, 0.0, "/images/ring-goldenBand", List(
+    "Increased Experience by 5-10%"
+  )),
+  RingData("Jade Ring", "Description of Jade Ring", 11, 100, 0.0, "/images/ring-jadeRing", List(
+    "Gain 3%--6% Stamina on Damage Dealt"
+  )),
+  RingData("Plague Ring", "Description of Plague Ring", 11, 100, 0.0, "/images/ring-plagueRing", List(
+    "Lifesteal Increased by 20% at Low Health",
+    "Max Health decreased by 20%"
+  )),
+  RingData("Ring of Broken Promises", "Description of Ring of Broken Promises", 11, 100, 0.0, "/images/ring-ringOfBrokenPromises", List(
+    "Damage Death Increased by 10-20%",
+    "Damage Taken Increased by 10-20%"
+  )),
+  RingData("Fierce Ring", "Description of Fierce Ring", 21, 100, 0.0, "/images/ring-fierceRing", List(
+    "Damage Increased by 8%-20% for 10 seconds after Damage Taken"
+  )),
+  RingData("Silver Ring", "Description of Silver Ring", 21, 100, 0.0, "/images/ring-silverRing", List(
+    "Deals 35% Damage on Parry"
+  )),
+  RingData("Snake Ring", "Description of Snake Ring", 21, 100, 0.0, "/images/ring-snakeRing", List(
+    "Deals 25% Damage on Block",
+    "Lose 6 Stamina on Block"
+  )),
+  RingData("Thistle Ring", "Description of Thistle Ring", 21, 100, 0.0, "/images/ring-thistleRing", List(
+    "Deal 21%-X Damage on Damage Taken",
+    "Lose 8-X Stamina on Damage Taken"
+  )),
+  RingData("Willow Cap Ring", "Description of Willow Cap Ring", 21, 100, 0.0, "/images/ring-willowCapRing", List(
+    "Overall Speed increased by 15%"
+  )),
+  RingData("Battlecry Ring", "Description of Battlecry Ring", 0, 100, 0.0, "/images/ring-battlecryRing", List(
+    "Spend Health instead of Focus",
+    "Cannot Lifesteal"
+  )),
+  RingData("Ring of Determination", "Description of Ring of Determination", 0, 100, 0.0, "/images/ring-ringOfDetermination", List(
+    "Spend Health if there is not enough Focus available",
+    "Focus Cost decreased by up to 60% based on Missing Health"
+  )),
+  RingData("Scarlet Ring", "Description of Scarlet Ring", 0, 100, 0.0, "/images/ring-scarletRing", List(
+    "Swap Max Health and Max Focus"
+  )),
+  RingData("Serendipity Ring", "Description of Serendipity Ring", 0, 100, 0.0, "/images/ring-serendipityRing", List(
+    "Food Healing is applied over time",
+    "Healing increased by 18%-X"
+  ))
+)
