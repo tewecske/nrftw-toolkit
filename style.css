@@ -496,60 +496,6 @@ option {
 }
 
 
-.ring-card {
-  max-width: 500px;
-  margin: 0 auto;
-  background-color: rgba(10, 10, 25, 0.9);
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid #333;
-  box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
-}
-
-.ring-header {
-  padding: 15px;
-  position: relative;
-}
-
-.ring-name-component {
-  margin-bottom: 5px;
-}
-
-.ring-select {
-  background-color: transparent;
-  border: none;
-  color: #e0e0e0;
-  font-size: 24px;
-  font-weight: bold;
-  padding: 5px 0;
-  width: 100%;
-  cursor: pointer;
-  outline: none;
-}
-
-.ring-option-content {
-  display: flex;
-  align-items: center;
-}
-
-.ring-image {
-  width: 36px;
-  height: 36px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-
-.ring-name {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.item-type {
-  color: #aaa;
-  margin-left: 46px;
-  font-size: 16px;
-}
-
 .resistances-container {
   padding: 6px 15px;
   display: grid;

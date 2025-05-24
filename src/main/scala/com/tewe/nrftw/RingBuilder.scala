@@ -119,25 +119,4 @@ object RingBuilder {
 
   case class RingState(id: String)
 
-  def ringNameComponent(name: String, imagePath: String): Div = {
-    div(
-      cls := "ring-name-component",
-      select(
-        cls := "ring-select",
-        option(
-          selected := true,
-          div(
-            cls := "ring-option-content",
-            img(
-              cls := "ring-image",
-              src := imagePath,
-              alt := name
-            ),
-            span(cls := "ring-name", name)
-          )
-        ),
-      )
-    )
-  }
-
 }

@@ -16,8 +16,8 @@ endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
 badd +126 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +29 src/main/scala/com/tewe/nrftw/Items.scala
-badd +92 src/main/scala/com/tewe/nrftw/Main.scala
-badd +815 style.css
+badd +78 src/main/scala/com/tewe/nrftw/Main.scala
+badd +123 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
@@ -33,23 +33,16 @@ badd +26 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/r
 badd +18 .metals/readonly/dependencies/scalajs-dom_sjs1_3-2.8.0-sources.jar/org/scalajs/dom/URLSearchParams.scala
 badd +2 index.js
 badd +42 vite.config.js
-badd +137 src/main/scala/com/tewe/nrftw/RingBuilder.scala
+badd +27 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +9 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit src/main/scala/com/tewe/nrftw/Main.scala
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
+edit style.css
 argglobal
-balt src/main/scala/com/tewe/nrftw/RingBuilder.scala
+balt src/main/scala/com/tewe/nrftw/Main.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -60,12 +53,12 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 21) / 43)
+let s:l = 123 - ((21 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 0
+keepjumps 123
+normal! 02|
 lcd ~/projects/scala-projects/nrftw-toolkit
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
@@ -74,8 +67,6 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
