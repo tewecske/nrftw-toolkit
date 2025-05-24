@@ -70,32 +70,42 @@ val _ = Stylesheet // Use import to prevent DCE
   val bowStateVar = fullStateVar.zoomLazy(_.bowState)((state, bowState) => state.copy(bowState = bowState))
   val bowComponent = ItemBuilder(bowPlagued, bowStateVar)
 
-  val ring1Component = RingBuilder()
+  val ring1Var = Var(rings.head)
+  val ring1ShowModalVar = Var(false)
+  val ring1Modal = Modal(ring1ShowModalVar, rings, ring => ring1Var.update(_ => ring))
+  val ring1ComponentFull = RingBuilder.ringComponentFull(ring1Var, ring1ShowModalVar)
 
-  val firstRingVar = Var(rings.head)
-  val showModalVar = Var(false)
-  val ringModal = Modal(showModalVar, rings, ring => firstRingVar.update(_ => ring))
-  val ringComponentFull1 = RingBuilder.ringComponentFull(firstRingVar, showModalVar)
+  val ring2Var = Var(rings.head)
+  val ring2ShowModalVar = Var(false)
+  val ring2Modal = Modal(ring2ShowModalVar, rings, ring => ring2Var.update(_ => ring))
+  val ring2ComponentFull = RingBuilder.ringComponentFull(ring2Var, ring2ShowModalVar)
+
+  val ring3Var = Var(rings.head)
+  val ring3ShowModalVar = Var(false)
+  val ring3Modal = Modal(ring3ShowModalVar, rings, ring => ring3Var.update(_ => ring))
+  val ring3ComponentFull = RingBuilder.ringComponentFull(ring3Var, ring3ShowModalVar)
 
   renderOnDomContentLoaded(
     container = dom.document.querySelector("#app"),
     rootNode = {
       div(
-        ringModal,
+        ring1Modal,
+        ring2Modal,
+        ring3Modal,
       div(
         fullStateVar.signal --> (state => dom.window.history.replaceState(null, "", s"?${state.shortState()}")),
         cls := "grid-container",
         div(
           cls:= "grid-item",
-          ringComponentFull1,
+          ring1ComponentFull,
         ),
         div(
           cls:= "grid-item",
-          ring1Component,
+          ring2ComponentFull,
         ),
         div(
           cls:= "grid-item",
-          ring1Component,
+          ring3ComponentFull,
         ),
         div(
           cls:= "grid-item",

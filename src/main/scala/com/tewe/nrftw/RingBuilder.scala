@@ -14,13 +14,13 @@ object RingBuilder {
       onSelect: RingData => Unit
   ): Element = {
     div(
-      cls("ring-compact-container"),
+      cls("ring-container-compact"),
       onClick --> { _ => onSelect(ringData) },
       div(
-        cls("ring-compact-header"),
+        cls("compact-ring-header"),
         img(
           cls("compact-ring-image"),
-          src(ringData.imageSrc), // Use imageSrc from ringData
+          src(ringData.imageSrc),
           alt("Ring Compact")
         ),
         div(
@@ -30,13 +30,11 @@ object RingBuilder {
         )
       ),
       div(
-        cls("compact-enchantments"),
-        p(cls("compact-enchantments-title"), "Enchantments 2/2"),
+        cls("enchantments-container-compact"),
         ringData.enchantments.map(enchant =>
           div(
-            cls("compact-enchantment-item"),
-            // div(cls("compact-enchantment-icon lifesteal")),
-            span(cls("compact-enchantment-text"), enchant)
+            cls("enchantment-item-compact item-type-magic"),
+            span(enchant)
           )
         ),
       )
@@ -63,46 +61,56 @@ object RingBuilder {
         ),
         div(
           cls("ring-titles"),
-          h2(cls("ring-name"), text <-- ringDataVar.signal.map(_.name)),
+          h2(cls("ring-name", "item-type-magic"), text <-- ringDataVar.signal.map(_.name)),
           p(cls("ring-type"), "Ring")
         )
       ),
       div(
-        cls("resistances"),
+        cls("resistances-container"),
         div(
-          cls("resistance-item"),
-          div(cls("resistance-icon electric")),
-          span(cls("resistance-text"), s"ELECTRIC RESISTANCE"),
-          span(cls("resistance-value"), s"+10%")
+          cls("resistance"),
+          div(
+            cls("resistance-type"),
+            span("⚡"),
+            s"Electric Resistance",
+          ),
+          div(cls("resistance-value"), s"+10%")
         ),
         div(
-          cls("resistance-item"),
-          div(cls("resistance-icon plague")),
-          span(cls("resistance-text"), s"PLAGUE RESISTANCE"),
-          span(cls("resistance-value"), s"+11%")
+          cls("resistance"),
+          div(
+            cls("resistance-type"),
+            span("☣️"),
+            s"Plague Resistance",
+          ),
+          div(cls("resistance-value"), s"+11%")
         )
       ),
       div(
-        cls("enchantments"),
-        p(cls("enchantments-title"), "Enchantments 2/2"),
+        cls("enchantments-container"),
+        div(cls("enchantment-header"), "Enchantments 2/2"),
         children <-- ringDataVar.signal.map(_.enchantments.map(enchant =>
           div(
-            cls("enchantment-item"),
-            div(cls("enchantment-icon")),
-            span(cls("enchantment-text"), enchant)
+            // cls(s"enchantment-item item-type-${enchant.enchantType}"),
+            cls(s"enchantment-item item-type-magic"),
+            span(enchant)
           )
         ))
       ),
-      p(cls("flavor-text"), text <-- ringDataVar.signal.map(_.description)),
-      p(cls("required-level"), text <-- ringDataVar.signal.map(r => s"REQUIRED LEVEL: ${r.requiredLevel}")),
+      div(cls("item-quote"), text <-- ringDataVar.signal.map(_.description)),
+      div(
+        cls := "required-level",
+        "Required Level: ",
+        span(cls := "level-value", text <-- ringDataVar.signal.map(r => s"${r.requiredLevel}"))
+      ),
       div(cls("bottom-stats"),
-        div(cls("stat-item"),
-          span(cls("stat-icon durability")),
-          span(cls("stat-value"), text <-- ringDataVar.signal.map(r => s"${r.durability}/${r.durability}"))
+        div(cls("durability"),
+          span(cls("durability-icon"), "🗡"),
+          span(cls("durability-value"), text <-- ringDataVar.signal.map(r => s"${r.durability}/${r.durability}"))
         ),
-        div(cls("stat-item"),
-          span(cls("stat-icon weight")),
-          span(cls("stat-value"), text <-- ringDataVar.signal.map(r => s"${r.weight}"))
+        div(cls("weigth"),
+          span(cls("weight-icon"), "⚖"),
+          span(cls("weight-value"), text <-- ringDataVar.signal.map(r => s"${r.weight}"))
         )
       ),
     )
@@ -132,71 +140,4 @@ object RingBuilder {
     )
   }
 
-  def apply(): HtmlElement = {
-
-      div(
-        cls := "ring-card",
-        div(
-          cls := "ring-header",
-          ringNameComponent("Plagued Ring", "/images/ring-plaguedRing.png"),
-          div(cls := "item-type", "Ring")
-        ),
-
-        div(
-          cls := "resistances-container",
-          div(
-            cls := "resistance",
-            div(cls := "resistance-type", span("⚡"), " Electric Resistance"),
-            div(cls := "resistance-value", "+18%")
-          ),
-          div(
-            cls := "resistance",
-            div(cls := "resistance-type", span("☣"), " Plague Resistance"),
-            div(cls := "resistance-value", "+21%")
-          )
-        ),
-
-        div(
-          cls := "section",
-          div(
-            cls := "section-header",
-            div(cls := "section-title", "Enchantments"),
-            div(cls := "section-count", "2/2")
-          ),
-          div(
-            cls := "enchantment lifesteal-text",
-            "Lifesteal increased by 16% at Low Health"
-          ),
-          div(
-            cls := "enchantment negative-text",
-            "Max Health decreased by 21%"
-          )
-        ),
-
-        div(
-          cls := "item-quote",
-          "\"Feel unwell. Feel nothing. Feel this blessing of decay.\" – Prayer of Sickness"
-        ),
-
-        div(
-          cls := "required-level",
-          "Required Level: ",
-          span(cls := "level-value", "11")
-        ),
-
-        div(
-          cls := "item-status",
-          div(
-            cls := "durability",
-            span(cls := "durability-icon", "🗡"),
-            span(cls := "durability-value", "94/100")
-          ),
-          div(
-            cls := "weight",
-            span(cls := "weight-icon", "⚖"),
-            span(cls := "weight-value", "0.0")
-          )
-        )
-      )
-  }
 }
