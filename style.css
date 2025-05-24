@@ -12,7 +12,7 @@ body {
   grid-template-rows: 1fr 1fr 1fr 1fr;
   gap: 10px;
   width: 1400px;
-  height: 1500px;
+  height: 1200px;
 }
 
 .grid-item {
@@ -112,23 +112,26 @@ body {
   color: white;
 }
 
+.item-type-common {
+  color: #a48bf3;
+}
+
+.item-type-magic,
+.magic-text {
+  color: #a0c0ff;
+}
+
+.item-type-plagued,
 .plagued-text {
   color: #a48bf3;
 }
 
+.item-type-legendary {
+  color: #fbbc04;
+}
+
+.item-type-downside,
 .downside-text {
-  color: #ff6b6b;
-}
-
-.item-type-plagued {
-  color: #a48bf3;
-}
-
-.item-type-magic {
-  color: #a0c0ff;
-}
-
-.item-type-downside {
   color: #ff6b6b;
 }
 
@@ -744,7 +747,6 @@ option {
   .compact-ring-name {
     font-size: 1.1em;
     margin: 0;
-    color: #a0c0ff;
   }
 
   .compact-ring-type {

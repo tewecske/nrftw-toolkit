@@ -13,6 +13,8 @@ import org.scalajs.dom.URLSearchParams
 val _ = Stylesheet // Use import to prevent DCE
 @main def main(): Unit = {
 
+  if (rings.size != rings.map(_.id).toSet.size) throw IllegalStateException("Rings have conflicting ids" + rings.groupBy(_.id).filter((k, v) => v.size > 1).keySet)
+
   case class FullState(
     helmetState: ItemState,
     armorState: ItemState,
@@ -21,9 +23,15 @@ val _ = Stylesheet // Use import to prevent DCE
     weaponState: ItemState,
     shieldState: ItemState,
     bowState: ItemState,
+    ring1StateOption: Option[RingData],
+    ring2StateOption: Option[RingData],
+    ring3StateOption: Option[RingData],
   ) {
     def shortState(): String = {
-      s"h=${js.URIUtils.encodeURIComponent(helmetState.shortState())}&a=${js.URIUtils.encodeURIComponent(armorState.shortState())}&p=${js.URIUtils.encodeURIComponent(pantsState.shortState())}&g=${js.URIUtils.encodeURIComponent(glovesState.shortState())}&w=${js.URIUtils.encodeURIComponent(weaponState.shortState())}&s=${js.URIUtils.encodeURIComponent(shieldState.shortState())}&b=${js.URIUtils.encodeURIComponent(bowState.shortState())}"
+      s"h=${js.URIUtils.encodeURIComponent(helmetState.shortState())}&a=${js.URIUtils.encodeURIComponent(armorState.shortState())}&p=${js.URIUtils.encodeURIComponent(pantsState.shortState())}&g=${js.URIUtils.encodeURIComponent(glovesState.shortState())}&w=${js.URIUtils.encodeURIComponent(weaponState.shortState())}&s=${js.URIUtils.encodeURIComponent(shieldState.shortState())}&b=${js.URIUtils.encodeURIComponent(bowState.shortState())}" + 
+      ring1StateOption.fold("")(ring1State => s"&r1=${js.URIUtils.encodeURIComponent(ring1State.id)}") +
+      ring2StateOption.fold("")(ring2State => s"&r2=${js.URIUtils.encodeURIComponent(ring2State.id)}") +
+      ring3StateOption.fold("")(ring3State => s"&r3=${js.URIUtils.encodeURIComponent(ring3State.id)}")
     }
   }
 
@@ -37,6 +45,10 @@ val _ = Stylesheet // Use import to prevent DCE
   val shieldState = ItemBuilder.createState(shieldPlagued, Option(params.get("s")))
   val bowState = ItemBuilder.createState(bowPlagued, Option(params.get("b")))
 
+  val ring1State = RingBuilder.createState(Option(params.get("r1")))
+  val ring2State = RingBuilder.createState(Option(params.get("r2")))
+  val ring3State = RingBuilder.createState(Option(params.get("r3")))
+
   val fullStateVar = Var(FullState(
     helmetState,
     armorState,
@@ -44,7 +56,10 @@ val _ = Stylesheet // Use import to prevent DCE
     glovesState,
     weaponState,
     shieldState,
-    bowState
+    bowState,
+    ring1State,
+    ring2State,
+    ring3State,
   ))
 
   val helmetStateVar = fullStateVar.zoomLazy(_.helmetState){(state, helmetState) =>
@@ -70,19 +85,19 @@ val _ = Stylesheet // Use import to prevent DCE
   val bowStateVar = fullStateVar.zoomLazy(_.bowState)((state, bowState) => state.copy(bowState = bowState))
   val bowComponent = ItemBuilder(bowPlagued, bowStateVar)
 
-  val ring1Var = Var(rings.head)
+  val ring1Var = fullStateVar.zoomLazy(_.ring1StateOption)((state, ring1State) => state.copy(ring1StateOption = ring1State))
   val ring1ShowModalVar = Var(false)
-  val ring1Modal = Modal(ring1ShowModalVar, rings, ring => ring1Var.update(_ => ring))
+  val ring1Modal = Modal(ring1ShowModalVar, rings, ring => ring1Var.update(_ => Option(ring)))
   val ring1ComponentFull = RingBuilder.ringComponentFull(ring1Var, ring1ShowModalVar)
 
-  val ring2Var = Var(rings.head)
+  val ring2Var = fullStateVar.zoomLazy(_.ring2StateOption)((state, ring2State) => state.copy(ring2StateOption = ring2State))
   val ring2ShowModalVar = Var(false)
-  val ring2Modal = Modal(ring2ShowModalVar, rings, ring => ring2Var.update(_ => ring))
+  val ring2Modal = Modal(ring2ShowModalVar, rings, ring => ring2Var.update(_ => Option(ring)))
   val ring2ComponentFull = RingBuilder.ringComponentFull(ring2Var, ring2ShowModalVar)
 
-  val ring3Var = Var(rings.head)
+  val ring3Var = fullStateVar.zoomLazy(_.ring3StateOption)((state, ring3State) => state.copy(ring3StateOption = ring3State))
   val ring3ShowModalVar = Var(false)
-  val ring3Modal = Modal(ring3ShowModalVar, rings, ring => ring3Var.update(_ => ring))
+  val ring3Modal = Modal(ring3ShowModalVar, rings, ring => ring3Var.update(_ => Option(ring)))
   val ring3ComponentFull = RingBuilder.ringComponentFull(ring3Var, ring3ShowModalVar)
 
   renderOnDomContentLoaded(

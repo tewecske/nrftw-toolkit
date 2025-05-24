@@ -25,98 +25,104 @@ object RingBuilder {
         ),
         div(
           cls("compact-ring-titles"),
-          h3(cls("compact-ring-name"), ringData.name),
+          h3(cls(s"compact-ring-name item-type-${ringData.itemRarity}"), ringData.name),
           p(cls("compact-ring-type"), "Ring")
         )
       ),
-      div(
-        cls("enchantments-container-compact"),
-        ringData.enchantments.map(enchant =>
-          div(
-            cls("enchantment-item-compact item-type-magic"),
-            span(enchant)
-          )
-        ),
-      )
+      EnchantmentsBuilder.enchantmentsCompact(ringData.itemRarity, ringData.enchantments, ringData.enchantDownsides)
     )
   }
 
   def ringComponentFull(
-      ringDataVar: Var[RingData],
+      ringDataOptionVar: Var[Option[RingData]],
       showModalVar: Var[Boolean]
   ): Element = {
 
+    
     div(
       cls("ring-big-container"),
       onClick --> { _ =>
         println(s"ring-big-container clicked")
         showModalVar.set(true)
       }, // Clickable area for the entire component to open modal
+      child <-- ringDataOptionVar.signal.map(_.fold {
+        div(
+          cls("ring-header"),
+          div(
+            cls("ring-titles"),
+            h2(cls(s"ring-name"), "Select a Ring"),
+            p(cls("ring-type"), "Ring")
+          )
+        )
+        } { ringData =>
+          
+          div(
       div(
         cls("ring-header"),
         img(
           cls("ring-image"),
-          src <-- ringDataVar.signal.map(_.imageSrc),
+          src(ringData.imageSrc),
           alt("Plagued Ring")
         ),
         div(
           cls("ring-titles"),
-          h2(cls("ring-name", "item-type-magic"), text <-- ringDataVar.signal.map(_.name)),
+          h2(cls(s"ring-name, item-type-${ringData.itemRarity}"), ringData.name),
           p(cls("ring-type"), "Ring")
         )
       ),
-      div(
-        cls("resistances-container"),
-        div(
-          cls("resistance"),
-          div(
-            cls("resistance-type"),
-            span("⚡"),
-            s"Electric Resistance",
-          ),
-          div(cls("resistance-value"), s"+10%")
-        ),
-        div(
-          cls("resistance"),
-          div(
-            cls("resistance-type"),
-            span("☣️"),
-            s"Plague Resistance",
-          ),
-          div(cls("resistance-value"), s"+11%")
-        )
-      ),
-      div(
-        cls("enchantments-container"),
-        div(cls("enchantment-header"), "Enchantments 2/2"),
-        children <-- ringDataVar.signal.map(_.enchantments.map(enchant =>
-          div(
-            // cls(s"enchantment-item item-type-${enchant.enchantType}"),
-            cls(s"enchantment-item item-type-magic"),
-            span(enchant)
-          )
-        ))
-      ),
-      div(cls("item-quote"), text <-- ringDataVar.signal.map(_.description)),
-      div(
-        cls := "required-level",
-        "Required Level: ",
-        span(cls := "level-value", text <-- ringDataVar.signal.map(r => s"${r.requiredLevel}"))
-      ),
-      div(cls("bottom-stats"),
-        div(cls("durability"),
-          span(cls("durability-icon"), "🗡"),
-          span(cls("durability-value"), text <-- ringDataVar.signal.map(r => s"${r.durability}/${r.durability}"))
-        ),
-        div(cls("weigth"),
-          span(cls("weight-icon"), "⚖"),
-          span(cls("weight-value"), text <-- ringDataVar.signal.map(r => s"${r.weight}"))
-        )
-      ),
+      // div(
+      //   cls("resistances-container"),
+      //   div(
+      //     cls("resistance"),
+      //     div(
+      //       cls("resistance-type"),
+      //       span("⚡"),
+      //       s"Electric Resistance",
+      //     ),
+      //     div(cls("resistance-value"), s"+10%")
+      //   ),
+      //   div(
+      //     cls("resistance"),
+      //     div(
+      //       cls("resistance-type"),
+      //       span("☣️"),
+      //       s"Plague Resistance",
+      //     ),
+      //     div(cls("resistance-value"), s"+11%")
+      //   )
+      // ),
+     EnchantmentsBuilder.enchantmentsFull(ringData.itemRarity, ringData.enchantments, ringData.enchantDownsides),
+      // div(cls("item-quote"), ringData.description),
+      // div(
+      //   cls := "required-level",
+      //   "Required Level: ",
+      //   span(cls := "level-value", s"${ringData.requiredLevel}")
+      // ),
+      // div(cls("bottom-stats"),
+      //   div(cls("durability"),
+      //     span(cls("durability-icon"), "🗡"),
+      //     span(cls("durability-value"),s"${ringData.durability}/${ringData.durability}")
+      //   ),
+      //   div(cls("weigth"),
+      //     span(cls("weight-icon"), "⚖"),
+      //     span(cls("weight-value"),s"${ingData.weight}")
+      //   )
+      // ),
     )
+        })
+    )
+
   }
 
 
   case class RingState(id: String)
 
+  def createState(initState: Option[String]): Option[RingData] = {
+    initState.filter(!_.isBlank).fold {
+      None
+      } { stringState =>
+        println(s"RING: $stringState")
+        rings.find(_.id == stringState)
+      }
+  }
 }

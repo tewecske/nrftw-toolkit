@@ -14,10 +14,10 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
-badd +126 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
-badd +29 src/main/scala/com/tewe/nrftw/Items.scala
-badd +78 src/main/scala/com/tewe/nrftw/Main.scala
-badd +123 style.css
+badd +12 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+badd +35 src/main/scala/com/tewe/nrftw/Items.scala
+badd +100 src/main/scala/com/tewe/nrftw/Main.scala
+badd +17 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
@@ -26,21 +26,24 @@ badd +7 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
 badd +9 package.json
 badd +54 README.md
 badd +1 src/main/scala/com/tewe/nrftw/Main.less
-badd +4 src/main/scala/com/tewe/nrftw/ItemState.scala
+badd +3 src/main/scala/com/tewe/nrftw/ItemState.scala
 badd +11 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/api/AirstreamAliases.scala
 badd +199 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/state/Var.scala
 badd +26 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/core/Signal.scala
 badd +18 .metals/readonly/dependencies/scalajs-dom_sjs1_3-2.8.0-sources.jar/org/scalajs/dom/URLSearchParams.scala
 badd +2 index.js
 badd +42 vite.config.js
-badd +27 src/main/scala/com/tewe/nrftw/RingBuilder.scala
-badd +9 src/main/scala/com/tewe/nrftw/Modal.scala
+badd +120 src/main/scala/com/tewe/nrftw/RingBuilder.scala
+badd +33 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
+badd +39 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
+badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit style.css
+edit src/main/scala/com/tewe/nrftw/Items.scala
 argglobal
 balt src/main/scala/com/tewe/nrftw/Main.scala
 setlocal foldmethod=manual
@@ -53,12 +56,12 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 123 - ((21 * winheight(0) + 21) / 43)
+let s:l = 1 - ((0 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 123
-normal! 02|
+keepjumps 1
+normal! 0
 lcd ~/projects/scala-projects/nrftw-toolkit
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
