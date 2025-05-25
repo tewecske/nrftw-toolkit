@@ -52,5 +52,69 @@ object EnchantmentsBuilder {
         )
       )
   }
+
+  def enchantmentsSelect(config: ItemBuilderConfig, stateVar: Var[ItemState]) = {
+    val sortedEnchants = config.enchants.values.toList.sortBy(_.id)
+    val sortedEnchantDownsides = config.enchantDownsides.values.toList.sortBy(_.id)
+
+    val enchant1Var = stateVar.zoomLazy(_.enchant1)((state, enchant) => state.copy(enchant1 = enchant))
+    val enchant2Var = stateVar.zoomLazy(_.enchant2)((state, enchant) => state.copy(enchant2 = enchant))
+    val enchant3Var = stateVar.zoomLazy(_.enchant3)((state, enchant) => state.copy(enchant3 = enchant))
+    val enchant4Var = stateVar.zoomLazy(_.enchant4)((state, enchant) => state.copy(enchant4 = enchant))
+    val downsideVar = stateVar.zoomLazy(_.downside)((state, enchant) => state.copy(downside = enchant))
+
+    val enchant1ErrorSignal = stateVar.signal.map(_.enchant1Error)
+    val enchant2ErrorSignal = stateVar.signal.map(_.enchant2Error)
+    val enchant3ErrorSignal = stateVar.signal.map(_.enchant3Error)
+    val enchant4ErrorSignal = stateVar.signal.map(_.enchant4Error)
+
+        div(
+          cls := "section",
+          div(
+            cls := "section-header",
+            div(cls := "section-title", "Enchantments"),
+            div(cls := "section-count", "5/5")
+          ),
+          select(
+            cls := "enchant-text",
+            cls("x-hasError") <-- enchant1ErrorSignal,
+            value <-- enchant1Var,
+            onChange.mapToValue --> enchant1Var,
+            onChange.mapTo(stateVar.now()) --> validator,
+            sortedEnchants.map(enchant => option(value := enchant.id, cls := s"enchant-group-${enchant.group}", enchant.value))
+          ),
+          select(
+            cls := "enchant-text",
+            cls("x-hasError") <-- enchant2ErrorSignal,
+            value <-- enchant2Var,
+            onChange.mapToValue --> enchant2Var,
+            onChange.mapTo(stateVar.now()) --> validator,
+            sortedEnchants.map(enchant => option(value := enchant.id, cls := s"enchant-group-${enchant.group}", enchant.value))
+          ),
+          select(
+            cls := "enchant-text",
+            cls("x-hasError") <-- enchant3ErrorSignal,
+            value <-- enchant3Var,
+            onChange.mapToValue --> enchant3Var,
+            onChange.mapTo(stateVar.now()) --> validator,
+            sortedEnchants.map(enchant => option(value := enchant.id, cls := s"enchant-group-${enchant.group}", enchant.value))
+          ),
+          select(
+            cls := "enchant-text",
+            cls("x-hasError") <-- enchant4ErrorSignal,
+            value <-- enchant4Var,
+            onChange.mapToValue --> enchant4Var,
+            onChange.mapTo(stateVar.now()) --> validator,
+            sortedEnchants.map(enchant => option(value := enchant.id, cls := s"enchant-group-${enchant.group}", enchant.value))
+          ),
+          select(
+            cls := "downside-text",
+            value <-- downsideVar,
+            onChange.mapToValue --> downsideVar,
+            onChange.mapTo(stateVar.now()) --> validator,
+            sortedEnchantDownsides.map(enchant => option(value := enchant.id, cls := s"enchant-group-${enchant.group}", enchant.value))
+          )
+        )
+  }
 }
 
