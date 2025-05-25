@@ -80,7 +80,7 @@ object EnchantmentsBuilder {
             cls("x-hasError") <-- enchant1ErrorSignal,
             value <-- enchant1Var,
             onChange.mapToValue --> enchant1Var,
-            onChange.mapTo(stateVar.now()) --> validator,
+            onChange.mapTo(stateVar.now()) --> Errors.validator(config, stateVar),
             sortedEnchants.map(enchant => option(value := enchant.id, cls := s"enchant-group-${enchant.group}", enchant.value))
           ),
           select(
@@ -88,7 +88,7 @@ object EnchantmentsBuilder {
             cls("x-hasError") <-- enchant2ErrorSignal,
             value <-- enchant2Var,
             onChange.mapToValue --> enchant2Var,
-            onChange.mapTo(stateVar.now()) --> validator,
+            onChange.mapTo(stateVar.now()) --> Errors.validator(config, stateVar),
             sortedEnchants.map(enchant => option(value := enchant.id, cls := s"enchant-group-${enchant.group}", enchant.value))
           ),
           select(
@@ -96,7 +96,7 @@ object EnchantmentsBuilder {
             cls("x-hasError") <-- enchant3ErrorSignal,
             value <-- enchant3Var,
             onChange.mapToValue --> enchant3Var,
-            onChange.mapTo(stateVar.now()) --> validator,
+            onChange.mapTo(stateVar.now()) --> Errors.validator(config, stateVar),
             sortedEnchants.map(enchant => option(value := enchant.id, cls := s"enchant-group-${enchant.group}", enchant.value))
           ),
           select(
@@ -104,14 +104,13 @@ object EnchantmentsBuilder {
             cls("x-hasError") <-- enchant4ErrorSignal,
             value <-- enchant4Var,
             onChange.mapToValue --> enchant4Var,
-            onChange.mapTo(stateVar.now()) --> validator,
+            onChange.mapTo(stateVar.now()) --> Errors.validator(config, stateVar),
             sortedEnchants.map(enchant => option(value := enchant.id, cls := s"enchant-group-${enchant.group}", enchant.value))
           ),
           select(
             cls := "downside-text",
             value <-- downsideVar,
             onChange.mapToValue --> downsideVar,
-            onChange.mapTo(stateVar.now()) --> validator,
             sortedEnchantDownsides.map(enchant => option(value := enchant.id, cls := s"enchant-group-${enchant.group}", enchant.value))
           )
         )

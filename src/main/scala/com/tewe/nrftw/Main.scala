@@ -35,21 +35,6 @@ val _ = Stylesheet // Use import to prevent DCE
     }
   }
 
-    def errors(config: ItemBuilderConfig, itemState: ItemState): ItemState = {
-      val groups = List(
-        config.enchants(itemState.enchant1).group,
-        config.enchants(itemState.enchant2).group,
-        config.enchants(itemState.enchant3).group,
-        config.enchants(itemState.enchant4).group,
-      )
-      itemState.copy(
-        enchant1Error = groups.count(_ == groups(0)) > 1,
-        enchant2Error = groups.count(_ == groups(1)) > 1,
-        enchant3Error = groups.count(_ == groups(2)) > 1,
-        enchant4Error = groups.count(_ == groups(3)) > 1,
-      )
-    }
-
   val params = new URLSearchParams(dom.window.location.search)
   val helmetState = ItemBuilder.createState(helmetPlagued, Option(params.get("h")))
   val armorState = ItemBuilder.createState(armorPlagued, Option(params.get("a")))
@@ -77,45 +62,34 @@ val _ = Stylesheet // Use import to prevent DCE
     ring3State,
   ))
 
-  val validator = (config: ItemBuilderConfig, stateVar: Var[ItemState]) => Observer[ItemState] { state =>
-    stateVar.update(_ => errors(config, state))
-  }
-
   val helmetStateVar = fullStateVar.zoomLazy(_.helmetState){(state, helmetState) =>
     state.copy(helmetState = helmetState)
   }
-  helmetStateVar.update(state => errors(helmetPlagued, state))
-  helmetStateVar.signal --> validator(helmetPlagued, helmetStateVar)
+  helmetStateVar.update(state => Errors.errors(helmetPlagued, state))
   val helmetComponent = ItemBuilder(helmetPlagued, helmetStateVar)
 
   val armorStateVar = fullStateVar.zoomLazy(_.armorState)((state, armorState) => state.copy(armorState = armorState))
-  armorStateVar.update(state => errors(armorPlagued, state))
-  armorStateVar.signal --> validator(armorPlagued, armorStateVar)
+  armorStateVar.update(state => Errors.errors(armorPlagued, state))
   val armorComponent = ItemBuilder(armorPlagued, armorStateVar)
 
   val pantsStateVar = fullStateVar.zoomLazy(_.pantsState)((state, pantsState) => state.copy(pantsState = pantsState))
-  pantsStateVar.update(state => errors(pantsPlagued, state))
-  pantsStateVar.signal --> validator(pantsPlagued, pantsStateVar)
+  pantsStateVar.update(state => Errors.errors(pantsPlagued, state))
   val pantsComponent = ItemBuilder(pantsPlagued, pantsStateVar)
 
   val glovesStateVar = fullStateVar.zoomLazy(_.glovesState)((state, glovesState) => state.copy(glovesState = glovesState))
-  glovesStateVar.update(state => errors(glovesPlagued, state))
-  glovesStateVar.signal --> validator(glovesPlagued, glovesStateVar)
+  glovesStateVar.update(state => Errors.errors(glovesPlagued, state))
   val glovesComponent = ItemBuilder(glovesPlagued, glovesStateVar)
 
   val weaponStateVar = fullStateVar.zoomLazy(_.weaponState)((state, weaponState) => state.copy(weaponState = weaponState))
-  weaponStateVar.update(state => errors(weaponPlagued, state))
-  weaponStateVar.signal --> validator(weaponPlagued, weaponStateVar)
+  weaponStateVar.update(state => Errors.errors(weaponPlagued, state))
   val weaponComponent = ItemBuilder(weaponPlagued, weaponStateVar)
 
   val shieldStateVar = fullStateVar.zoomLazy(_.shieldState)((state, shieldState) => state.copy(shieldState = shieldState))
-  shieldStateVar.update(state => errors(shieldPlagued, state))
-  shieldStateVar.signal --> validator(shieldPlagued, shieldStateVar)
+  shieldStateVar.update(state => Errors.errors(shieldPlagued, state))
   val shieldComponent = ItemBuilder(shieldPlagued, shieldStateVar)
 
   val bowStateVar = fullStateVar.zoomLazy(_.bowState)((state, bowState) => state.copy(bowState = bowState))
-  bowStateVar.update(state => errors(bowPlagued, state))
-  bowStateVar.signal.map(state => validator(bowPlagued, bowStateVar))
+  bowStateVar.update(state => Errors.errors(bowPlagued, state))
   val bowComponent = ItemBuilder(bowPlagued, bowStateVar)
 
   val ring1Var = fullStateVar.zoomLazy(_.ring1StateOption)((state, ring1State) => state.copy(ring1StateOption = ring1State))
