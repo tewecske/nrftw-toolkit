@@ -1,0 +1,118 @@
+.enchantments-container {
+  padding: 6px 15px;
+  border-top: 1px solid #333;
+
+  .enchantment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    color: #aaa;
+    font-size: 14px;
+  }
+
+  .enchantment-item {
+    font-size: 0.85em;
+    padding: 6px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    background-color: rgba(20, 20, 40, 0.6);
+  }
+
+}
+
+
+.enchant-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.enchant-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enchant-text {
+  color: #a48bf3;
+}
+
+.enchant-group-Other {
+  background-color: #333333;
+}
+
+.enchant-group-Attack {
+  background-color: #4f240e;
+}
+
+.enchant-group-Stamina {
+  background-color: #4b2659;
+}
+
+.enchant-group-Durability {
+  background-color: #435825;
+}
+
+.enchant-group-Healing {
+  background-color: #2f3a3a;
+}
+
+.enchant-group-Weight {
+  background-color: #294435;
+}
+
+.enchant-group-Focus {
+  background-color: #014b1e;
+}
+
+.enchant-group-Defense {
+  background-color: #313567;
+}
+
+.enchant-group-Indestructible {
+  background-color: #435825;
+}
+
+.enchant-group-Resistance {
+  background-color: #12650e;
+}
+
+.enchant-group-Movement {
+  background-color: #1d284b;
+}
+
+.enchant-group-Downside {
+  background-color: #000000;
+}
+
+.enchantment {
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background-color: rgba(20, 20, 40, 0.6);
+}
+
+.lifesteal-text {
+  color: #a48bf3;
+}
+
+.negative-text {
+  color: #ff6b6b;
+}
+
+.enchantments-container-compact {
+  padding-top: 8px;
+  border-top: 1px solid #333;
+
+  .enchantment-item-compact {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+    font-size: 0.8em;
+  }
+
+}

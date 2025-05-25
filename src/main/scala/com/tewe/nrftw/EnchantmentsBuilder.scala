@@ -7,6 +7,9 @@ import scala.scalajs.js.annotation.JSImport
 
 object EnchantmentsBuilder {
 
+  @JSImport("@find/**/EnchantmentsBuilder.css", JSImport.Namespace)
+  @js.native private object Stylesheet extends js.Object
+
   val _ = Stylesheet // Use import to prevent DCE
 
   def enchantmentsCompact(itemRarity: ItemRarity, enchantments: List[String], enchantDownsides: List[String]) = {
