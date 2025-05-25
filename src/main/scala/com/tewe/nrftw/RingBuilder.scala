@@ -7,6 +7,9 @@ import scala.scalajs.js.annotation.JSImport
 
 object RingBuilder {
 
+  @JSImport("@find/**/RingBuilder.css", JSImport.Namespace)
+  @js.native private object Stylesheet extends js.Object
+
   val _ = Stylesheet // Use import to prevent DCE
 
   def ringComponentCompact(

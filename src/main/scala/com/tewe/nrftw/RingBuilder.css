@@ -1,0 +1,109 @@
+.ring-big-container {
+  width: 500px;
+  margin: 0 auto;
+  background-color: rgba(10, 10, 25, 0.9);
+  border: 1px solid #333;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+  cursor: pointer;
+  /* Indicate clickability */
+  transition: transform 0.1s ease-in-out;
+}
+
+.ring-big-container:hover {
+  transform: translateY(-5px);
+}
+
+.ring-big-container {
+  .ring-header {
+    padding: 15px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .ring-image {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  .ring-titles {
+    flex-grow: 1;
+  }
+
+  .ring-name {
+    font-size: 1.5em;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .ring-type {
+    font-size: 0.9em;
+    margin: 0;
+    color: #bbb;
+  }
+
+
+}
+
+
+.compact-rings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  /* Responsive grid */
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Compact Component Styles */
+.ring-container-compact {
+  background-color: rgba(10, 10, 25, 0.9);
+  border: 1px solid #333;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+.ring-container-compact:hover {
+  transform: translateY(-3px);
+  border-color: #7aff7a;
+}
+
+.ring-container-compact {
+  .compact-ring-header {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+
+  .compact-ring-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 3px;
+    object-fit: cover;
+  }
+
+  .compact-ring-titles {
+    flex-grow: 1;
+  }
+
+  .compact-ring-name {
+    font-size: 1.1em;
+    margin: 0;
+  }
+
+  .compact-ring-type {
+    font-size: 0.8em;
+    margin: 0;
+    color: #bbb;
+  }
+}
