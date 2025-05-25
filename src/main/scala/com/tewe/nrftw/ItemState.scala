@@ -10,6 +10,7 @@ package com.tewe.nrftw
     enchant2Error: Boolean = false,
     enchant3Error: Boolean = false,
     enchant4Error: Boolean = false,
+    gemOption: Option[Gem] = None
   ) {
     def shortState(): String = {
       s"${enchant1}-${enchant2}-${enchant3}-${enchant4}-${downside}"

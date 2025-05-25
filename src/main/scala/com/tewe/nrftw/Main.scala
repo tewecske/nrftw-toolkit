@@ -66,6 +66,9 @@ val _ = Stylesheet // Use import to prevent DCE
     state.copy(helmetState = helmetState)
   }
   helmetStateVar.update(state => Errors.errors(helmetPlagued, state))
+  // val helmetGemStateVar = helmetStateVar.zoomLazy(_.gemOption)((state, gem) => state.copy(gemOption = gem))
+  // val helmetGemShowModalVar = Var(false)
+  // val helmetGemModal = Modal.gemsModal(helmetGemShowModalVar, gems, gem => helmetGemStateVar.update(_ => Option(gem)))
   val helmetComponent = ItemBuilder(helmetPlagued, helmetStateVar)
 
   val armorStateVar = fullStateVar.zoomLazy(_.armorState)((state, armorState) => state.copy(armorState = armorState))

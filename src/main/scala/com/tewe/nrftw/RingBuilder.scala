@@ -45,9 +45,8 @@ object RingBuilder {
     div(
       cls("ring-big-container"),
       onClick --> { _ =>
-        println(s"ring-big-container clicked")
         showModalVar.set(true)
-      }, // Clickable area for the entire component to open modal
+      },
       child <-- ringDataOptionVar.signal.map(_.fold {
         div(
           cls("ring-header"),

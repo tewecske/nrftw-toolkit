@@ -1,19 +1,94 @@
-.gem-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+.gem-container {
+  padding: 6px 15px;
+  border-top: 1px solid #333;
+
+  .gem-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    background-color: rgba(20, 20, 40, 0.6);
+    border: 1px solid #444;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .gem-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  .gem-text {
+    font-size: 1em;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+    color: white;
+    flex-grow: 1;
+  }
 }
 
-.gem-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-  display: flex;
-  align-items: center;
+.compact-gems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
   justify-content: center;
-  color: #66a3ff;
 }
 
-.gem-text {
-  color: #66a3ff;
+.gem-container-compact:hover {
+  transform: translateY(-3px);
+  border-color: #7aff7a;
+}
+
+.gem-container-compact {
+  background-color: rgba(10, 10, 25, 0.9);
+  border: 1px solid #333;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+
+  .compact-gem-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    background-color: rgba(20, 20, 40, 0.6);
+    border: 1px solid #444;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+
+    /* padding: 0; */
+    /* margin-bottom: 10px; */
+  }
+
+  .compact-gem-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    object-fit: cover;
+  }
+
+  .compact-gem-text {
+    font-size: 1.1em;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+    color: white;
+    flex-grow: 1;
+  }
+
 }

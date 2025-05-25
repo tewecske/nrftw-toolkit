@@ -12,18 +12,67 @@ object GemsBuilder {
 
   val _ = Stylesheet // Use import to prevent DCE
 
-  def apply(config: ItemBuilderConfig, stateVar: Var[ItemState]): HtmlElement = {
-       div(
-         cls := "section",
-         div(
-           cls := "section-header",
-           div(cls := "section-title", "Gems"),
-           div(cls := "section-count", "1/1")
-         ),
-         select(
-            config.gems.map(gem => option(value := gem.value, gem.value))
-         )
-       )
+  def apply(
+    config: ItemBuilderConfig,
+    stateVar: Var[ItemState],
+    showModalVar: Var[Boolean]
+  ): HtmlElement = {
+    val gemOptionVar = stateVar.zoomLazy(_.gemOption)((state, gem) => state.copy(gemOption = gem))
+    // val gemOptionVar: Var[Option[Gem]] = Var(None)
+    div(
+      cls := "gem-container",
+      onClick --> { _ =>
+        println("TEST")
+        showModalVar.set(true)
+      },
+      child <-- gemOptionVar.signal.map(_.fold {
+      div(cls := "gem-item",
+        div(
+          cls("gem-text"),
+          "Select a Gem"
+        )
+      )
+        } { gem =>
+      div(cls := "gem-item",
+        img(
+          cls("gem-icon"),
+          src(gem.imageSrc),
+        ),
+        div(
+          cls("gem-text"),
+          gem.value
+        )
+      )
+        })
+    )
+  }
+
+  def gemComponentCompact(
+      itemSlot: ItemSlot,
+      gem: Gem,
+      onSelect: Gem => Unit
+  ): Element = {
+    div(
+      cls("gem-container-compact"),
+      onClick --> { _ => onSelect(gem) },
+      div(
+        cls("compact-gem-item"),
+        img(
+          cls("compact-gem-icon"),
+          src(gem.imageSrc),
+        ),
+        div(
+          cls("compact-gem-text"),
+          gem.gemEffects.map(gemEffect =>
+            div(
+              h3(gemEffect.itemSlot.toString),
+              p(gemEffect.value)
+            )
+          )
+
+        )
+      ),
+    )
   }
 }
 

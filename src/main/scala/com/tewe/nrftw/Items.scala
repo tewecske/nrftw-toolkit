@@ -4,7 +4,8 @@ import ItemSlot.*
 import EnchantGroup.*
 import scala.collection.mutable.LinkedHashMap
 
-case class Gem(value: String)
+case class GemEffect(itemSlot: ItemSlot, value: String)
+case class Gem(value: String, imageSrc: String, gemEffects: List[GemEffect])
 
 enum EnchantGroup {
   case Attack, Defense, Durability, Focus, Healing, Indestructible, Movement, Other, Resistance, Stamina, Weight, Downside
@@ -44,8 +45,17 @@ case class RingData(
   enchantDownsides: List[String] = List.empty
 )
 
-
-val helmetGems = List(Gem("Max Health increased by 10%"))
+val gems = List(
+  Gem("Plague", "/images/gem-chippedAmethyst.png", gemEffects = List(
+    GemEffect(Weapon, "Plague Damage Infusion"),
+    GemEffect(Shield, "Deal 5%-15% Plague Damage on Block"),
+    GemEffect(Bow, "Plague Damage Infusion"),
+    GemEffect(Armor, "Plague Resistance increased by 6%-20%"),
+    GemEffect(Helmet, "Infection Buildup increased by 4%-15%"),
+    GemEffect(Pants, "Plague Resistance increased by 6%-20%"),
+    GemEffect(Gloves, "Infection Buildup increased by 4%-15%"),
+  ))
+)
 
 val helmetEnchants = List(
   Enchant("o_bnc", Other, "Bomb not consumed with 10%-20% chance"),
@@ -94,12 +104,10 @@ val helmetEnchantDownsides = List(
 val helmetPlagued = ItemBuilderConfig(
   itemSlot = Helmet,
   itemRarity = ItemRarity.Plagued,
-  gems = helmetGems,
+  gems = gems,
   enchants = helmetEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchantDownsides = helmetEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
 )
-
-val armorGems = List(Gem("Max Health increased by 10%"))
 
 val armorEnchants = List(
     Enchant("o_pdic", Other, "Poise Defense increased by 5-10 while Charging"),
@@ -155,12 +163,10 @@ val armorEnchantDownsides = List(
 val armorPlagued = ItemBuilderConfig(
   itemSlot = Armor,
   itemRarity = ItemRarity.Plagued,
-  gems = armorGems,
+  gems = gems,
   enchants = armorEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchantDownsides = armorEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
 )
-
-val pantsGems = List(Gem("Max Health increased by 10%"))
 
 val pantsEnchants = List(
     Enchant("o_pdic", Other, "Poise Defense increased by 5-10 while Charging"),
@@ -212,12 +218,10 @@ val pantsEnchantDownsides = List(
 val pantsPlagued = ItemBuilderConfig(
   itemSlot = Pants,
   itemRarity = ItemRarity.Plagued,
-  gems = pantsGems,
+  gems = gems,
   enchants = pantsEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchantDownsides = pantsEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
 )
-
-val glovesGems = List(Gem("Max Health increased by 10%"))
 
 val glovesEnchants = List(
   Enchant("o_bdi", Other, "Bomb Damage increased by 15%-30%"),
@@ -270,12 +274,10 @@ val glovesEnchantDownsides = List(
 val glovesPlagued = ItemBuilderConfig(
   itemSlot = Gloves,
   itemRarity = ItemRarity.Plagued,
-  gems = glovesGems,
+  gems = gems,
   enchants = glovesEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchantDownsides = glovesEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
 )
-
-val weaponGems = List(Gem("Max Health increased by 10%"))
 
 val weaponEnchants = List(
   Enchant("o_gfob", Other, "Gain 5-10 Focus on backstab"),
@@ -336,12 +338,10 @@ val weaponEnchantDownsides = List(
 val weaponPlagued = ItemBuilderConfig(
   itemSlot = Weapon,
   itemRarity = ItemRarity.Plagued,
-  gems = weaponGems,
+  gems = gems,
   enchants = weaponEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchantDownsides = weaponEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
 )
-
-val shieldGems = List(Gem("Max Health increased by 10%"))
 
 val shieldEnchants = List(
   Enchant("o_pdib", Other, "Poise Defense increased by 5-10 while Blocking"),
@@ -377,12 +377,10 @@ val shieldEnchantDownsides = List(
 val shieldPlagued = ItemBuilderConfig(
   itemSlot = Shield,
   itemRarity = ItemRarity.Plagued,
-  gems = shieldGems,
+  gems = gems,
   enchants = shieldEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchantDownsides = shieldEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
 )
-
-val bowGems = List(Gem("Max Health increased by 10%"))
 
 val bowEnchants = List(
   Enchant("a_did", Attack, "Damage increased by up to 7%-15% based on Durability"),
@@ -418,7 +416,7 @@ val bowEnchantDownsides = List(
 val bowPlagued = ItemBuilderConfig(
   itemSlot = Bow,
   itemRarity = ItemRarity.Plagued,
-  gems = bowGems,
+  gems = gems,
   enchants = bowEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchantDownsides = bowEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
 )

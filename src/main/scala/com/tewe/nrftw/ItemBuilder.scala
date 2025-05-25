@@ -41,9 +41,13 @@ object ItemBuilder {
   }
   def apply(config: ItemBuilderConfig, stateVar: Var[ItemState]): HtmlElement = {
 
+    val itemGemStateVar = stateVar.zoomLazy(_.gemOption)((state, gem) => state.copy(gemOption = gem))
+    val itemGemShowModalVar = Var(false)
+    val itemGemModal = Modal.gemsModal(config.itemSlot, itemGemShowModalVar, gems, gem => itemGemStateVar.update(_ => Option(gem)))
     val slot = config.itemSlot.toString
       div(
         cls := "item-card",
+        itemGemModal,
         div(
           cls := "item-header",
           h1(cls := "item-name", slot),
@@ -59,7 +63,7 @@ object ItemBuilder {
           // )
         ),
 
-
+        GemsBuilder(config, stateVar, itemGemShowModalVar),
         EnchantmentsBuilder.enchantmentsSelect(config, stateVar)
       )
   }
