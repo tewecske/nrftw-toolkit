@@ -1,0 +1,245 @@
+.stats-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 1px 15px;
+}
+
+.stat {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.stat-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+}
+
+.stat-name {
+  color: #aaa;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.stat-value {
+  font-size: 16px;
+  color: white;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px 15px;
+}
+
+.stat {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.stat-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+}
+
+.stat-value {
+  font-size: 20px;
+  color: white;
+}
+
+.base-stat-icon {
+  font-size: 20px;
+}
+
+.resistance-icon {
+  font-size: 16px;
+}
+
+.scales-with {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+}
+
+.scales-text {
+  color: #aaa;
+  margin-right: 10px;
+}
+
+.scales-select {
+  background-color: transparent;
+  border: none;
+  color: #ccc;
+  padding: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.rune-slots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px 15px;
+  gap: 10px;
+}
+
+.rune-slot {
+  display: flex;
+  align-items: center;
+  background-color: rgba(30, 30, 50, 0.6);
+  border-radius: 4px;
+  padding: 8px;
+  border: 1px solid #444;
+}
+
+.slot-number {
+  width: 24px;
+  height: 24px;
+  background-color: #444;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.slot-select {
+  background-color: transparent;
+  border: none;
+  color: white;
+  flex-grow: 1;
+  cursor: pointer;
+  outline: none;
+}
+
+.resource-bar {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.cost {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.gain {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.resource-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cost-icon {
+  color: #4fd69c;
+}
+
+.gain-icon {
+  color: #f9d423;
+}
+
+.resource-label {
+  color: #aaa;
+  margin-right: 8px;
+}
+
+.resource-value {
+  font-size: 18px;
+}
+
+
+.resistances-container {
+  padding: 6px 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #333;
+
+  .resistance {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  .resistance-type {
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .resistance-value {
+    font-size: 14px;
+    color: #8df5c0;
+    font-weight: bold;
+  }
+
+}
+
+.required-level {
+  font-size: 0.9em;
+  padding: 6px 15px;
+  border-top: 1px solid #333;
+  color: #aaa;
+
+  .level-value {
+    font-weight: bold;
+    color: white;
+  }
+
+}
+
+
+.bottom-stats {
+  display: flex;
+  padding: 6px 15px;
+  border-top: 1px solid #333;
+
+  .durability {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .weight {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .durability-icon,
+  .weight-icon {
+    margin-right: 8px;
+    width: 20px;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .durability-value,
+  .weight-value {
+    color: white;
+  }
+
+}

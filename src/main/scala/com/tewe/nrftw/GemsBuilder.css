@@ -1,0 +1,19 @@
+.gem-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.gem-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #66a3ff;
+}
+
+.gem-text {
+  color: #66a3ff;
+}

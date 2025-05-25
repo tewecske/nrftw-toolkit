@@ -7,6 +7,9 @@ import scala.scalajs.js.annotation.JSImport
 
 object ItemBuilder {
 
+  @JSImport("@find/**/ItemBuilder.css", JSImport.Namespace)
+  @js.native private object Stylesheet extends js.Object
+
   val _ = Stylesheet // Use import to prevent DCE
 
   def createState(config: ItemBuilderConfig, initState: Option[String]): ItemState = {

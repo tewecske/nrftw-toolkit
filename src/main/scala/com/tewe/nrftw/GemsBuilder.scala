@@ -7,6 +7,11 @@ import scala.scalajs.js.annotation.JSImport
 
 object GemsBuilder {
 
+  @JSImport("@find/**/GemsBuilder.css", JSImport.Namespace)
+  @js.native private object Stylesheet extends js.Object
+
+  val _ = Stylesheet // Use import to prevent DCE
+
   def apply(config: ItemBuilderConfig, stateVar: Var[ItemState]): HtmlElement = {
        div(
          cls := "section",

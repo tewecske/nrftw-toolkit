@@ -6,6 +6,12 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
 object StatsBuilder {
+
+  @JSImport("@find/**/StatsBuilder.css", JSImport.Namespace)
+  @js.native private object Stylesheet extends js.Object
+
+  val _ = Stylesheet // Use import to prevent DCE
+
   def apply() = {
     div(
         div(

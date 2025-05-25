@@ -69,7 +69,7 @@ object RingBuilder {
         ),
         div(
           cls("ring-titles"),
-          h2(cls(s"ring-name, item-type-${ringData.itemRarity}"), ringData.name),
+          h2(cls(s"ring-name item-type-${ringData.itemRarity}"), ringData.name),
           p(cls("ring-type"), "Ring")
         )
       ),

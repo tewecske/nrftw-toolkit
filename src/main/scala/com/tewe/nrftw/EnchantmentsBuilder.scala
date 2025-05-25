@@ -69,12 +69,7 @@ object EnchantmentsBuilder {
     val enchant4ErrorSignal = stateVar.signal.map(_.enchant4Error)
 
         div(
-          cls := "section",
-          div(
-            cls := "section-header",
-            div(cls := "section-title", "Enchantments"),
-            div(cls := "section-count", "5/5")
-          ),
+          cls := "enchantments-container",
           select(
             cls := "enchant-text",
             cls("x-hasError") <-- enchant1ErrorSignal,
