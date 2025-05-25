@@ -16,7 +16,7 @@ endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
 badd +62 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +26 src/main/scala/com/tewe/nrftw/Items.scala
-badd +69 src/main/scala/com/tewe/nrftw/Main.scala
+badd +81 src/main/scala/com/tewe/nrftw/Main.scala
 badd +17 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
@@ -37,7 +37,7 @@ badd +120 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +33 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
-badd +113 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +83 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +32 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
@@ -46,7 +46,7 @@ badd +24 src/main/scala/com/tewe/nrftw/Errors.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit src/main/scala/com/tewe/nrftw/Main.scala
+edit src/main/scala/com/tewe/nrftw/Errors.scala
 wincmd t
 let s:save_winminheight = &winminheight
 let s:save_winminwidth = &winminwidth
@@ -66,7 +66,7 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 13) / 27)
+let s:l = 1 - ((0 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
