@@ -49,36 +49,44 @@ object GemsBuilder {
     )
   }
 
+  def compactComponent(onClick: Mod[Div], imageSrc: String, mods: Mod[Div]*) = {
+    div(
+      cls("gem-container-compact"),
+      onClick,
+      div(
+        cls("compact-gem-item"),
+        img(
+          cls("compact-gem-icon"),
+          src(imageSrc),
+        ),
+        div(
+          cls("compact-gem-text"),
+          mods
+        )
+      ),
+    )
+  }
+
   def gemComponentCompact(
       itemSlot: ItemSlot,
       gem: Gem,
       onSelect: Gem => Unit
   ): Element = {
-    div(
-      cls("gem-container-compact"),
+    compactComponent(
       onClick --> { _ => onSelect(gem) },
-      div(
-        cls("compact-gem-item"),
-        img(
-          cls("compact-gem-icon"),
-          src(gem.imageSrc),
-        ),
+      gem.imageSrc,
+      gem.gemEffects.find(_.itemSlot == itemSlot).map(gemEffect =>
         div(
-          cls("compact-gem-text"),
-          gem.gemEffects.find(_.itemSlot == itemSlot).map(gemEffect =>
-            div(
-              h3(cls("compact-gem-item-slot"), gemEffect.itemSlot.toString),
-              p(
-                cls("compact-gem-effect"),
-                cls(if (gemEffect.extra) "plagued-text" else "magic-text"),
-                gemEffect.value
-              )
-            )
+          h3(cls("compact-gem-item-slot"), gemEffect.itemSlot.toString),
+          p(
+            cls("compact-gem-effect"),
+            cls(if (gemEffect.extra) "plagued-text" else "magic-text"),
+            gemEffect.value
           )
-
         )
-      ),
+      )
     )
+
   }
 }
 

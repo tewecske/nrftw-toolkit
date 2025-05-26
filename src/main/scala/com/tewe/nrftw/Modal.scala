@@ -5,6 +5,7 @@ import org.scalajs.dom
 import com.tewe.nrftw.RingData
 import com.tewe.nrftw.RingBuilder.ringComponentCompact
 import com.tewe.nrftw.GemsBuilder.gemComponentCompact
+import com.tewe.nrftw.GemsBuilder.compactComponent
 
 object Modal {
   def gemsModal(
@@ -32,11 +33,24 @@ object Modal {
         h3(cls("modal-title"), "Select a Gem"),
         div(
           cls("compact-gems-grid"),
+          compactComponent(
+            onClick --> { _ =>
+              onItemSelected(null)
+              showModalVar.set(false)
+            },
+            "/images/icon-cancel.svg",
+            div(
+              p(
+                cls("compact-gem-effect"),
+                "No Gem"
+              )
+            )
+          ),
           children <-- Val(items).map(
             _.filter(_.gemEffects.exists(_.itemSlot == itemSlot)).map(gem =>
               gemComponentCompact(itemSlot, gem, selectedGem => {
                 onItemSelected(selectedGem)
-                showModalVar.set(false) // Close modal on item selection
+                showModalVar.set(false)
               })
             )
           )
