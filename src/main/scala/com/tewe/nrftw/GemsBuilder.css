@@ -30,14 +30,13 @@
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    color: white;
     flex-grow: 1;
   }
 }
 
 .compact-gems-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   justify-content: center;
 }
@@ -66,6 +65,7 @@
     border-radius: 4px;
     cursor: pointer;
     outline: none;
+    height: 60px;
 
     /* padding: 0; */
     /* margin-bottom: 10px; */
@@ -83,12 +83,22 @@
   }
 
   .compact-gem-text {
-    font-size: 1.1em;
     margin: 0;
     display: inline-block;
     vertical-align: middle;
     color: white;
     flex-grow: 1;
   }
+
+  .compact-gem-item-slot {
+    font-size: 1em;
+    margin: 0;
+  }
+
+  .compact-gem-effect {
+    font-size: 1em;
+    margin: 0;
+  }
+
 
 }

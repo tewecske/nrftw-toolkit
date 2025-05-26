@@ -13,7 +13,7 @@ package com.tewe.nrftw
     gemOption: Option[Gem] = None
   ) {
     def shortState(): String = {
-      s"${enchant1}-${enchant2}-${enchant3}-${enchant4}-${downside}"
+      s"${enchant1}-${enchant2}-${enchant3}-${enchant4}-${downside}${gemOption.fold("")(gem => s"-${gem.id}")}"
     }
   }
 

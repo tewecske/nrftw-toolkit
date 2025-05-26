@@ -33,7 +33,7 @@ object Modal {
         div(
           cls("compact-gems-grid"),
           children <-- Val(items).map(
-            _.map(gem =>
+            _.filter(_.gemEffects.exists(_.itemSlot == itemSlot)).map(gem =>
               gemComponentCompact(itemSlot, gem, selectedGem => {
                 onItemSelected(selectedGem)
                 showModalVar.set(false) // Close modal on item selection

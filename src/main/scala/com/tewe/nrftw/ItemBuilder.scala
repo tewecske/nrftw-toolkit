@@ -27,6 +27,7 @@ object ItemBuilder {
       } { stringState =>
         println(s"STATE: $stringState")
         stringState match {
+          case s"$e1-$e2-$e3-$e4-$d-$g" => ItemState(e1, e2, e3, e4, d, gemOption = gems.find(_.id == g))
           case s"$e1-$e2-$e3-$e4-$d" => ItemState(e1, e2, e3, e4, d)
           case _ => 
             ItemState(

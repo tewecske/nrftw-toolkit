@@ -14,6 +14,7 @@ val _ = Stylesheet // Use import to prevent DCE
 @main def main(): Unit = {
 
   if (rings.size != rings.map(_.id).toSet.size) throw IllegalStateException("Rings have conflicting ids" + rings.groupBy(_.id).filter((k, v) => v.size > 1).keySet)
+  if (gems.size != gems.map(_.id).toSet.size) throw IllegalStateException("Gems have conflicting ids" + gems.groupBy(_.id).filter((k, v) => v.size > 1).keySet)
 
   case class FullState(
     helmetState: ItemState,
@@ -28,7 +29,13 @@ val _ = Stylesheet // Use import to prevent DCE
     ring3StateOption: Option[RingData],
   ) {
     def shortState(): String = {
-      s"h=${js.URIUtils.encodeURIComponent(helmetState.shortState())}&a=${js.URIUtils.encodeURIComponent(armorState.shortState())}&p=${js.URIUtils.encodeURIComponent(pantsState.shortState())}&g=${js.URIUtils.encodeURIComponent(glovesState.shortState())}&w=${js.URIUtils.encodeURIComponent(weaponState.shortState())}&s=${js.URIUtils.encodeURIComponent(shieldState.shortState())}&b=${js.URIUtils.encodeURIComponent(bowState.shortState())}" + 
+      s"h=${js.URIUtils.encodeURIComponent(helmetState.shortState())}&" +
+      s"a=${js.URIUtils.encodeURIComponent(armorState.shortState())}&" +
+      s"p=${js.URIUtils.encodeURIComponent(pantsState.shortState())}&" +
+      s"g=${js.URIUtils.encodeURIComponent(glovesState.shortState())}&" +
+      s"w=${js.URIUtils.encodeURIComponent(weaponState.shortState())}&" +
+      s"s=${js.URIUtils.encodeURIComponent(shieldState.shortState())}&" +
+      s"b=${js.URIUtils.encodeURIComponent(bowState.shortState())}" + 
       ring1StateOption.fold("")(ring1State => s"&r1=${js.URIUtils.encodeURIComponent(ring1State.id)}") +
       ring2StateOption.fold("")(ring2State => s"&r2=${js.URIUtils.encodeURIComponent(ring2State.id)}") +
       ring3StateOption.fold("")(ring3State => s"&r3=${js.URIUtils.encodeURIComponent(ring3State.id)}")

@@ -33,6 +33,7 @@ object GemsBuilder {
         )
       )
         } { gem =>
+          val gemEffect = gem.gemEffects.find(_.itemSlot == config.itemSlot)
       div(cls := "gem-item",
         img(
           cls("gem-icon"),
@@ -40,7 +41,8 @@ object GemsBuilder {
         ),
         div(
           cls("gem-text"),
-          gem.value
+          gemEffect.filter(_.extra).fold(cls("magic-text"))(_ => cls("plagued-text")),
+          gemEffect.fold("")(_.value)
         )
       )
         })
@@ -63,10 +65,14 @@ object GemsBuilder {
         ),
         div(
           cls("compact-gem-text"),
-          gem.gemEffects.map(gemEffect =>
+          gem.gemEffects.find(_.itemSlot == itemSlot).map(gemEffect =>
             div(
-              h3(gemEffect.itemSlot.toString),
-              p(gemEffect.value)
+              h3(cls("compact-gem-item-slot"), gemEffect.itemSlot.toString),
+              p(
+                cls("compact-gem-effect"),
+                cls(if (gemEffect.extra) "plagued-text" else "magic-text"),
+                gemEffect.value
+              )
             )
           )
 
