@@ -73,9 +73,6 @@ val _ = Stylesheet // Use import to prevent DCE
     state.copy(helmetState = helmetState)
   }
   helmetStateVar.update(state => Errors.errors(helmetPlagued, state))
-  // val helmetGemStateVar = helmetStateVar.zoomLazy(_.gemOption)((state, gem) => state.copy(gemOption = gem))
-  // val helmetGemShowModalVar = Var(false)
-  // val helmetGemModal = Modal.gemsModal(helmetGemShowModalVar, gems, gem => helmetGemStateVar.update(_ => Option(gem)))
   val helmetComponent = ItemBuilder(helmetPlagued, helmetStateVar)
 
   val armorStateVar = fullStateVar.zoomLazy(_.armorState)((state, armorState) => state.copy(armorState = armorState))
@@ -130,49 +127,53 @@ val _ = Stylesheet // Use import to prevent DCE
         cls := "grid-container",
         div(
           cls:= "grid-item",
-          ring1ComponentFull,
-        ),
-        div(
-          cls:= "grid-item",
-          ring2ComponentFull,
-        ),
-        div(
-          cls:= "grid-item",
-          ring3ComponentFull,
-        ),
-        div(
-          cls:= "grid-item",
+          cls:= "row-span-3",
           weaponComponent,
         ),
         div(
           cls:= "grid-item",
+          cls:= "row-span-3",
           shieldComponent,
         ),
         div(
           cls:= "grid-item",
+          cls:= "row-span-3",
           bowComponent,
         ),
         div(
           cls:= "grid-item",
+          cls:= "row-span-3",
           helmetComponent,
         ),
         div(
           cls:= "grid-item",
+          cls:= "row-span-3",
           armorComponent,
         ),
         div(
           cls:= "grid-item",
+          cls:= "row-span-2",
+          ring1ComponentFull,
         ),
         div(
           cls:= "grid-item",
+          cls:= "row-span-2",
+          ring2ComponentFull,
+        ),
+        div(
+          cls:= "grid-item",
+          cls:= "row-span-3",
           pantsComponent,
         ),
         div(
           cls:= "grid-item",
+          cls:= "row-span-3",
           glovesComponent,
         ),
         div(
           cls:= "grid-item",
+          cls:= "row-span-2",
+          ring3ComponentFull,
         ),
       ),
       div(
