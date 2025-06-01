@@ -16,7 +16,7 @@ endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
 badd +47 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +202 src/main/scala/com/tewe/nrftw/Items.scala
-badd +169 src/main/scala/com/tewe/nrftw/Main.scala
+badd +1 src/main/scala/com/tewe/nrftw/Main.scala
 badd +20 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
@@ -33,7 +33,7 @@ badd +26 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/r
 badd +18 .metals/readonly/dependencies/scalajs-dom_sjs1_3-2.8.0-sources.jar/org/scalajs/dom/URLSearchParams.scala
 badd +2 index.js
 badd +42 vite.config.js
-badd +41 src/main/scala/com/tewe/nrftw/RingBuilder.scala
+badd +19 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +54 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
@@ -53,7 +53,7 @@ badd +666 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/ra
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit style.css
+edit src/main/scala/com/tewe/nrftw/Items.scala
 wincmd t
 let s:save_winminheight = &winminheight
 let s:save_winminwidth = &winminwidth

@@ -271,7 +271,7 @@ val armorEnchants = List(
   Enchant("a_bdi", Attack, "Burn Damage increased by 25%-50%"),
   Enchant("a_iesrd", Attack, "Infected Enemy Stagger Resistance decreased by 15%-30%"),
   
-  Enchant("f_gi", Focus, "Focus Gain increased by up to 10%-25% based on Durability"),
+  Enchant("f_gi", Focus, "Focus Gain increased by up to 10%-20% based on Durability"),
   Enchant("f_cd", Focus, "Focus Cost decreased by 15%-30% for 5s after Stagger."),
   
   Enchant("s_sri", Stamina, "Stamina Recovery increased by up to 7%-25% based on Durability."),
@@ -328,7 +328,7 @@ val pantsEnchants = List(
   Enchant("a_dis", Attack, "Damage increased by 5%-10% after Sprinting for 2 seconds."),
   Enchant("a_didd", Attack, "Damage increased by 15%-30% for 6 seconds after Damage Dodged."),
   
-  Enchant("f_fgid", Focus, "Focus Gain increased by up to 10%-25% based on Durability"),
+  Enchant("f_fgid", Focus, "Focus Gain increased by up to 10%-20% based on Durability"),
   
   Enchant("s_scdlh", Stamina, "Stamina Cost decreased by 15%-30% at Low Health"),
   Enchant("s_dscdlh", Stamina, "Dodge Stamina Cost decreased by 18%-35% at Low Health"),
@@ -387,7 +387,7 @@ val glovesEnchants = List(
   Enchant("a_ibi", Attack, "Infect Buildup increased by 15%-30%."),
   Enchant("a_pdi", Attack, "Physical Damage increased by 7%-25%"),
   
-  Enchant("f_fgid", Focus, "Focus Gain increased by up to 10%-25% based on Durability"),
+  Enchant("f_fgid", Focus, "Focus Gain increased by up to 10%-20% based on Durability"),
   
   Enchant("s_srid", Stamina, "Stamina Recovery increased by up to 7%-25% based on Durability."),
   Enchant("s_irss", Stamina, "Instantly restore 25–40 Stamina on Stagger."),
