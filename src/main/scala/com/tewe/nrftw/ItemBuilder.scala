@@ -45,7 +45,7 @@ object ItemBuilder {
     val itemGemStateVar = stateVar.zoomLazy(_.gemOption)((state, gem) => state.copy(gemOption = gem))
     val itemGemShowModalVar = Var(false)
     val itemGemModal = Modal.gemsModal(config.itemSlot, itemGemShowModalVar, gems, gem => itemGemStateVar.update(_ => Option(gem)))
-    val slot = config.itemSlot.toString
+    val slot = config.itemSlot.name
       div(
         cls := "item-card",
         itemGemModal,

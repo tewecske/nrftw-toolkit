@@ -77,7 +77,7 @@ object GemsBuilder {
       gem.imageSrc,
       gem.gemEffects.find(_.itemSlot == itemSlot).map(gemEffect =>
         div(
-          h3(cls("compact-gem-item-slot"), gemEffect.itemSlot.toString),
+          h3(cls("compact-gem-item-slot"), gemEffect.itemSlot.name),
           p(
             cls("compact-gem-effect"),
             cls(if (gemEffect.extra) "plagued-text" else "magic-text"),

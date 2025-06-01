@@ -15,8 +15,8 @@ else
 endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
 badd +47 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
-badd +202 src/main/scala/com/tewe/nrftw/Items.scala
-badd +1 src/main/scala/com/tewe/nrftw/Main.scala
+badd +20 src/main/scala/com/tewe/nrftw/Items.scala
+badd +10 src/main/scala/com/tewe/nrftw/Main.scala
 badd +20 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
@@ -41,7 +41,7 @@ badd +85 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
-badd +69 src/main/scala/com/tewe/nrftw/GemsBuilder.scala
+badd +1 src/main/scala/com/tewe/nrftw/GemsBuilder.scala
 badd +30 src/main/scala/com/tewe/nrftw/Errors.scala
 badd +22 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 badd +136 item_configurator.html
@@ -54,15 +54,8 @@ argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
 edit src/main/scala/com/tewe/nrftw/Items.scala
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
 argglobal
-balt src/main/scala/com/tewe/nrftw/Main.scala
+balt src/main/scala/com/tewe/nrftw/GemsBuilder.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -87,8 +80,6 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)

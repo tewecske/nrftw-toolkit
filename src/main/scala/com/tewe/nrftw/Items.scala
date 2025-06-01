@@ -21,9 +21,17 @@ enum ItemRarity(value: String) {
 
 case class Enchant(id: String, group: EnchantGroup, value: String)
 
-enum ItemSlot {
-  case Helmet, Armor, Pants, Gloves, Weapon, Shield, Bow, Ring
+enum ItemSlot(val name: String) {
+  case HelmetSlot extends ItemSlot("Helmet")
+  case ArmorSlot extends ItemSlot("Armor")
+  case PantsSlot extends ItemSlot("Pants")
+  case GlovesSlot extends ItemSlot("Gloves")
+  case WeaponSlot extends ItemSlot("Weapon")
+  case ShieldSlot extends ItemSlot("Shield")
+  case BowSlot extends ItemSlot("Bow")
+  case RingSlot extends ItemSlot("Ring")
 }
+
 case class ItemBuilderConfig(
   itemSlot: ItemSlot,
   itemRarity: ItemRarity,
@@ -47,166 +55,166 @@ case class RingData(
 
 val gems = List(
   Gem("ca", "Chipped Amethyst", "/images/gem-chippedAmethyst.png", gemEffects = List(
-    GemEffect(Weapon, "Plague Damage Infusion", extra = true),
-    GemEffect(Shield, "Deal 5%-15% Plague Damage on Block"),
-    GemEffect(Bow, "Plague Damage Infusion", extra = true),
-    GemEffect(Armor, "Plague Resistance increased by 6%-20%"),
-    GemEffect(Helmet, "Infection Buildup increased by 4%-15%"),
-    GemEffect(Pants, "Plague Resistance increased by 6%-20%"),
-    GemEffect(Gloves, "Infection Buildup increased by 4%-15%"),
+    GemEffect(WeaponSlot, "Plague Damage Infusion", extra = true),
+    GemEffect(ShieldSlot, "Deal 5%-15% Plague Damage on Block"),
+    GemEffect(BowSlot, "Plague Damage Infusion", extra = true),
+    GemEffect(ArmorSlot, "Plague Resistance increased by 6%-20%"),
+    GemEffect(HelmetSlot, "Infection Buildup increased by 4%-15%"),
+    GemEffect(PantsSlot, "Plague Resistance increased by 6%-20%"),
+    GemEffect(GlovesSlot, "Infection Buildup increased by 4%-15%"),
   )),
   Gem("cbp", "Chipped Black Pearl", "/images/gem-chippedBlackPearl.png", gemEffects = List(
-    GemEffect(Weapon, "Healing increased by 4%-15%", extra = true),
-    GemEffect(Shield, "Healing increased by 3%-10%"),
-    GemEffect(Bow, "Healing increased by 3%-10%"),
-    GemEffect(Armor, "Healing increased by 4%-15%", extra = true),
-    GemEffect(Helmet, "Healing increased by 3%-10%"),
-    GemEffect(Pants, "Healing increased by 3%-10%"),
-    GemEffect(Gloves, "Healing increased by 3%-10%"),
+    GemEffect(WeaponSlot, "Healing increased by 4%-15%", extra = true),
+    GemEffect(ShieldSlot, "Healing increased by 3%-10%"),
+    GemEffect(BowSlot, "Healing increased by 3%-10%"),
+    GemEffect(ArmorSlot, "Healing increased by 4%-15%", extra = true),
+    GemEffect(HelmetSlot, "Healing increased by 3%-10%"),
+    GemEffect(PantsSlot, "Healing increased by 3%-10%"),
+    GemEffect(GlovesSlot, "Healing increased by 3%-10%"),
   )),
   Gem("cbs", "Chipped Blood Stone", "/images/gem-chippedBloodStone.png", gemEffects = List(
-    GemEffect(Weapon, "Lifesteal increased by 3%-10%", extra = true),
-    GemEffect(Shield, "Lifesteal increased by 2%-5%"),
-    GemEffect(Bow, "Lifesteal increased by 2%-5%"),
-    GemEffect(Armor, "Regainable Health increased by 5%-15%"),
-    GemEffect(Helmet, "Regainable Health increased by 5%-15%"),
-    GemEffect(Pants, "Regainable Health increased by 5%-15%"),
-    GemEffect(Gloves, "Regainable Health increased by 10%-25%", extra = true),
+    GemEffect(WeaponSlot, "Lifesteal increased by 3%-10%", extra = true),
+    GemEffect(ShieldSlot, "Lifesteal increased by 2%-5%"),
+    GemEffect(BowSlot, "Lifesteal increased by 2%-5%"),
+    GemEffect(ArmorSlot, "Regainable Health increased by 5%-15%"),
+    GemEffect(HelmetSlot, "Regainable Health increased by 5%-15%"),
+    GemEffect(PantsSlot, "Regainable Health increased by 5%-15%"),
+    GemEffect(GlovesSlot, "Regainable Health increased by 10%-25%", extra = true),
   )),
   Gem("cd", "Chipped Diamond", "/images/gem-chippedDiamond.png", gemEffects = List(
-    GemEffect(Armor, "Experience Gain increased by 3%-10%"),
-    GemEffect(Helmet, "Experience Gain increased by 3%-10%"),
-    GemEffect(Pants, "Experience Gain increased by 3%-10%"),
-    GemEffect(Gloves, "Experience Gain increased by 3%-10%"),
+    GemEffect(ArmorSlot, "Experience Gain increased by 3%-10%"),
+    GemEffect(HelmetSlot, "Experience Gain increased by 3%-10%"),
+    GemEffect(PantsSlot, "Experience Gain increased by 3%-10%"),
+    GemEffect(GlovesSlot, "Experience Gain increased by 3%-10%"),
   )),
   Gem("cdn", "Chipped Dianite", "/images/gem-chippedDianite.png", gemEffects = List(
-    GemEffect(Armor, "Focus Cost decreased by 2%-5%"),
-    GemEffect(Helmet, "Focus Cost decreased by 2%-5%"),
-    GemEffect(Pants, "Focus Cost decreased by 2%-5%"),
-    GemEffect(Gloves, "Focus Cost decreased by 3%-10%", extra = true),
+    GemEffect(ArmorSlot, "Focus Cost decreased by 2%-5%"),
+    GemEffect(HelmetSlot, "Focus Cost decreased by 2%-5%"),
+    GemEffect(PantsSlot, "Focus Cost decreased by 2%-5%"),
+    GemEffect(GlovesSlot, "Focus Cost decreased by 3%-10%", extra = true),
   )),
   Gem("ce", "Chipped Emerald", "/images/gem-chippedEmerald.png", gemEffects = List(
-   GemEffect(Weapon, "Max Stamina increased by 4%-15%", extra = true),
-   GemEffect(Shield, "Max Stamina increased by 3%-10%"),
-   GemEffect(Bow, "Max Stamina increased by 3%-10%"),
-   GemEffect(Armor, "Max Stamina increased by 3%-10%"),
-   GemEffect(Helmet, "Max Stamina increased by 3%-10%"),
-   GemEffect(Pants, "Max Stamina increased by 4%-15%", extra = true),
-   GemEffect(Gloves, "Max Stamina increased by 3%-10%"),
+   GemEffect(WeaponSlot, "Max Stamina increased by 4%-15%", extra = true),
+   GemEffect(ShieldSlot, "Max Stamina increased by 3%-10%"),
+   GemEffect(BowSlot, "Max Stamina increased by 3%-10%"),
+   GemEffect(ArmorSlot, "Max Stamina increased by 3%-10%"),
+   GemEffect(HelmetSlot, "Max Stamina increased by 3%-10%"),
+   GemEffect(PantsSlot, "Max Stamina increased by 4%-15%", extra = true),
+   GemEffect(GlovesSlot, "Max Stamina increased by 3%-10%"),
   )),
   Gem("tf", "Tiny Fang", "/images/gem-tinyFang.png", gemEffects = List(
-   GemEffect(Weapon, "Attack Stamina Cost decreased by 7%-15%", extra = true),
-   GemEffect(Shield, "Parry Stamina Cost decreased by 9%-30%", extra = true),
-   GemEffect(Bow, "Dodge Stamina Cost decreased by 7%-25%", extra = true),
-   GemEffect(Armor, "Stamina Cost decreased by 2%-6%"),
-   GemEffect(Helmet, "Stamina Cost decreased by 2%-6%"),
-   GemEffect(Pants, "Stamina Cost decreased by 3%-10%", extra = true),
-   GemEffect(Gloves, "Stamina Cost decreased by 2%-6%"),
+   GemEffect(WeaponSlot, "Attack Stamina Cost decreased by 7%-15%", extra = true),
+   GemEffect(ShieldSlot, "Parry Stamina Cost decreased by 9%-30%", extra = true),
+   GemEffect(BowSlot, "Dodge Stamina Cost decreased by 7%-25%", extra = true),
+   GemEffect(ArmorSlot, "Stamina Cost decreased by 2%-6%"),
+   GemEffect(HelmetSlot, "Stamina Cost decreased by 2%-6%"),
+   GemEffect(PantsSlot, "Stamina Cost decreased by 3%-10%", extra = true),
+   GemEffect(GlovesSlot, "Stamina Cost decreased by 2%-6%"),
   )),
   Gem("tft", "Tiny Feather", "/images/gem-tinyFeather.png", gemEffects = List(
-    GemEffect(Weapon, "Item Weight decreased by 4%-15%"),
-    GemEffect(Shield, "Item Weight decreased by 4%-15%"),
-    GemEffect(Bow, "Item Weight decreased by 4%-15%"),
-    GemEffect(Armor, "Item Weight decreased by 4%-15%"),
-    GemEffect(Helmet, "Item Weight decreased by 4%-15%"),
-    GemEffect(Pants, "Item Weight decreased by 4%-15%"),
-    GemEffect(Gloves, "Item Weight decreased by 4%-15%"),
+    GemEffect(WeaponSlot, "Item Weight decreased by 4%-15%"),
+    GemEffect(ShieldSlot, "Item Weight decreased by 4%-15%"),
+    GemEffect(BowSlot, "Item Weight decreased by 4%-15%"),
+    GemEffect(ArmorSlot, "Item Weight decreased by 4%-15%"),
+    GemEffect(HelmetSlot, "Item Weight decreased by 4%-15%"),
+    GemEffect(PantsSlot, "Item Weight decreased by 4%-15%"),
+    GemEffect(GlovesSlot, "Item Weight decreased by 4%-15%"),
   )),
   Gem("cg", "Chipped Granite", "/images/gem-chippedGranite.png", gemEffects = List(
-    GemEffect(Armor, "Poise Defense increased by 1-3"),
-    GemEffect(Helmet, "Poise Defense increased by 1-3"),
-    GemEffect(Pants, "Poise Defense increased by 1-3"),
-    GemEffect(Gloves, "Poise Defense increased by 1-3"),
+    GemEffect(ArmorSlot, "Poise Defense increased by 1-3"),
+    GemEffect(HelmetSlot, "Poise Defense increased by 1-3"),
+    GemEffect(PantsSlot, "Poise Defense increased by 1-3"),
+    GemEffect(GlovesSlot, "Poise Defense increased by 1-3"),
   )),
   Gem("cj", "Chipped Jade", "/images/gem-chippedJade.png", gemEffects = List(
-    GemEffect(Armor, "Stamina Recovery increased by 4%-12%"),
-    GemEffect(Helmet, "Stamina Recovery increased by 4%-12%"),
-    GemEffect(Pants, "Stamina Recovery increased by 4%-12%"),
-    GemEffect(Gloves, "Stamina Recovery increased by 6%-20%", extra = true)
+    GemEffect(ArmorSlot, "Stamina Recovery increased by 4%-12%"),
+    GemEffect(HelmetSlot, "Stamina Recovery increased by 4%-12%"),
+    GemEffect(PantsSlot, "Stamina Recovery increased by 4%-12%"),
+    GemEffect(GlovesSlot, "Stamina Recovery increased by 6%-20%", extra = true)
   )),
   Gem("cjw", "Chipped Jewel", "/images/gem-chippedJewel.png", gemEffects = List(
-    GemEffect(Weapon, "Max Focus increased by 4%-15%", extra = true),
-    GemEffect(Shield, "Max Focus increased by 3%-10%"),
-    GemEffect(Bow, "Max Focus increased by 3%-10%"),
-    GemEffect(Armor, "Max Focus increased by 3%-10%"),
-    GemEffect(Helmet, "Max Focus increased by 4%-15%", extra = true),
-    GemEffect(Pants, "Max Focus increased by 3%-10%"),
-    GemEffect(Gloves, "Max Focus increased by 3%-10%"),
+    GemEffect(WeaponSlot, "Max Focus increased by 4%-15%", extra = true),
+    GemEffect(ShieldSlot, "Max Focus increased by 3%-10%"),
+    GemEffect(BowSlot, "Max Focus increased by 3%-10%"),
+    GemEffect(ArmorSlot, "Max Focus increased by 3%-10%"),
+    GemEffect(HelmetSlot, "Max Focus increased by 4%-15%", extra = true),
+    GemEffect(PantsSlot, "Max Focus increased by 3%-10%"),
+    GemEffect(GlovesSlot, "Max Focus increased by 3%-10%"),
   )),
   Gem("cm", "Chipped Marble", "/images/gem-chippedMarble.png", gemEffects = List(
-    GemEffect(Weapon, "Max Health increased by 4%-15%", extra = true),
-    GemEffect(Shield, "Max Health increased by 3%-10%"),
-    GemEffect(Bow, "Max Health increased by 3%-10%"),
-    GemEffect(Armor, "Max Health increased by 4%-15%", extra = true),
-    GemEffect(Helmet, "Max Health increased by 3%-10%"),
-    GemEffect(Pants, "Max Health increased by 3%-10%"),
-    GemEffect(Gloves, "Max Health increased by 3%-10%"),
+    GemEffect(WeaponSlot, "Max Health increased by 4%-15%", extra = true),
+    GemEffect(ShieldSlot, "Max Health increased by 3%-10%"),
+    GemEffect(BowSlot, "Max Health increased by 3%-10%"),
+    GemEffect(ArmorSlot, "Max Health increased by 4%-15%", extra = true),
+    GemEffect(HelmetSlot, "Max Health increased by 3%-10%"),
+    GemEffect(PantsSlot, "Max Health increased by 3%-10%"),
+    GemEffect(GlovesSlot, "Max Health increased by 3%-10%"),
   )),
   Gem("cmr", "Chipped Meteorite", "/images/gem-chippedMeteorite.png", gemEffects = List(
-    GemEffect(Armor, "Elemental Damage Taken decreased by 2%-5%"),
-    GemEffect(Helmet, "Elemental Damage Taken decreased by 2%-5%"),
-    GemEffect(Pants, "Elemental Damage Taken decreased by 2%-5%"),
-    GemEffect(Gloves, "Elemental Damage Taken decreased by 2%-5%"),
+    GemEffect(ArmorSlot, "Elemental Damage Taken decreased by 2%-5%"),
+    GemEffect(HelmetSlot, "Elemental Damage Taken decreased by 2%-5%"),
+    GemEffect(PantsSlot, "Elemental Damage Taken decreased by 2%-5%"),
+    GemEffect(GlovesSlot, "Elemental Damage Taken decreased by 2%-5%"),
   )),
   Gem("cms", "Chipped Moon Stone", "/images/gem-chippedMoonStone.png", gemEffects = List(
-    GemEffect(Armor, "Regenerate Focus in Combat"),
-    GemEffect(Helmet, "Regenerate Focus in Combat"),
-    GemEffect(Pants, "Regenerate Focus in Combat"),
-    GemEffect(Gloves, "Regenerate Focus in Combat"),
+    GemEffect(ArmorSlot, "Regenerate Focus in Combat"),
+    GemEffect(HelmetSlot, "Regenerate Focus in Combat"),
+    GemEffect(PantsSlot, "Regenerate Focus in Combat"),
+    GemEffect(GlovesSlot, "Regenerate Focus in Combat"),
   )),
   Gem("cq", "Chipped Quartz", "/images/gem-chippedQuartz.png", gemEffects = List(
-    GemEffect(Weapon, "Electric Damage Infusion", extra = true),
-    GemEffect(Shield, "Deal 5%-15% Electric Damage on Block"),
-    GemEffect(Bow, "Electric Damage Infusion", extra = true),
-    GemEffect(Armor, "Electric Resistance increased by 10%-20%"),
-    GemEffect(Helmet, "Shock Buildup increased by 4%-15%"),
-    GemEffect(Pants, "Electric Resistance increased by 10%-20%"),
-    GemEffect(Gloves, "Shock Buildup increased by 4%-15%")
+    GemEffect(WeaponSlot, "Electric Damage Infusion", extra = true),
+    GemEffect(ShieldSlot, "Deal 5%-15% Electric Damage on Block"),
+    GemEffect(BowSlot, "Electric Damage Infusion", extra = true),
+    GemEffect(ArmorSlot, "Electric Resistance increased by 10%-20%"),
+    GemEffect(HelmetSlot, "Shock Buildup increased by 4%-15%"),
+    GemEffect(PantsSlot, "Electric Resistance increased by 10%-20%"),
+    GemEffect(GlovesSlot, "Shock Buildup increased by 4%-15%")
   )),
   Gem("cr", "Chipped Ruby", "/images/gem-chippedRuby.png", gemEffects = List(
-    GemEffect(Weapon, "Heat Damage Infusion", extra = true),
-    GemEffect(Shield, "Deal 5%-15% Heat Damage on Block"),
-    GemEffect(Bow, "Heat Damage Infusion", extra = true),
-    GemEffect(Armor, "Heat Resistance increased by 10%-20%"),
-    GemEffect(Helmet, "Burn Buildup increased by 4%-15%"),
-    GemEffect(Pants, "Heat Resistance increased by 10%-20%"),
-    GemEffect(Gloves, "Burn Buildup increased by 4%-15%"),
+    GemEffect(WeaponSlot, "Heat Damage Infusion", extra = true),
+    GemEffect(ShieldSlot, "Deal 5%-15% Heat Damage on Block"),
+    GemEffect(BowSlot, "Heat Damage Infusion", extra = true),
+    GemEffect(ArmorSlot, "Heat Resistance increased by 10%-20%"),
+    GemEffect(HelmetSlot, "Burn Buildup increased by 4%-15%"),
+    GemEffect(PantsSlot, "Heat Resistance increased by 10%-20%"),
+    GemEffect(GlovesSlot, "Burn Buildup increased by 4%-15%"),
   )),
   Gem("cs", "Chipped Sapphire", "/images/gem-chippedSapphire.png", gemEffects = List(
-    GemEffect(Weapon, "Cold Damage Infusion", extra = true),
-    GemEffect(Shield, "Deal 5%-15% Cold Damage on Block"),
-    GemEffect(Bow, "Cold Damage Infusion", extra = true),
-    GemEffect(Armor, "Cold Resistance increased by 10%-20%"),
-    GemEffect(Helmet, "Frost Buildup increased by 4%-15%"),
-    GemEffect(Pants, "Cold Resistance increased by 10%-20%"),
-    GemEffect(Gloves, "Frost Buildup increased by 4%-15%"),
+    GemEffect(WeaponSlot, "Cold Damage Infusion", extra = true),
+    GemEffect(ShieldSlot, "Deal 5%-15% Cold Damage on Block"),
+    GemEffect(BowSlot, "Cold Damage Infusion", extra = true),
+    GemEffect(ArmorSlot, "Cold Resistance increased by 10%-20%"),
+    GemEffect(HelmetSlot, "Frost Buildup increased by 4%-15%"),
+    GemEffect(PantsSlot, "Cold Resistance increased by 10%-20%"),
+    GemEffect(GlovesSlot, "Frost Buildup increased by 4%-15%"),
   )),
   Gem("cse", "Chipped Shield Emblem", "/images/gem-chippedShieldEmblem.png", gemEffects = List(
-    GemEffect(Armor, "Physical Damage Taken decreased by 2%-5%"),
-    GemEffect(Helmet, "Physical Damage Taken decreased by 2%-5%"),
-    GemEffect(Pants, "Physical Damage Taken decreased by 2%-5%"),
-    GemEffect(Gloves, "Physical Damage Taken decreased by 2%-5%")
+    GemEffect(ArmorSlot, "Physical Damage Taken decreased by 2%-5%"),
+    GemEffect(HelmetSlot, "Physical Damage Taken decreased by 2%-5%"),
+    GemEffect(PantsSlot, "Physical Damage Taken decreased by 2%-5%"),
+    GemEffect(GlovesSlot, "Physical Damage Taken decreased by 2%-5%")
   )),
   Gem("ss", "Small Skull", "/images/gem-smallSkull.png", gemEffects = List(
-    GemEffect(Armor, "Regenerate Health in Combat"),
-    GemEffect(Helmet, "Regenerate Health in Combat"),
-    GemEffect(Pants, "Regenerate Health in Combat"),
-    GemEffect(Gloves, "Regenerate Health in Combat")
+    GemEffect(ArmorSlot, "Regenerate Health in Combat"),
+    GemEffect(HelmetSlot, "Regenerate Health in Combat"),
+    GemEffect(PantsSlot, "Regenerate Health in Combat"),
+    GemEffect(GlovesSlot, "Regenerate Health in Combat")
   )),
   Gem("csk", "Chipped Spike", "/images/gem-chippedSpike.png", gemEffects = List(
-    GemEffect(Weapon, "Physical Damage increased by 3%-10%", extra = true),
-    GemEffect(Shield, "Physical Damage increased by 2%-5%"),
-    GemEffect(Bow, "Physical Damage increased by 2%-5%"),
-    GemEffect(Armor, "Armor increased by 4%-12%"),
-    GemEffect(Helmet, "Buildup Resistance increased by 4%-15%"),
-    GemEffect(Pants, "Armor increased by 4%-12%"),
-    GemEffect(Gloves, "Buildup Resistance increased by 4%-15%")
+    GemEffect(WeaponSlot, "Physical Damage increased by 3%-10%", extra = true),
+    GemEffect(ShieldSlot, "Physical Damage increased by 2%-5%"),
+    GemEffect(BowSlot, "Physical Damage increased by 2%-5%"),
+    GemEffect(ArmorSlot, "Armor increased by 4%-12%"),
+    GemEffect(HelmetSlot, "Buildup Resistance increased by 4%-15%"),
+    GemEffect(PantsSlot, "Armor increased by 4%-12%"),
+    GemEffect(GlovesSlot, "Buildup Resistance increased by 4%-15%")
   )),
   Gem("ct", "Chipped Topaz", "/images/gem-chippedTopaz.png", gemEffects = List(
-    GemEffect(Armor, "Focus Gain increased by 2%-6%"),
-    GemEffect(Helmet, "Focus Gain increased by 3%-10%", extra = true),
-    GemEffect(Pants, "Focus Gain increased by 2%-6%"),
-    GemEffect(Gloves, "Focus Gain increased by 2%-6%")
+    GemEffect(ArmorSlot, "Focus Gain increased by 2%-6%"),
+    GemEffect(HelmetSlot, "Focus Gain increased by 3%-10%", extra = true),
+    GemEffect(PantsSlot, "Focus Gain increased by 2%-6%"),
+    GemEffect(GlovesSlot, "Focus Gain increased by 2%-6%")
   )),
 )
 
@@ -255,7 +263,7 @@ val helmetEnchantDownsides = List(
 )
   
 val helmetPlagued = ItemBuilderConfig(
-  itemSlot = Helmet,
+  itemSlot = HelmetSlot,
   itemRarity = ItemRarity.Plagued,
   gems = gems,
   enchants = helmetEnchants.map(enchant => (enchant.id, enchant)).toMap,
@@ -314,7 +322,7 @@ val armorEnchantDownsides = List(
   )
 
 val armorPlagued = ItemBuilderConfig(
-  itemSlot = Armor,
+  itemSlot = ArmorSlot,
   itemRarity = ItemRarity.Plagued,
   gems = gems,
   enchants = armorEnchants.map(enchant => (enchant.id, enchant)).toMap,
@@ -369,7 +377,7 @@ val pantsEnchantDownsides = List(
   )
 
 val pantsPlagued = ItemBuilderConfig(
-  itemSlot = Pants,
+  itemSlot = PantsSlot,
   itemRarity = ItemRarity.Plagued,
   gems = gems,
   enchants = pantsEnchants.map(enchant => (enchant.id, enchant)).toMap,
@@ -425,7 +433,7 @@ val glovesEnchantDownsides = List(
   )
 
 val glovesPlagued = ItemBuilderConfig(
-  itemSlot = Gloves,
+  itemSlot = GlovesSlot,
   itemRarity = ItemRarity.Plagued,
   gems = gems,
   enchants = glovesEnchants.map(enchant => (enchant.id, enchant)).toMap,
@@ -489,7 +497,7 @@ val weaponEnchantDownsides = List(
   )
 
 val weaponPlagued = ItemBuilderConfig(
-  itemSlot = Weapon,
+  itemSlot = WeaponSlot,
   itemRarity = ItemRarity.Plagued,
   gems = gems,
   enchants = weaponEnchants.map(enchant => (enchant.id, enchant)).toMap,
@@ -528,7 +536,7 @@ val shieldEnchantDownsides = List(
   )
 
 val shieldPlagued = ItemBuilderConfig(
-  itemSlot = Shield,
+  itemSlot = ShieldSlot,
   itemRarity = ItemRarity.Plagued,
   gems = gems,
   enchants = shieldEnchants.map(enchant => (enchant.id, enchant)).toMap,
@@ -567,7 +575,7 @@ val bowEnchantDownsides = List(
   )
 
 val bowPlagued = ItemBuilderConfig(
-  itemSlot = Bow,
+  itemSlot = BowSlot,
   itemRarity = ItemRarity.Plagued,
   gems = gems,
   enchants = bowEnchants.map(enchant => (enchant.id, enchant)).toMap,
