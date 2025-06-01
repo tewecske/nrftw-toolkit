@@ -9,26 +9,38 @@ object WeaponBuilder {
 
   val _ = Stylesheet // Use import to prevent DCE
 
-  def apply(config: ItemBuilderConfig, stateVar: Var[ItemState]): HtmlElement = {
+  def createState(config: WeaponBuilderConfig, initState: Option[String]): WeaponState = {
+    val itemState = ItemBuilder.createState(config.itemConfig, initState)
+    WeaponState(itemState = itemState, config.weaponTypes.head)
+  }
 
-     div(
-       cls := "weapon-card",
-       div(
-         cls := "weapon-header",
-         h1(cls := "weapon-name", config.itemSlot.toString),
-         div(cls := "weapon-level", span("13")),
-         // div(
-         //   cls := "weapon-type-select",
-         //   select(
-         //     option(selected := true, "Two-Handed Great Club"),
-         //     option("Two-Handed Greatsword")
-         //   )
-         // )
-       ),
+  def apply(config: WeaponBuilderConfig, stateVar: Var[WeaponState]): HtmlElement = {
 
+    val itemStateVar = stateVar.zoomLazy(_.itemState)((state, itemState) => state.copy(itemState = itemState))
+    val itemGemStateVar = stateVar.zoomLazy(_.itemState.gemOption)((state, gem) => state.copy(itemState = state.itemState.copy(gemOption = gem)))
+    val itemGemShowModalVar = Var(false)
+    val itemGemModal = Modal.gemsModal(config.itemConfig.itemSlot, itemGemShowModalVar, gems, gem => itemGemStateVar.update(_ => Option(gem)))
+    val slot = config.itemConfig.itemSlot.name
+      div(
+        cls := "item-card",
+        itemGemModal,
+        div(
+          cls := "item-header",
+          h1(cls := "item-name", slot),
+          div(cls := "item-level", span("16")),
+          // div(
+          //   cls := "item-type-select",
+          //   select(
+          //     option(selected := true, s"Mesh $slot"),
+          //     option(s"Plate $slot"),
+          //     option(s"Leather $slot"),
+          //     option(s"Cloth $slot")
+          //   )
+          // )
+        ),
 
-    EnchantmentsBuilder.enchantmentsSelect(config, stateVar)
-     )
-
+        GemsBuilder(config.itemConfig, itemStateVar, itemGemShowModalVar),
+        EnchantmentsBuilder.enchantmentsSelect(config.itemConfig, itemStateVar)
+      )
   }
 }

@@ -17,3 +17,11 @@ package com.tewe.nrftw
     }
   }
 
+  case class WeaponState(
+    itemState: ItemState,
+    weaponType: WeaponType
+  ) {
+    def shortState(): String = {
+      itemState.shortState() // TODO temporary
+    }
+  }

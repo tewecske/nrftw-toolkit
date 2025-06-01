@@ -21,9 +21,9 @@ val _ = Stylesheet // Use import to prevent DCE
     armorState: ItemState,
     pantsState: ItemState,
     glovesState: ItemState,
-    weaponState: ItemState,
-    shieldState: ItemState,
-    bowState: ItemState,
+    weaponState: WeaponState,
+    shieldState: WeaponState,
+    bowState: WeaponState,
     ring1StateOption: Option[RingData],
     ring2StateOption: Option[RingData],
     ring3StateOption: Option[RingData],
@@ -48,9 +48,9 @@ val _ = Stylesheet // Use import to prevent DCE
   val pantsState = ItemBuilder.createState(pantsPlagued, Option(params.get("p")))
   val glovesState = ItemBuilder.createState(glovesPlagued, Option(params.get("g")))
 
-  val weaponState = ItemBuilder.createState(weaponPlagued, Option(params.get("w")))
-  val shieldState = ItemBuilder.createState(shieldPlagued, Option(params.get("s")))
-  val bowState = ItemBuilder.createState(bowPlagued, Option(params.get("b")))
+  val weaponState = WeaponBuilder.createState(weaponPlagued, Option(params.get("w")))
+  val shieldState = WeaponBuilder.createState(shieldPlagued, Option(params.get("s")))
+  val bowState = WeaponBuilder.createState(bowPlagued, Option(params.get("b")))
 
   val ring1State = RingBuilder.createState(Option(params.get("r1")))
   val ring2State = RingBuilder.createState(Option(params.get("r2")))
@@ -89,15 +89,15 @@ val _ = Stylesheet // Use import to prevent DCE
 
   val weaponStateVar = fullStateVar.zoomLazy(_.weaponState)((state, weaponState) => state.copy(weaponState = weaponState))
   weaponStateVar.update(state => Errors.errors(weaponPlagued, state))
-  val weaponComponent = ItemBuilder(weaponPlagued, weaponStateVar)
+  val weaponComponent = WeaponBuilder(weaponPlagued, weaponStateVar)
 
   val shieldStateVar = fullStateVar.zoomLazy(_.shieldState)((state, shieldState) => state.copy(shieldState = shieldState))
   shieldStateVar.update(state => Errors.errors(shieldPlagued, state))
-  val shieldComponent = ItemBuilder(shieldPlagued, shieldStateVar)
+  val shieldComponent = WeaponBuilder(shieldPlagued, shieldStateVar)
 
   val bowStateVar = fullStateVar.zoomLazy(_.bowState)((state, bowState) => state.copy(bowState = bowState))
   bowStateVar.update(state => Errors.errors(bowPlagued, state))
-  val bowComponent = ItemBuilder(bowPlagued, bowStateVar)
+  val bowComponent = WeaponBuilder(bowPlagued, bowStateVar)
 
   val ring1Var = fullStateVar.zoomLazy(_.ring1StateOption)((state, ring1State) => state.copy(ring1StateOption = ring1State))
   val ring1ShowModalVar = Var(false)

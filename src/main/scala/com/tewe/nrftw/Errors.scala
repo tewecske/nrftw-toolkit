@@ -7,6 +7,11 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
 object Errors {
+
+  def errors(config: WeaponBuilderConfig, weaponState: WeaponState): WeaponState = {
+    weaponState.copy(itemState = errors(config.itemConfig, weaponState.itemState))
+  }
+
   def errors(config: ItemBuilderConfig, itemState: ItemState): ItemState = {
     val groups = List(
       config.enchants(itemState.enchant1).group,

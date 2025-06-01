@@ -3,6 +3,32 @@ package com.tewe.nrftw
 import ItemSlot.*
 import EnchantGroup.*
 import scala.collection.mutable.LinkedHashMap
+import com.tewe.nrftw.WeaponType.*
+
+enum WeaponType(name: String) {
+  case Weapon extends WeaponType("Weapon")
+  case DualWield extends WeaponType("Dual Wield")
+  case DoubleDaggers extends WeaponType("Double Daggers")
+  case Gauntlets extends WeaponType("Gauntlets")
+  case OneHanded extends WeaponType("One Handed")
+  case Wand extends WeaponType("Wand")
+  case TwoHanded extends WeaponType("Two Handed")
+  case Staff extends WeaponType("Staff")
+
+  case Shield extends WeaponType("Shield")
+
+  case Bow extends WeaponType("Bow")
+}
+
+object WeaponType {
+  val weaponTypesSelect = List(DoubleDaggers, Gauntlets, OneHanded, TwoHanded, Wand, Staff)
+  val allWeapons = WeaponType.values.toList
+  val dualWieldWeapons = List(DoubleDaggers, Gauntlets)
+  val oneHandedWeapons = List(OneHanded, Wand)
+  val twoHandedWeapons = List(TwoHanded, Staff)
+  val shields = List(Shield)
+  val bows = List(Bow)
+}
 
 case class GemEffect(itemSlot: ItemSlot, value: String, extra: Boolean = false)
 case class Gem(id: String, value: String, imageSrc: String, gemEffects: List[GemEffect])
@@ -38,6 +64,11 @@ case class ItemBuilderConfig(
   gems: List[Gem],
   enchants: Map[String, Enchant],
   enchantDownsides: Map[String, Enchant],
+)
+
+case class WeaponBuilderConfig(
+  itemConfig: ItemBuilderConfig,
+  weaponTypes: List[WeaponType]
 )
 
 case class RingData(
@@ -496,12 +527,15 @@ val weaponEnchantDownsides = List(
   Enchant("down_asci", Downside, "Attack Stamina Cost increased by 20%-30%"),
   )
 
-val weaponPlagued = ItemBuilderConfig(
-  itemSlot = WeaponSlot,
-  itemRarity = ItemRarity.Plagued,
-  gems = gems,
-  enchants = weaponEnchants.map(enchant => (enchant.id, enchant)).toMap,
-  enchantDownsides = weaponEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
+val weaponPlagued = WeaponBuilderConfig(
+  itemConfig = ItemBuilderConfig(
+    itemSlot = WeaponSlot,
+    itemRarity = ItemRarity.Plagued,
+    gems = gems,
+    enchants = weaponEnchants.map(enchant => (enchant.id, enchant)).toMap,
+    enchantDownsides = weaponEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
+  ),
+  weaponTypes = allWeapons
 )
 
 val shieldEnchants = List(
@@ -535,12 +569,15 @@ val shieldEnchantDownsides = List(
   Enchant("down_lhc", Downside, "Lose Health in Combat periodically"),
   )
 
-val shieldPlagued = ItemBuilderConfig(
-  itemSlot = ShieldSlot,
-  itemRarity = ItemRarity.Plagued,
-  gems = gems,
-  enchants = shieldEnchants.map(enchant => (enchant.id, enchant)).toMap,
-  enchantDownsides = shieldEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
+val shieldPlagued = WeaponBuilderConfig(
+  itemConfig = ItemBuilderConfig(
+    itemSlot = ShieldSlot,
+    itemRarity = ItemRarity.Plagued,
+    gems = gems,
+    enchants = shieldEnchants.map(enchant => (enchant.id, enchant)).toMap,
+    enchantDownsides = shieldEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
+  ),
+  weaponTypes = shields
 )
 
 val bowEnchants = List(
@@ -574,12 +611,15 @@ val bowEnchantDownsides = List(
   Enchant("down_dsci", Downside, "Dodge Stamina Cost increased by 26%-40%"),
   )
 
-val bowPlagued = ItemBuilderConfig(
-  itemSlot = BowSlot,
-  itemRarity = ItemRarity.Plagued,
-  gems = gems,
-  enchants = bowEnchants.map(enchant => (enchant.id, enchant)).toMap,
-  enchantDownsides = bowEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
+val bowPlagued = WeaponBuilderConfig(
+  itemConfig = ItemBuilderConfig(
+    itemSlot = BowSlot,
+    itemRarity = ItemRarity.Plagued,
+    gems = gems,
+    enchants = bowEnchants.map(enchant => (enchant.id, enchant)).toMap,
+    enchantDownsides = bowEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
+  ),
+  weaponTypes = bows
 )
 
 val rings = List(
