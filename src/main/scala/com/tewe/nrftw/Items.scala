@@ -6,7 +6,7 @@ import scala.collection.mutable.LinkedHashMap
 import com.tewe.nrftw.WeaponType.*
 
 enum WeaponType(val id: String, val name: String) {
-  case Weapon extends WeaponType("w", "Weapon")
+  case AnyWeapon extends WeaponType("w", "Weapon")
   case DualWield extends WeaponType("dw", "Dual Wield")
   case DoubleDaggers extends WeaponType("dd", "Double Daggers")
   case Gauntlets extends WeaponType("g", "Gauntlets")
@@ -32,6 +32,38 @@ object WeaponType {
 
 case class GemEffect(itemSlot: ItemSlot, value: String, extra: Boolean = false)
 case class Gem(id: String, value: String, imageSrc: String, gemEffects: List[GemEffect])
+
+sealed trait RuneCost
+case class FocusCost(value: Int) extends RuneCost
+case class StaminaCost(value: Int) extends RuneCost
+case class HealthCost(value: Int) extends RuneCost
+
+case class Rune(id: String, value: String, imageSrc: String, cost: RuneCost, weaponTypes: Set[WeaponType])
+
+enum WeaponSource {
+  case Vendor, Drop, Crafted
+}
+enum Stat {
+  case Strength, Dexterity, Intelligence, Faith
+}
+sealed trait WeaponScale
+case class SingleScale(stat: Stat, minValue: Int)
+case class DoubleScale(stat1: Stat, minValue1: Int, stat2: Stat, minValue2: Int)
+
+case class Weapon(
+  id: String,
+  name: String,
+  weaponType: WeaponType,
+  desc: String,
+  source: WeaponSource,
+  scales: WeaponScale,
+  tier: String,
+  runes: List[Rune],
+  poise: Int,
+  staminaCost: Int,
+  focusGain: Int,
+  weight: Int
+)
 
 enum EnchantGroup {
   case Attack, Defense, Durability, Focus, Healing, Indestructible, Movement, Other, Resistance, Stamina, Weight, Downside
@@ -714,5 +746,10 @@ val rings = List(
     "Healing increased by 18%-X"
   ))
 )
+
+val runes = List(
+  Rune("u_af", "Advancing Flurry", imageSrc = "", FocusCost(100), Set(OneHanded)),
+)
+
 
 

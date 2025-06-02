@@ -4,6 +4,7 @@ import com.raquo.laminar.api.L.{*, given}
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
+import com.tewe.nrftw.WeaponType.allWeapons
 
 object WeaponBuilder {
 
@@ -18,6 +19,16 @@ object WeaponBuilder {
     } { stringState =>
       println(s"STATE: $stringState")
       stringState match {
+        case s"W$w-$itemStateString-R-$runeState" => 
+          val runesList = runeState.split("-").toSeq.flatMap(id => runes.find(_.id == id))
+          WeaponState(
+            itemState = ItemBuilder.createState(config.itemConfig, Option(itemStateString)),
+            weaponTypeId = w,
+            rune1Option = runesList.lift(0),
+            rune2Option = runesList.lift(1),
+            rune3Option = runesList.lift(2),
+            rune4Option = runesList.lift(3)
+          )
         case s"W$w-$itemStateString" => 
           WeaponState(
             itemState = ItemBuilder.createState(config.itemConfig, Option(itemStateString)),
@@ -36,9 +47,16 @@ object WeaponBuilder {
 
     val itemStateVar = stateVar.zoomLazy(_.itemState)((state, itemState) => state.copy(itemState = itemState))
     val weaponTypeIdVar = stateVar.zoomLazy(_.weaponTypeId)((state, weaponTypeId) => state.copy(weaponTypeId = weaponTypeId))
+    val weaponTypeSignal = weaponTypeIdVar.signal.map(weaponId => allWeapons.find(_.id == weaponId).head)
     val itemGemStateVar = stateVar.zoomLazy(_.itemState.gemOption)((state, gem) => state.copy(itemState = state.itemState.copy(gemOption = gem)))
     val itemGemShowModalVar = Var(false)
     val itemGemModal = Modal.gemsModal(config.itemConfig.itemSlot, itemGemShowModalVar, gems, gem => itemGemStateVar.update(_ => Option(gem)))
+
+    val rune1StateVar = stateVar.zoomLazy(_.rune1Option)((state, rune1Option) => state.copy(rune1Option = rune1Option))
+    val runesShowModalVar = Var(false)
+    val runesModalCallbackVar = Var((rune: Rune) => rune1StateVar.update(_ => Option(rune)))
+    val runesModal = Modal.runesModal(weaponTypeSignal, itemGemShowModalVar, runes, runesModalCallbackVar)
+
     val slot = config.itemConfig.itemSlot.name
       div(
         cls := "item-card",
@@ -62,6 +80,12 @@ object WeaponBuilder {
           )
         ),
 
+        // RunesBuilder
+        div(
+          onClick --> { _ =>
+            runesModalCallbackVar.set((rune: Rune) => rune1StateVar.update(_ => Option(rune)))
+          }
+        ),
         GemsBuilder(config.itemConfig, itemStateVar, itemGemShowModalVar),
         EnchantmentsBuilder.enchantmentsSelect(config.itemConfig, itemStateVar)
       )

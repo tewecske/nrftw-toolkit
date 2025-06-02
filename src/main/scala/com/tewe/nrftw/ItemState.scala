@@ -19,7 +19,11 @@ package com.tewe.nrftw
 
   case class WeaponState(
     itemState: ItemState,
-    weaponTypeId: String
+    weaponTypeId: String,
+    rune1Option: Option[Rune] = None,
+    rune2Option: Option[Rune] = None,
+    rune3Option: Option[Rune] = None,
+    rune4Option: Option[Rune] = None
   ) {
     def shortState(): String = {
       s"W$weaponTypeId-${itemState.shortState()}"

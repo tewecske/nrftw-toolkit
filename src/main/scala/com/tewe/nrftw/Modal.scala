@@ -59,6 +59,57 @@ object Modal {
     )
   }
 
+  def runesModal(
+      weaponTypeSignal: Signal[WeaponType],
+      showModalVar: Var[Boolean],
+      items: List[Rune],
+      onItemSelectedVar: Var[Rune => Unit]
+  ): Element = {
+    val isVisibleVar = Var(false)
+
+    showModalVar --> { value => 
+      println(s"Runes modal showSignal triggered: $value")
+    }
+
+    div(
+      cls("modal-overlay"),
+      cls("is-visible") <-- showModalVar.signal,
+      onClick.stopPropagation --> { ev =>
+        if (ev.target == ev.currentTarget) {
+          showModalVar.set(false)
+        }
+      },
+      div(
+        cls("modal-content"),
+        h3(cls("modal-title"), "Select a Gem"),
+        div(
+          cls("compact-gems-grid"),
+          compactComponent(
+            onClick --> { _ =>
+              onItemSelectedVar.now()(null)
+              showModalVar.set(false)
+            },
+            "/images/icon-cancel.svg",
+            div(
+              p(
+                cls("compact-gem-effect"),
+                "No Gem"
+              )
+            )
+          ),
+          // children <-- Val(items).map(
+          //   _.filter(_.weaponTypes.exists(_.id == weaponTypeIdVar.now())).map(gem =>
+          //     runeComponentCompact(weaponTypeIdVar, rune, selectedRune => {
+          //       onItemSelected(selectedRune)
+          //       showModalVar.set(false)
+          //     })
+          //   )
+          // )
+        )
+      )
+    )
+  }
+
   def apply(
       showModalVar: Var[Boolean],
       items: List[RingData],
