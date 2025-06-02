@@ -19,9 +19,9 @@ package com.tewe.nrftw
 
   case class WeaponState(
     itemState: ItemState,
-    weaponType: WeaponType
+    weaponTypeId: String
   ) {
     def shortState(): String = {
-      itemState.shortState() // TODO temporary
+      s"W$weaponTypeId-${itemState.shortState()}"
     }
   }

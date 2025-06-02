@@ -43,15 +43,21 @@
 
 .item-type-select {
   margin-top: 5px;
-}
-
-.item-type-select select {
-  background-color: transparent;
-  border: none;
   color: #aaa;
-  font-size: 16px;
-  padding: 5px 0;
-  width: 150px;
-  cursor: pointer;
-  outline: none;
+
+  select {
+    color: #aaa;
+    background-color: rgba(20, 20, 40, 0.6);
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 5px 0;
+    width: 150px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  option {
+    background-color: black;
+  }
 }

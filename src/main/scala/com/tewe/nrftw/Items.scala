@@ -5,19 +5,19 @@ import EnchantGroup.*
 import scala.collection.mutable.LinkedHashMap
 import com.tewe.nrftw.WeaponType.*
 
-enum WeaponType(name: String) {
-  case Weapon extends WeaponType("Weapon")
-  case DualWield extends WeaponType("Dual Wield")
-  case DoubleDaggers extends WeaponType("Double Daggers")
-  case Gauntlets extends WeaponType("Gauntlets")
-  case OneHanded extends WeaponType("One Handed")
-  case Wand extends WeaponType("Wand")
-  case TwoHanded extends WeaponType("Two Handed")
-  case Staff extends WeaponType("Staff")
+enum WeaponType(val id: String, val name: String) {
+  case Weapon extends WeaponType("w", "Weapon")
+  case DualWield extends WeaponType("dw", "Dual Wield")
+  case DoubleDaggers extends WeaponType("dd", "Double Daggers")
+  case Gauntlets extends WeaponType("g", "Gauntlets")
+  case OneHanded extends WeaponType("1h", "One Handed")
+  case Wand extends WeaponType("w", "Wand")
+  case TwoHanded extends WeaponType("2h", "Two Handed")
+  case Staff extends WeaponType("s", "Staff")
 
-  case Shield extends WeaponType("Shield")
+  case Shield extends WeaponType("sh", "Shield")
 
-  case Bow extends WeaponType("Bow")
+  case Bow extends WeaponType("b", "Bow")
 }
 
 object WeaponType {
@@ -535,7 +535,7 @@ val weaponPlagued = WeaponBuilderConfig(
     enchants = weaponEnchants.map(enchant => (enchant.id, enchant)).toMap,
     enchantDownsides = weaponEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
   ),
-  weaponTypes = allWeapons
+  weaponTypes = weaponTypesSelect
 )
 
 val shieldEnchants = List(
