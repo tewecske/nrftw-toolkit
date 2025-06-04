@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
             padding: 20px;
             color: #fff;
         }
+
         .item-card {
             max-width: 500px;
             margin: 0 auto;
@@ -21,16 +23,19 @@
             border: 1px solid #333;
             box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
         }
+
         .item-header {
             padding: 15px;
             position: relative;
         }
+
         .item-name {
             font-size: 24px;
             font-weight: bold;
             margin: 0;
             color: #e0e0e0;
         }
+
         .item-level {
             position: absolute;
             top: 10px;
@@ -47,12 +52,15 @@
             border: 2px solid #4a90e2;
             transform: rotate(45deg);
         }
+
         .item-level span {
             transform: rotate(-45deg);
         }
+
         .item-type-select {
             margin-top: 5px;
         }
+
         .item-type-select select {
             background-color: transparent;
             border: none;
@@ -63,16 +71,19 @@
             cursor: pointer;
             outline: none;
         }
+
         .stats-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             padding: 10px 15px;
         }
+
         .stat {
             display: flex;
             margin-bottom: 10px;
             align-items: center;
         }
+
         .stat-icon {
             width: 24px;
             height: 24px;
@@ -82,19 +93,23 @@
             justify-content: center;
             color: #aaa;
         }
+
         .stat-name {
             color: #aaa;
             font-size: 14px;
             margin-right: 8px;
         }
+
         .stat-value {
             font-size: 20px;
             color: white;
         }
+
         .section {
             padding: 15px;
             border-top: 1px solid #333;
         }
+
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -102,12 +117,15 @@
             margin-bottom: 10px;
             color: #aaa;
         }
+
         .section-title {
             font-size: 14px;
         }
+
         .section-count {
             font-size: 14px;
         }
+
         select {
             background-color: rgba(20, 20, 40, 0.6);
             color: white;
@@ -119,11 +137,13 @@
             cursor: pointer;
             outline: none;
         }
+
         .gem-item {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
+
         .gem-icon {
             width: 24px;
             height: 24px;
@@ -133,14 +153,17 @@
             justify-content: center;
             color: #66a3ff;
         }
+
         .gem-text {
             color: #66a3ff;
         }
+
         .enchant-item {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
+
         .enchant-icon {
             width: 24px;
             height: 24px;
@@ -149,44 +172,57 @@
             align-items: center;
             justify-content: center;
         }
+
         .damage-icon {
             color: #a48bf3;
         }
+
         .healing-icon {
             color: #a48bf3;
         }
+
         .indestructible-icon {
             color: #a48bf3;
         }
+
         .stamina-icon {
             color: #a48bf3;
         }
+
         .unrepairable-icon {
             color: #ff6b6b;
         }
+
         .damage-text {
             color: #a48bf3;
         }
+
         .healing-text {
             color: #a48bf3;
         }
+
         .indestructible-text {
             color: #a48bf3;
         }
+
         .stamina-text {
             color: #a48bf3;
         }
+
         .unrepairable-text {
             color: #ff6b6b;
         }
+
         .base-stat-icon {
             font-size: 20px;
         }
+
         .resistance-icon {
             font-size: 16px;
         }
     </style>
 </head>
+
 <body>
     <div class="item-card">
         <div class="item-header">
@@ -251,31 +287,31 @@
                 <div class="section-title">Enchantments</div>
                 <div class="section-count">5/5</div>
             </div>
-            
+
             <select>
                 <option selected>Damage Taken decreased by up to 7% based on Durability</option>
                 <option>Damage Taken decreased by up to 5% based on Durability</option>
                 <option>Damage Taken decreased by up to 9% based on Durability</option>
             </select>
-            
+
             <select>
                 <option selected>Healing increased by up to 13% based on Durability</option>
                 <option>Healing increased by up to 10% based on Durability</option>
                 <option>Healing increased by up to 15% based on Durability</option>
             </select>
-            
+
             <select>
                 <option selected>Indestructible</option>
                 <option>Reinforced Structure</option>
                 <option>Unbreakable</option>
             </select>
-            
+
             <select>
                 <option selected>Stamina Recovery increased by up to 20% based on Durability</option>
                 <option>Stamina Recovery increased by up to 15% based on Durability</option>
                 <option>Stamina Recovery increased by up to 25% based on Durability</option>
             </select>
-            
+
             <select>
                 <option selected>Unrepairable</option>
                 <option>Fragile</option>
@@ -284,4 +320,5 @@
         </div>
     </div>
 </body>
+
 </html>

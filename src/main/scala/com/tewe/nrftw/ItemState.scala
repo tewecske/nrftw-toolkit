@@ -26,6 +26,9 @@ package com.tewe.nrftw
     rune4Option: Option[Rune] = None
   ) {
     def shortState(): String = {
-      s"W$weaponTypeId-${itemState.shortState()}"
+      val runes = rune1Option ++ rune2Option ++ rune3Option ++ rune4Option
+      val runesString = runes.map(_.id).mkString("-")
+      val runesState = if (runesString.nonEmpty) s"-R-$runesString" else ""
+      s"W$weaponTypeId-${itemState.shortState()}${runesState}"
     }
   }

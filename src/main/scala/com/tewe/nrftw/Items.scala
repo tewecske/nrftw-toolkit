@@ -11,7 +11,7 @@ enum WeaponType(val id: String, val name: String) {
   case DoubleDaggers extends WeaponType("dd", "Double Daggers")
   case Gauntlets extends WeaponType("g", "Gauntlets")
   case OneHanded extends WeaponType("1h", "One Handed")
-  case Wand extends WeaponType("w", "Wand")
+  case Wand extends WeaponType("wd", "Wand")
   case TwoHanded extends WeaponType("2h", "Two Handed")
   case Staff extends WeaponType("s", "Staff")
 
@@ -21,13 +21,21 @@ enum WeaponType(val id: String, val name: String) {
 }
 
 object WeaponType {
-  val weaponTypesSelect = List(DoubleDaggers, Gauntlets, OneHanded, TwoHanded, Wand, Staff)
-  val allWeapons = WeaponType.values.toList
-  val dualWieldWeapons = List(DoubleDaggers, Gauntlets)
-  val oneHandedWeapons = List(OneHanded, Wand)
-  val twoHandedWeapons = List(TwoHanded, Staff)
-  val shields = List(Shield)
-  val bows = List(Bow)
+  val weaponTypesSelect = Set(DoubleDaggers, Gauntlets, OneHanded, TwoHanded, Wand, Staff)
+  val allWeapons = WeaponType.values.toSet
+
+  val shields = Set(Shield)
+
+  val bows = Set(Bow)
+
+  val oneHandedWeapons = Set(AnyWeapon, OneHanded)
+  val twoHandedWeapons = Set(AnyWeapon, TwoHanded)
+  val wandWeapons = Set(AnyWeapon, OneHanded, Wand)
+  val staffWeapons = Set(AnyWeapon, OneHanded, Staff)
+  val gauntletWeapons = Set(AnyWeapon, DualWield, Gauntlets)
+  val doubleDaggerWeapons = Set(AnyWeapon, DualWield, DoubleDaggers)
+  val bowWeapons = Set(AnyWeapon, Bow)
+
 }
 
 case class GemEffect(itemSlot: ItemSlot, value: String, extra: Boolean = false)
@@ -38,7 +46,7 @@ case class FocusCost(value: Int) extends RuneCost
 case class StaminaCost(value: Int) extends RuneCost
 case class HealthCost(value: Int) extends RuneCost
 
-case class Rune(id: String, value: String, imageSrc: String, cost: RuneCost, weaponTypes: Set[WeaponType])
+case class Rune(id: String, name: String, imageSrc: String, cost: RuneCost, weaponTypes: Set[WeaponType])
 
 enum WeaponSource {
   case Vendor, Drop, Crafted
@@ -100,7 +108,7 @@ case class ItemBuilderConfig(
 
 case class WeaponBuilderConfig(
   itemConfig: ItemBuilderConfig,
-  weaponTypes: List[WeaponType]
+  weaponTypes: Set[WeaponType]
 )
 
 case class RingData(
@@ -748,7 +756,219 @@ val rings = List(
 )
 
 val runes = List(
-  Rune("u_af", "Advancing Flurry", imageSrc = "", FocusCost(100), Set(OneHanded)),
+    Rune(id = "u_adfl", name = "Advancing Flurry", imageSrc = "/images/rune-advancingFlurry.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_aido", name = "Air Dodge", imageSrc = "/images/rune-airDodge.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_arma", name = "Armageddon", imageSrc = "/images/rune-armageddon.png", cost = FocusCost(150), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_ar", name = "Arrow", imageSrc = "/images/rune-arrow.png", cost = FocusCost(10), weaponTypes = WeaponType.bowWeapons),
+    Rune(id = "u_bash", name = "Balance Smash", imageSrc = "/images/rune-balanceSmash.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_bakn", name = "Bare Knuckle", imageSrc = "/images/rune-bareKnuckle.png", cost = FocusCost(100), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_befl", name = "Berserk Flurry", imageSrc = "/images/rune-berserkFlurry.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_besl", name = "Berserker Slam", imageSrc = "/images/rune-berserkerSlam.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_best", name = "Berserker Strike", imageSrc = "/images/rune-berserkerStrike.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_blru", name = "Blazing Rupture", imageSrc = "/images/rune-blazingRupture.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_bl", name = "Blink", imageSrc = "/images/rune-blink.png", cost = FocusCost(25), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_brth", name = "Breaker Thrust", imageSrc = "/images/rune-breakerThrust.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_br", name = "Breakrush", imageSrc = "/images/rune-breakrush.png", cost = FocusCost(133), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_brre", name = "Brutal Reprise", imageSrc = "/images/rune-brutalReprise.png", cost = FocusCost(50), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_buri", name = "Buster Rift", imageSrc = "/images/rune-busterRift.png", cost = FocusCost(125), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_chli", name = "Chain Lightning", imageSrc = "/images/rune-chainLightning.png", cost = FocusCost(50), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_ch", name = "Channel", imageSrc = "/images/rune-channel.png", cost = HealthCost(25), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_chst", name = "Charge Strike", imageSrc = "/images/rune-chargeStrike.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_chbo", name = "Charged Bolt", imageSrc = "/images/rune-chargedBolt.png", cost = FocusCost(50), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_ci", name = "Circular", imageSrc = "/images/rune-circular.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_coen", name = "Cold Enchantment", imageSrc = "/images/rune-coldEnchantment.png", cost = FocusCost(50), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_cosl", name = "Cold Sling", imageSrc = "/images/rune-coldSling.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_cosho", name = "Cone Shot", imageSrc = "/images/rune-coneShot.png", cost = FocusCost(100), weaponTypes = WeaponType.bowWeapons),
+    Rune(id = "u_cofl", name = "Converging Flame", imageSrc = "/images/rune-convergingFlame.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_cr", name = "Crush", imageSrc = "/images/rune-crush.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_crdash", name = "Crushing Dash", imageSrc = "/images/rune-crushingDash.png", cost = FocusCost(0), weaponTypes = Set.empty[WeaponType]),
+    Rune(id = "u_crdo", name = "Crushing Dodge", imageSrc = "/images/rune-crushingDodge.png", cost = FocusCost(0), weaponTypes = Set.empty[WeaponType]),
+    Rune(id = "u_crfl", name = "Crushing Flurry", imageSrc = "/images/rune-crushingFlurry.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_crqu", name = "Crushing Quad", imageSrc = "/images/rune-crushingQuad.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_crsl", name = "Crushing Slam", imageSrc = "/images/rune-crushingSlam.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_crtri", name = "Crushing Triple", imageSrc = "/images/rune-crushingTriple.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_crupp", name = "Crushing Uppercut", imageSrc = "/images/rune-crushingUppercut.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_cyki", name = "Cyclone Kick", imageSrc = "/images/rune-cycloneKick.png", cost = FocusCost(50), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_cysw", name = "Cyclone Swipe", imageSrc = "/images/rune-cycloneSwipe.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_dasu", name = "Damage Surge", imageSrc = "/images/rune-damageSurge.png", cost = FocusCost(100), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_dast", name = "Dashing Stab", imageSrc = "/images/rune-dashingStab.png", cost = FocusCost(100), weaponTypes = WeaponType.doubleDaggerWeapons),
+    Rune(id = "u_dibr", name = "Dive Break", imageSrc = "/images/rune-diveBreak.png", cost = FocusCost(50), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_dosl", name = "Dodge Slamdown", imageSrc = "/images/rune-dodgeSlamdown.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_docru", name = "Double Crush", imageSrc = "/images/rune-doubleCrush.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_dosp", name = "Double Spin", imageSrc = "/images/rune-doubleSpin.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_dota", name = "Double Take", imageSrc = "/images/rune-doubleTake.png", cost = FocusCost(0), weaponTypes = WeaponType.doubleDaggerWeapons),
+    Rune(id = "u_drki", name = "Dragonfly Kick", imageSrc = "/images/rune-dragonflyKick.png", cost = FocusCost(50), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_drtra", name = "Drone Trap", imageSrc = "/images/rune-droneTrap.png", cost = FocusCost(50), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_dr", name = "Dropkick", imageSrc = "/images/rune-dropkick.png", cost = StaminaCost(44), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_dubre", name = "Dual Breaker", imageSrc = "/images/rune-dualBreaker.png", cost = FocusCost(100), weaponTypes = WeaponType.doubleDaggerWeapons),
+    Rune(id = "u_dufl", name = "Dual Flurry", imageSrc = "/images/rune-dualFlurry.png", cost = FocusCost(50), weaponTypes = WeaponType.doubleDaggerWeapons),
+    Rune(id = "u_dusa", name = "Dual Slash", imageSrc = "/images/rune-dualSlash.png", cost = FocusCost(100), weaponTypes = WeaponType.doubleDaggerWeapons),
+    Rune(id = "u_elen", name = "Electric Enchantment", imageSrc = "/images/rune-electricEnchantment.png", cost = FocusCost(50), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_elre", name = "Electric Resistance", imageSrc = "/images/rune-electricResistance.png", cost = FocusCost(0), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_er", name = "Eruption", imageSrc = "/images/rune-eruption.png", cost = FocusCost(150), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_evco", name = "Evasive Combo", imageSrc = "/images/rune-evasiveCombo.png", cost = FocusCost(0), weaponTypes = Set.empty[WeaponType]),
+    Rune(id = "u_evpi", name = "Evasive Pierce", imageSrc = "/images/rune-evasivePierce.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_evsho", name = "Evasive Shot", imageSrc = "/images/rune-evasiveShot.png", cost = FocusCost(50), weaponTypes = WeaponType.bowWeapons),
+    Rune(id = "u_evst", name = "Evasive Strike", imageSrc = "/images/rune-evasiveStrike.png", cost = FocusCost(50), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_evsw", name = "Evasive Swing", imageSrc = "/images/rune-evasiveSwing.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_fcds", name = "Fierce Dash", imageSrc = "/images/rune-fierceDash.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_fiar", name = "Fire Arrow", imageSrc = "/images/rune-fireArrow.png", cost = FocusCost(20), weaponTypes = WeaponType.bowWeapons),
+    Rune(id = "u_fibl", name = "Fire Blast", imageSrc = "/images/rune-fireBlast.png", cost = FocusCost(50), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_fibu", name = "Fire Burst", imageSrc = "/images/rune-fireBurst.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_fidr", name = "Fire Dart", imageSrc = "/images/rune-fireDart.png", cost = FocusCost(50), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_fida", name = "Fire Dash", imageSrc = "/images/rune-fireDash.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_fifl", name = "Fire Flurry", imageSrc = "/images/rune-fireFlurry.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_fino", name = "Fire Nova", imageSrc = "/images/rune-fireNova.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_fisl", name = "Fire Slam", imageSrc = "/images/rune-fireSlam.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_fisw", name = "Fire Swipe", imageSrc = "/images/rune-fireSwipe.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_fith", name = "Fire Throw", imageSrc = "/images/rune-fireThrow.png", cost = FocusCost(50), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_fiwa", name = "Fire Wall", imageSrc = "/images/rune-fireWall.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_fiwk", name = "Fire Walk", imageSrc = "/images/rune-fireWalk.png", cost = FocusCost(150), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_fiwv", name = "Fire Wave", imageSrc = "/images/rune-fireWave.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_fiwh", name = "Fire Whirl", imageSrc = "/images/rune-fireWhirl.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_fiww", name = "Fire Whirlwind", imageSrc = "/images/rune-fireWhirlwind.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_fi", name = "Fireball", imageSrc = "/images/rune-fireball.png", cost = FocusCost(50), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_flsw", name = "Flame Sweep", imageSrc = "/images/rune-flameSweep.png", cost = FocusCost(50), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_foha", name = "Focus Halo", imageSrc = "/images/rune-focusHalo.png", cost = FocusCost(100), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_frcl", name = "Frenzied Cleave", imageSrc = "/images/rune-frenziedCleave.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_frar", name = "Frigid Arc", imageSrc = "/images/rune-frigidArc.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_frki", name = "Frontflip Kick", imageSrc = "/images/rune-frontflipKick.png", cost = StaminaCost(42), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_frda", name = "Frost Dash", imageSrc = "/images/rune-frostDash.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_frne", name = "Frost Needles", imageSrc = "/images/rune-frostNeedles.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_frno", name = "Frost Nova", imageSrc = "/images/rune-frostNova.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_frst", name = "Frost Step", imageSrc = "/images/rune-frostStep.png", cost = FocusCost(50), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_frss", name = "Frost Stream", imageSrc = "/images/rune-frostStream.png", cost = FocusCost(25), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_frsk", name = "Frost Strike", imageSrc = "/images/rune-frostStrike.png", cost = FocusCost(50), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_glsp", name = "Glacial Spike", imageSrc = "/images/rune-glacialSpike.png", cost = FocusCost(150), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_grsl", name = "Ground Slam", imageSrc = "/images/rune-groundSlam.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_gysl", name = "Gyro Slash", imageSrc = "/images/rune-gyroSlash.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_ha", name = "Hail", imageSrc = "/images/rune-hail.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_heau", name = "Heal Aura", imageSrc = "/images/rune-healAura.png", cost = FocusCost(25), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_heaf", name = "Heat Affliction", imageSrc = "/images/rune-heatAffliction.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_heen", name = "Heat Enchantment", imageSrc = "/images/rune-heatEnchantment.png", cost = FocusCost(50), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_he", name = "Hellfire", imageSrc = "/images/rune-hellfire.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_hofro", name = "Homing Frost", imageSrc = "/images/rune-homingFrost.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_icar", name = "Ice Arrow", imageSrc = "/images/rune-iceArrow.png", cost = FocusCost(20), weaponTypes = WeaponType.bowWeapons),
+    Rune(id = "u_ic", name = "Icebolt", imageSrc = "/images/rune-icebolt.png", cost = FocusCost(50), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_icda", name = "Ice Dart", imageSrc = "/images/rune-iceDart.png", cost = FocusCost(50), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_icra", name = "Ice Ram", imageSrc = "/images/rune-iceRam.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_icsw", name = "Ice Sweep", imageSrc = "/images/rune-iceSweep.png", cost = FocusCost(25), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_icth", name = "Ice Throw", imageSrc = "/images/rune-iceThrow.png", cost = FocusCost(50), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_icwh", name = "Ice Whirl", imageSrc = "/images/rune-iceWhirl.png", cost = FocusCost(150), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_il", name = "Illuminate", imageSrc = "/images/rune-illuminate.png", cost = FocusCost(25), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_in", name = "Inferno", imageSrc = "/images/rune-inferno.png", cost = FocusCost(25), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_just", name = "Juggle Strike", imageSrc = "/images/rune-juggleStrike.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_jucu", name = "Jump Cut", imageSrc = "/images/rune-jumpCut.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_kisl", name = "Kick Slash", imageSrc = "/images/rune-kickSlash.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_knsw", name = "Knockdown Swirl", imageSrc = "/images/rune-knockdownSwirl.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_knsho", name = "Knockout Shot", imageSrc = "/images/rune-knockoutShot.png", cost = FocusCost(100), weaponTypes = WeaponType.bowWeapons),
+    Rune(id = "u_le", name = "Leap", imageSrc = "/images/rune-leap.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_liar", name = "Lightning Arrow", imageSrc = "/images/rune-lightningArrow.png", cost = FocusCost(20), weaponTypes = WeaponType.bowWeapons),
+    Rune(id = "u_lias", name = "Lightning Assault", imageSrc = "/images/rune-lightningAssault.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_liba", name = "Lightning Barrage", imageSrc = "/images/rune-lightningBarrage.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_libl", name = "Lightning Blast", imageSrc = "/images/rune-lightningBlast.png", cost = FocusCost(50), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_libo", name = "Lightning Bolt", imageSrc = "/images/rune-lightningBolt.png", cost = FocusCost(150), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_licl", name = "Lightning Claw", imageSrc = "/images/rune-lightningClaw.png", cost = FocusCost(50), weaponTypes = WeaponType.doubleDaggerWeapons),
+    Rune(id = "u_lida", name = "Lightning Dart", imageSrc = "/images/rune-lightningDart.png", cost = FocusCost(50), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_lids", name = "Lightning Dash", imageSrc = "/images/rune-lightningDash.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_lifl", name = "Lightning Flash", imageSrc = "/images/rune-lightningFlash.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_lifr", name = "Lightning Flurry", imageSrc = "/images/rune-lightningFlurry.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_lile", name = "Lightning Leap", imageSrc = "/images/rune-lightningLeap.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_lisl", name = "Lightning Slam", imageSrc = "/images/rune-lightningSlam.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_lisp", name = "Lightning Spin", imageSrc = "/images/rune-lightningSpin.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_list", name = "Lightning Storm", imageSrc = "/images/rune-lightningStorm.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_lisw", name = "Lightning Sweep", imageSrc = "/images/rune-lightningSweep.png", cost = FocusCost(25), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_lith", name = "Lightning Throw", imageSrc = "/images/rune-lightningThrow.png", cost = FocusCost(50), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_liwh", name = "Lightning Whirl", imageSrc = "/images/rune-lightningWhirl.png", cost = FocusCost(150), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_libr", name = "Limit Break", imageSrc = "/images/rune-limitBreak.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_mush", name = "Multi Shot", imageSrc = "/images/rune-multiShot.png", cost = FocusCost(100), weaponTypes = WeaponType.bowWeapons),
+    Rune(id = "u_musp", name = "Multi Spin", imageSrc = "/images/rune-multiSpin.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_ov", name = "Overrun", imageSrc = "/images/rune-overrun.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_pe", name = "Pestilence", imageSrc = "/images/rune-pestilence.png", cost = FocusCost(150), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_pere", name = "Pestilent Recoil", imageSrc = "/images/rune-pestilentRecoil.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_pida", name = "Piercing Dash", imageSrc = "/images/rune-piercingDash.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_pido", name = "Piercing Dodge", imageSrc = "/images/rune-piercingDodge.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_pifl", name = "Piercing Flurry", imageSrc = "/images/rune-piercingFlurry.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_pisp", name = "Piercing Spin", imageSrc = "/images/rune-piercingSpin.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_plar", name = "Plague Arrow", imageSrc = "/images/rune-plagueArrow.png", cost = FocusCost(20), weaponTypes = WeaponType.bowWeapons),
+    Rune(id = "u_plba", name = "Plague Barrage", imageSrc = "/images/rune-plagueBarrage.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_plbr", name = "Plague Breath", imageSrc = "/images/rune-plagueBreath.png", cost = FocusCost(50), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_plbu", name = "Plague Burst", imageSrc = "/images/rune-plagueBurst.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_plco", name = "Plague Column", imageSrc = "/images/rune-plagueColumn.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_plcr", name = "Plague Crush", imageSrc = "/images/rune-plagueCrush.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_plda", name = "Plague Dart", imageSrc = "/images/rune-plagueDart.png", cost = FocusCost(50), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_plds", name = "Plague Dash", imageSrc = "/images/rune-plagueDash.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_plen", name = "Plague Enchantment", imageSrc = "/images/rune-plagueEnchantment.png", cost = FocusCost(50), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_plex", name = "Plague Explostion", imageSrc = "/images/rune-plagueExplostion.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_plla", name = "Plague Launch", imageSrc = "/images/rune-plagueLaunch.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_plno", name = "Plague Nova", imageSrc = "/images/rune-plagueNova.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_plre", name = "Plague Retch", imageSrc = "/images/rune-plagueRetch.png", cost = FocusCost(50), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_plsr", name = "Plague Smatter", imageSrc = "/images/rune-plagueSmatter.png", cost = FocusCost(150), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_plsm", name = "Plague Smite", imageSrc = "/images/rune-plagueSmite.png", cost = FocusCost(50), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_plsp", name = "Plague Splatter", imageSrc = "/images/rune-plagueSplatter.png", cost = FocusCost(150), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_plst", name = "Plague Strike", imageSrc = "/images/rune-plagueStrike.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_plsw", name = "Plague Sweep", imageSrc = "/images/rune-plagueSweep.png", cost = FocusCost(25), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_plsl", name = "Plague Swirl", imageSrc = "/images/rune-plagueSwirl.png", cost = FocusCost(50), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_plth", name = "Plague Throw", imageSrc = "/images/rune-plagueThrow.png", cost = FocusCost(50), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_plwa", name = "Plague Wave", imageSrc = "/images/rune-plagueWave.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_plwh", name = "Plague Whirl", imageSrc = "/images/rune-plagueWhirl.png", cost = FocusCost(150), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_posh", name = "Poise Shield", imageSrc = "/images/rune-poiseShield.png", cost = FocusCost(100), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_po", name = "Pole Flurry", imageSrc = "/images/rune-poleFlurry.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_puhe", name = "Pulse of Health", imageSrc = "/images/rune-pulseOfHealth.png", cost = FocusCost(10), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_raspi", name = "Raging Spiral", imageSrc = "/images/rune-ragingSpiral.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_reap", name = "Reap", imageSrc = "/images/rune-reap.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_rest", name = "Recoil Strike", imageSrc = "/images/rune-recoilStrike.png", cost = FocusCost(50), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_regu", name = "Regurgitate", imageSrc = "/images/rune-regurgitate.png", cost = FocusCost(100), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_recl", name = "Relentless Cleave", imageSrc = "/images/rune-relentlessCleave.png", cost = FocusCost(138), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_repa", name = "Repair", imageSrc = "/images/rune-repair.png", cost = FocusCost(50), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_retu", name = "Return", imageSrc = "/images/rune-return.png", cost = FocusCost(50), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_rita", name = "Rip and Tear", imageSrc = "/images/rune-ripAndTear.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_rifa", name = "Rising Fang", imageSrc = "/images/rune-risingFang.png", cost = FocusCost(50), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_ro", name = "Rotwheel", imageSrc = "/images/rune-rotwheel.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_sc", name = "Scream", imageSrc = "/images/rune-scream.png", cost = FocusCost(50), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_secr", name = "Seismic Crush", imageSrc = "/images/rune-seismicCrush.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_shno", name = "Shock Nova", imageSrc = "/images/rune-shockNova.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_shst", name = "Shock Strike", imageSrc = "/images/rune-shockStrike.png", cost = FocusCost(50), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_sk", name = "Skyfall Smash", imageSrc = "/images/rune-skyfallSmash.png", cost = FocusCost(125), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_sn", name = "Slamdown", imageSrc = "/images/rune-slamdown.png", cost = FocusCost(50), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_sldh", name = "Slashing Dash", imageSrc = "/images/rune-slashingDash.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_slde", name = "Slashing Dodge", imageSrc = "/images/rune-slashingDodge.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_slfl", name = "Slashing Flurry", imageSrc = "/images/rune-slashingFlurry.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_slpi", name = "Slashing Pirouette", imageSrc = "/images/rune-slashingPirouette.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_slsp", name = "Slashing Spin", imageSrc = "/images/rune-slashingSpin.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_sp", name = "Spark", imageSrc = "/images/rune-spark.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_spin", name = "Spin", imageSrc = "/images/rune-spin.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_spcu", name = "Spin Crush", imageSrc = "/images/rune-spinCrush.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_spst", name = "Spin Strike", imageSrc = "/images/rune-spinStrike.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_spcr", name = "Spiral Crash", imageSrc = "/images/rune-spiralCrash.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_spbu", name = "Spirit Burst", imageSrc = "/images/rune-spiritBurst.png", cost = FocusCost(50), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_stwa", name = "Stamina Wellspring", imageSrc = "/images/rune-staminaWellspring.png", cost = FocusCost(100), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_stat", name = "Static", imageSrc = "/images/rune-static.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_stor", name = "Stormpiercer", imageSrc = "/images/rune-stormpiercer.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_sush", name = "Surge Slash", imageSrc = "/images/rune-surgeSlash.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_swki", name = "Swipe Kick", imageSrc = "/images/rune-swipeKick.png", cost = StaminaCost(40), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_tast", name = "Taunt Strike", imageSrc = "/images/rune-tauntStrike.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_teki", name = "Tempest Kick", imageSrc = "/images/rune-tempestKick.png", cost = FocusCost(50), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_th", name = "Thorns", imageSrc = "/images/rune-thorns.png", cost = FocusCost(50), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_thrw", name = "Throw", imageSrc = "/images/rune-throw.png", cost = FocusCost(50), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_thax", name = "Throw Axe", imageSrc = "/images/rune-throwAxe.png", cost = FocusCost(20), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_thkn", name = "Throw Knife", imageSrc = "/images/rune-throwKnife.png", cost = FocusCost(25), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_thru", name = "Thrust", imageSrc = "/images/rune-thrust.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_thst", name = "Thunderstrike", imageSrc = "/images/rune-thunderstrike.png", cost = FocusCost(150), weaponTypes = WeaponType.staffWeapons),
+    Rune(id = "u_tosp", name = "Tornado Spin", imageSrc = "/images/rune-tornadoSpin.png", cost = FocusCost(100), weaponTypes = WeaponType.doubleDaggerWeapons),
+    Rune(id = "u_tost", name = "Tornado Strike", imageSrc = "/images/rune-tornadoStrike.png", cost = FocusCost(50), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_trsl", name = "Tremor Slam", imageSrc = "/images/rune-tremorSlam.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_trwa", name = "Tremor Wave", imageSrc = "/images/rune-tremorWave.png", cost = FocusCost(50), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_trba", name = "Trinity Barrage", imageSrc = "/images/rune-trinityBarrage.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_trsw", name = "Triple Swipe", imageSrc = "/images/rune-tripleSwipe.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_tuki", name = "Turnback Kick", imageSrc = "/images/rune-turnbackKick.png", cost = StaminaCost(30), weaponTypes = WeaponType.allWeapons),
+    Rune(id = "u_twda", name = "Twirl Dash", imageSrc = "/images/rune-twirlDash.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_twsp", name = "Twirl Spin", imageSrc = "/images/rune-twirlSpin.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_wa", name = "Wallbreaker", imageSrc = "/images/rune-wallbreaker.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_wh", name = "Whirl", imageSrc = "/images/rune-whirl.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_whst", name = "Whirlstep Strike", imageSrc = "/images/rune-whirlstepStrike.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
+    Rune(id = "u_ww", name = "Whirlwind", imageSrc = "/images/rune-whirlwind.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
+    Rune(id = "u_wiru", name = "Wild Rush", imageSrc = "/images/rune-wildRush.png", cost = FocusCost(100), weaponTypes = WeaponType.doubleDaggerWeapons)
 )
 
 

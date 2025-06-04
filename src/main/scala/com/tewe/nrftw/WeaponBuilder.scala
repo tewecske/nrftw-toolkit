@@ -47,27 +47,32 @@ object WeaponBuilder {
 
     val itemStateVar = stateVar.zoomLazy(_.itemState)((state, itemState) => state.copy(itemState = itemState))
     val weaponTypeIdVar = stateVar.zoomLazy(_.weaponTypeId)((state, weaponTypeId) => state.copy(weaponTypeId = weaponTypeId))
+    // TODO try to remove
     val weaponTypeSignal = weaponTypeIdVar.signal.map(weaponId => allWeapons.find(_.id == weaponId).head)
     val itemGemStateVar = stateVar.zoomLazy(_.itemState.gemOption)((state, gem) => state.copy(itemState = state.itemState.copy(gemOption = gem)))
     val itemGemShowModalVar = Var(false)
     val itemGemModal = Modal.gemsModal(config.itemConfig.itemSlot, itemGemShowModalVar, gems, gem => itemGemStateVar.update(_ => Option(gem)))
 
     val rune1StateVar = stateVar.zoomLazy(_.rune1Option)((state, rune1Option) => state.copy(rune1Option = rune1Option))
+    val rune2StateVar = stateVar.zoomLazy(_.rune2Option)((state, rune2Option) => state.copy(rune2Option = rune2Option))
+    val rune3StateVar = stateVar.zoomLazy(_.rune3Option)((state, rune3Option) => state.copy(rune3Option = rune3Option))
+    val rune4StateVar = stateVar.zoomLazy(_.rune4Option)((state, rune4Option) => state.copy(rune4Option = rune4Option))
     val runesShowModalVar = Var(false)
     val runesModalCallbackVar = Var((rune: Rune) => rune1StateVar.update(_ => Option(rune)))
-    val runesModal = Modal.runesModal(weaponTypeSignal, itemGemShowModalVar, runes, runesModalCallbackVar)
+    val runesModal = Modal.runesModal(weaponTypeIdVar, runesShowModalVar, runes, runesModalCallbackVar)
 
     val slot = config.itemConfig.itemSlot.name
       div(
         cls := "item-card",
         itemGemModal,
+        runesModal,
         div(
           cls := "item-header",
           h1(cls := "item-name", slot),
           div(cls := "item-level", span("16")),
           div(
             cls := "item-type-select",
-            config.weaponTypes match {
+            config.weaponTypes.toList match {
               case head :: Nil => div(head.name)
               case weapons =>
                 select(
@@ -80,12 +85,19 @@ object WeaponBuilder {
           )
         ),
 
-        // RunesBuilder
-        div(
-          onClick --> { _ =>
-            runesModalCallbackVar.set((rune: Rune) => rune1StateVar.update(_ => Option(rune)))
-          }
-        ),
+      child <-- weaponTypeSignal.map(weaponType =>
+          println(s"weaponType: $weaponType")
+          if (weaponType == WeaponType.Shield) {
+            div()
+          } else {
+            div(
+              cls := "runes-container",
+              RunesBuilder(config, rune1StateVar, runesShowModalVar, runesModalCallbackVar, (rune: Rune) => rune1StateVar.update(_ => Option(rune))),
+              RunesBuilder(config, rune2StateVar, runesShowModalVar, runesModalCallbackVar, (rune: Rune) => rune2StateVar.update(_ => Option(rune))),
+              RunesBuilder(config, rune3StateVar, runesShowModalVar, runesModalCallbackVar, (rune: Rune) => rune3StateVar.update(_ => Option(rune))),
+              RunesBuilder(config, rune4StateVar, runesShowModalVar, runesModalCallbackVar, (rune: Rune) => rune4StateVar.update(_ => Option(rune))),
+            )
+          }),
         GemsBuilder(config.itemConfig, itemStateVar, itemGemShowModalVar),
         EnchantmentsBuilder.enchantmentsSelect(config.itemConfig, itemStateVar)
       )

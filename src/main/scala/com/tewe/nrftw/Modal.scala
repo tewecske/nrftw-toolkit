@@ -5,7 +5,8 @@ import org.scalajs.dom
 import com.tewe.nrftw.RingData
 import com.tewe.nrftw.RingBuilder.ringComponentCompact
 import com.tewe.nrftw.GemsBuilder.gemComponentCompact
-import com.tewe.nrftw.GemsBuilder.compactComponent
+import com.tewe.nrftw.CompactComponent.compactComponent
+import com.tewe.nrftw.RunesBuilder.runeComponentCompact
 
 object Modal {
   def gemsModal(
@@ -34,6 +35,7 @@ object Modal {
         div(
           cls("compact-gems-grid"),
           compactComponent(
+            "rune",
             onClick --> { _ =>
               onItemSelected(null)
               showModalVar.set(false)
@@ -60,16 +62,13 @@ object Modal {
   }
 
   def runesModal(
-      weaponTypeSignal: Signal[WeaponType],
+      weaponTypeIdVar: Var[String],
       showModalVar: Var[Boolean],
       items: List[Rune],
       onItemSelectedVar: Var[Rune => Unit]
+      // onItemSelected: Rune => Unit
   ): Element = {
     val isVisibleVar = Var(false)
-
-    showModalVar --> { value => 
-      println(s"Runes modal showSignal triggered: $value")
-    }
 
     div(
       cls("modal-overlay"),
@@ -81,10 +80,11 @@ object Modal {
       },
       div(
         cls("modal-content"),
-        h3(cls("modal-title"), "Select a Gem"),
+        h3(cls("modal-title"), "Select a Rune"),
         div(
-          cls("compact-gems-grid"),
+          cls("compact-runes-grid"),
           compactComponent(
+            "rune",
             onClick --> { _ =>
               onItemSelectedVar.now()(null)
               showModalVar.set(false)
@@ -92,19 +92,19 @@ object Modal {
             "/images/icon-cancel.svg",
             div(
               p(
-                cls("compact-gem-effect"),
-                "No Gem"
+                cls("compact-rune-name"),
+                "No Rune"
               )
             )
           ),
-          // children <-- Val(items).map(
-          //   _.filter(_.weaponTypes.exists(_.id == weaponTypeIdVar.now())).map(gem =>
-          //     runeComponentCompact(weaponTypeIdVar, rune, selectedRune => {
-          //       onItemSelected(selectedRune)
-          //       showModalVar.set(false)
-          //     })
-          //   )
-          // )
+          children <-- Val(items).map(
+            _.filter(_.weaponTypes.exists(_.id == weaponTypeIdVar.now())).map(rune =>
+              runeComponentCompact(rune, selectedRune => {
+                onItemSelectedVar.now()(selectedRune)
+                showModalVar.set(false)
+              })
+            )
+          )
         )
       )
     )

@@ -5,6 +5,8 @@ import com.raquo.laminar.api.L.{*, given}
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
+import com.tewe.nrftw.CompactComponent.compactComponent
+
 object GemsBuilder {
 
   @JSImport("@find/**/GemsBuilder.css", JSImport.Namespace)
@@ -49,30 +51,13 @@ object GemsBuilder {
     )
   }
 
-  def compactComponent(onClick: Mod[Div], imageSrc: String, mods: Mod[Div]*) = {
-    div(
-      cls("gem-container-compact"),
-      onClick,
-      div(
-        cls("compact-gem-item"),
-        img(
-          cls("compact-gem-icon"),
-          src(imageSrc),
-        ),
-        div(
-          cls("compact-gem-text"),
-          mods
-        )
-      ),
-    )
-  }
-
   def gemComponentCompact(
       itemSlot: ItemSlot,
       gem: Gem,
       onSelect: Gem => Unit
   ): Element = {
     compactComponent(
+      "gem",
       onClick --> { _ => onSelect(gem) },
       gem.imageSrc,
       gem.gemEffects.find(_.itemSlot == itemSlot).map(gemEffect =>

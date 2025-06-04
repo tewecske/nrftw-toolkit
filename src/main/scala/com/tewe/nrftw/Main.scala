@@ -15,6 +15,7 @@ val _ = Stylesheet // Use import to prevent DCE
 
   if (rings.size != rings.map(_.id).toSet.size) throw IllegalStateException("Rings have conflicting ids" + rings.groupBy(_.id).filter((k, v) => v.size > 1).keySet)
   if (gems.size != gems.map(_.id).toSet.size) throw IllegalStateException("Gems have conflicting ids" + gems.groupBy(_.id).filter((k, v) => v.size > 1).keySet)
+  if (runes.size != runes.map(_.id).toSet.size) throw IllegalStateException("Runes have conflicting ids" + runes.groupBy(_.id).filter((k, v) => v.size > 1).keySet)
 
   case class FullState(
     helmetState: ItemState,

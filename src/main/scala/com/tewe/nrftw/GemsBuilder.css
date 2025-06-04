@@ -3,6 +3,7 @@
   border-top: 1px solid #333;
 
   .gem-item {
+    height: 24px;
     position: relative;
     display: flex;
     align-items: center;
@@ -12,25 +13,25 @@
     border-radius: 4px;
     cursor: pointer;
     outline: none;
-  }
 
-  .gem-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    object-fit: cover;
-  }
+    .gem-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      object-fit: cover;
+    }
 
-  .gem-text {
-    font-size: 1em;
-    margin: 0;
-    display: inline-block;
-    vertical-align: middle;
-    flex-grow: 1;
+    .gem-text {
+      font-size: 0.85em;
+      margin: 0;
+      display: inline-block;
+      vertical-align: middle;
+      flex-grow: 1;
+    }
   }
 }
 
