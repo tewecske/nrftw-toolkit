@@ -23,7 +23,11 @@ package com.tewe.nrftw
     rune1Option: Option[Rune] = None,
     rune2Option: Option[Rune] = None,
     rune3Option: Option[Rune] = None,
-    rune4Option: Option[Rune] = None
+    rune4Option: Option[Rune] = None,
+    rune1Error: Boolean = false,
+    rune2Error: Boolean = false,
+    rune3Error: Boolean = false,
+    rune4Error: Boolean = false,
   ) {
     def shortState(): String = {
       val runes = rune1Option ++ rune2Option ++ rune3Option ++ rune4Option

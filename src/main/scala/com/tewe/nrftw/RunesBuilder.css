@@ -1,0 +1,113 @@
+.runes-container {
+  border-top: 1px solid #333;
+  display: grid;
+  /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  justify-content: center;
+
+
+  .rune-container {
+    padding: 3px 15px;
+
+    .rune-item {
+      height: 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      background-color: rgba(20, 20, 40, 0.6);
+      border: 1px solid #444;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+
+      .rune-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        object-fit: cover;
+      }
+
+      .rune-text {
+        font-size: 0.85em;
+        margin: 0;
+        display: inline-block;
+        vertical-align: middle;
+        flex-grow: 1;
+      }
+    }
+  }
+}
+
+.compact-runes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.rune-container-compact:hover {
+  transform: translateY(-3px);
+  border-color: #7aff7a;
+}
+
+.rune-container-compact {
+  background-color: rgba(10, 10, 25, 0.9);
+  border: 1px solid #333;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+
+  .compact-rune-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    background-color: rgba(20, 20, 40, 0.6);
+    border: 1px solid #444;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    height: 60px;
+
+    /* padding: 0; */
+    /* margin-bottom: 10px; */
+  }
+
+  .compact-rune-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    object-fit: cover;
+  }
+
+  .compact-rune-text {
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+    color: white;
+    flex-grow: 1;
+  }
+
+  .compact-rune-item-slot {
+    font-size: 1em;
+    margin: 0;
+  }
+
+  .compact-rune-effect {
+    font-size: 1em;
+    margin: 0;
+  }
+
+}

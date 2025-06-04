@@ -11,37 +11,41 @@ import org.scalajs.dom.URLSearchParams
 @js.native private object Stylesheet extends js.Object
 
 val _ = Stylesheet // Use import to prevent DCE
+
+case class FullState(
+  helmetState: ItemState,
+  armorState: ItemState,
+  pantsState: ItemState,
+  glovesState: ItemState,
+  weaponState: WeaponState,
+  shieldState: WeaponState,
+  bowState: WeaponState,
+  ring1StateOption: Option[RingData],
+  ring2StateOption: Option[RingData],
+  ring3StateOption: Option[RingData],
+  ring1Error: Boolean = false,
+  ring2Error: Boolean = false,
+  ring3Error: Boolean = false,
+) {
+  def shortState(): String = {
+    s"h=${js.URIUtils.encodeURIComponent(helmetState.shortState())}&" +
+    s"a=${js.URIUtils.encodeURIComponent(armorState.shortState())}&" +
+    s"p=${js.URIUtils.encodeURIComponent(pantsState.shortState())}&" +
+    s"g=${js.URIUtils.encodeURIComponent(glovesState.shortState())}&" +
+    s"w=${js.URIUtils.encodeURIComponent(weaponState.shortState())}&" +
+    s"s=${js.URIUtils.encodeURIComponent(shieldState.shortState())}&" +
+    s"b=${js.URIUtils.encodeURIComponent(bowState.shortState())}" + 
+    ring1StateOption.fold("")(ring1State => s"&r1=${js.URIUtils.encodeURIComponent(ring1State.id)}") +
+    ring2StateOption.fold("")(ring2State => s"&r2=${js.URIUtils.encodeURIComponent(ring2State.id)}") +
+    ring3StateOption.fold("")(ring3State => s"&r3=${js.URIUtils.encodeURIComponent(ring3State.id)}")
+  }
+}
+
 @main def main(): Unit = {
 
   if (rings.size != rings.map(_.id).toSet.size) throw IllegalStateException("Rings have conflicting ids" + rings.groupBy(_.id).filter((k, v) => v.size > 1).keySet)
   if (gems.size != gems.map(_.id).toSet.size) throw IllegalStateException("Gems have conflicting ids" + gems.groupBy(_.id).filter((k, v) => v.size > 1).keySet)
   if (runes.size != runes.map(_.id).toSet.size) throw IllegalStateException("Runes have conflicting ids" + runes.groupBy(_.id).filter((k, v) => v.size > 1).keySet)
-
-  case class FullState(
-    helmetState: ItemState,
-    armorState: ItemState,
-    pantsState: ItemState,
-    glovesState: ItemState,
-    weaponState: WeaponState,
-    shieldState: WeaponState,
-    bowState: WeaponState,
-    ring1StateOption: Option[RingData],
-    ring2StateOption: Option[RingData],
-    ring3StateOption: Option[RingData],
-  ) {
-    def shortState(): String = {
-      s"h=${js.URIUtils.encodeURIComponent(helmetState.shortState())}&" +
-      s"a=${js.URIUtils.encodeURIComponent(armorState.shortState())}&" +
-      s"p=${js.URIUtils.encodeURIComponent(pantsState.shortState())}&" +
-      s"g=${js.URIUtils.encodeURIComponent(glovesState.shortState())}&" +
-      s"w=${js.URIUtils.encodeURIComponent(weaponState.shortState())}&" +
-      s"s=${js.URIUtils.encodeURIComponent(shieldState.shortState())}&" +
-      s"b=${js.URIUtils.encodeURIComponent(bowState.shortState())}" + 
-      ring1StateOption.fold("")(ring1State => s"&r1=${js.URIUtils.encodeURIComponent(ring1State.id)}") +
-      ring2StateOption.fold("")(ring2State => s"&r2=${js.URIUtils.encodeURIComponent(ring2State.id)}") +
-      ring3StateOption.fold("")(ring3State => s"&r3=${js.URIUtils.encodeURIComponent(ring3State.id)}")
-    }
-  }
 
   val params = new URLSearchParams(dom.window.location.search)
   val helmetState = ItemBuilder.createState(helmetPlagued, Option(params.get("h")))
@@ -69,6 +73,8 @@ val _ = Stylesheet // Use import to prevent DCE
     ring2State,
     ring3State,
   ))
+
+  fullStateVar.update(fullState => Errors.errors(fullState))
 
   val helmetStateVar = fullStateVar.zoomLazy(_.helmetState){(state, helmetState) =>
     state.copy(helmetState = helmetState)
@@ -101,19 +107,22 @@ val _ = Stylesheet // Use import to prevent DCE
   val bowComponent = WeaponBuilder(bowPlagued, bowStateVar)
 
   val ring1Var = fullStateVar.zoomLazy(_.ring1StateOption)((state, ring1State) => state.copy(ring1StateOption = ring1State))
+  val ring1ErrorSignal = fullStateVar.signal.map(_.ring1Error)
   val ring1ShowModalVar = Var(false)
   val ring1Modal = Modal(ring1ShowModalVar, rings, ring => ring1Var.update(_ => Option(ring)))
-  val ring1ComponentFull = RingBuilder.ringComponentFull(ring1Var, ring1ShowModalVar)
+  val ring1ComponentFull = RingBuilder.ringComponentFull(ring1Var, ring1ErrorSignal, ring1ShowModalVar)
 
   val ring2Var = fullStateVar.zoomLazy(_.ring2StateOption)((state, ring2State) => state.copy(ring2StateOption = ring2State))
+  val ring2ErrorSignal = fullStateVar.signal.map(_.ring2Error)
   val ring2ShowModalVar = Var(false)
   val ring2Modal = Modal(ring2ShowModalVar, rings, ring => ring2Var.update(_ => Option(ring)))
-  val ring2ComponentFull = RingBuilder.ringComponentFull(ring2Var, ring2ShowModalVar)
+  val ring2ComponentFull = RingBuilder.ringComponentFull(ring2Var, ring2ErrorSignal, ring2ShowModalVar)
 
   val ring3Var = fullStateVar.zoomLazy(_.ring3StateOption)((state, ring3State) => state.copy(ring3StateOption = ring3State))
+  val ring3ErrorSignal = fullStateVar.signal.map(_.ring3Error)
   val ring3ShowModalVar = Var(false)
   val ring3Modal = Modal(ring3ShowModalVar, rings, ring => ring3Var.update(_ => Option(ring)))
-  val ring3ComponentFull = RingBuilder.ringComponentFull(ring3Var, ring3ShowModalVar)
+  val ring3ComponentFull = RingBuilder.ringComponentFull(ring3Var, ring3ErrorSignal, ring3ShowModalVar)
 
 
   renderOnDomContentLoaded(
@@ -126,6 +135,17 @@ val _ = Stylesheet // Use import to prevent DCE
       div(
         fullStateVar.signal --> (state => dom.window.history.replaceState(null, "", s"?${state.shortState()}")),
         cls := "grid-container",
+        div(
+          cls:= "header-row",
+          h1("Unofficial No Rest for the Wicked Toolkit"),
+          button(
+            cls:= "copy-button",
+            "Copy build link",
+            onClick --> { _ =>
+              dom.window.navigator.clipboard.writeText(dom.window.location.href)
+            } 
+          )
+        ),
         div(
           cls:= "grid-item",
           cls:= "row-span-3",

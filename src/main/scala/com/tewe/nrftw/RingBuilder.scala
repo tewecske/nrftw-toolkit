@@ -38,12 +38,14 @@ object RingBuilder {
 
   def ringComponentFull(
       ringDataOptionVar: Var[Option[RingData]],
+      ringErrorSignal: Signal[Boolean],
       showModalVar: Var[Boolean]
   ): Element = {
 
     
     div(
       cls("ring-big-container"),
+      cls("x-hasError") <-- ringErrorSignal,
       onClick --> { _ =>
         showModalVar.set(true)
       },

@@ -28,6 +28,46 @@ body {
   grid-row: span 3 / span 3;
 }
 
+.col-span-3 {
+  grid-column: span 3 / span 3;
+}
+
+.header-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+
+  h1 {
+    grid-column: 2;
+    text-align: center;
+    margin: 0;
+  }
+
+  .copy-button {
+    grid-column: 3;
+    justify-self: end;
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .copy-button:hover {
+    background-color: #45a049;
+  }
+}
+
+div.x-hasError,
+select.x-hasError {
+  background-color: #551111 !important;
+}
+
 .item-type-common {
   color: #a48bf3;
 }

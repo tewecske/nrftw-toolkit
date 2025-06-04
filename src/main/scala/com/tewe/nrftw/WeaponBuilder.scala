@@ -5,6 +5,7 @@ import com.raquo.laminar.api.L.{*, given}
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import com.tewe.nrftw.WeaponType.allWeapons
+import com.tewe.nrftw.Errors
 
 object WeaponBuilder {
 
@@ -48,7 +49,7 @@ object WeaponBuilder {
     val itemStateVar = stateVar.zoomLazy(_.itemState)((state, itemState) => state.copy(itemState = itemState))
     val weaponTypeIdVar = stateVar.zoomLazy(_.weaponTypeId)((state, weaponTypeId) => state.copy(weaponTypeId = weaponTypeId))
     // TODO try to remove
-    val weaponTypeSignal = weaponTypeIdVar.signal.map(weaponId => allWeapons.find(_.id == weaponId).head)
+    val weaponTypeSignal = weaponTypeIdVar.signal.distinct.map(weaponId => allWeapons.find(_.id == weaponId).head)
     val itemGemStateVar = stateVar.zoomLazy(_.itemState.gemOption)((state, gem) => state.copy(itemState = state.itemState.copy(gemOption = gem)))
     val itemGemShowModalVar = Var(false)
     val itemGemModal = Modal.gemsModal(config.itemConfig.itemSlot, itemGemShowModalVar, gems, gem => itemGemStateVar.update(_ => Option(gem)))
@@ -57,6 +58,10 @@ object WeaponBuilder {
     val rune2StateVar = stateVar.zoomLazy(_.rune2Option)((state, rune2Option) => state.copy(rune2Option = rune2Option))
     val rune3StateVar = stateVar.zoomLazy(_.rune3Option)((state, rune3Option) => state.copy(rune3Option = rune3Option))
     val rune4StateVar = stateVar.zoomLazy(_.rune4Option)((state, rune4Option) => state.copy(rune4Option = rune4Option))
+    val rune1ErrorSignal = stateVar.signal.map(_.rune1Error)
+    val rune2ErrorSignal = stateVar.signal.map(_.rune2Error)
+    val rune3ErrorSignal = stateVar.signal.map(_.rune3Error)
+    val rune4ErrorSignal = stateVar.signal.map(_.rune4Error)
     val runesShowModalVar = Var(false)
     val runesModalCallbackVar = Var((rune: Rune) => rune1StateVar.update(_ => Option(rune)))
     val runesModal = Modal.runesModal(weaponTypeIdVar, runesShowModalVar, runes, runesModalCallbackVar)
@@ -92,10 +97,22 @@ object WeaponBuilder {
           } else {
             div(
               cls := "runes-container",
-              RunesBuilder(config, rune1StateVar, runesShowModalVar, runesModalCallbackVar, (rune: Rune) => rune1StateVar.update(_ => Option(rune))),
-              RunesBuilder(config, rune2StateVar, runesShowModalVar, runesModalCallbackVar, (rune: Rune) => rune2StateVar.update(_ => Option(rune))),
-              RunesBuilder(config, rune3StateVar, runesShowModalVar, runesModalCallbackVar, (rune: Rune) => rune3StateVar.update(_ => Option(rune))),
-              RunesBuilder(config, rune4StateVar, runesShowModalVar, runesModalCallbackVar, (rune: Rune) => rune4StateVar.update(_ => Option(rune))),
+              RunesBuilder(config, rune1StateVar, rune1ErrorSignal, runesShowModalVar, runesModalCallbackVar, (rune: Rune) => {
+                rune1StateVar.update(_ => Option(rune))
+                stateVar.update(state => Errors.errors(config, state))
+              }),
+              RunesBuilder(config, rune2StateVar, rune2ErrorSignal, runesShowModalVar, runesModalCallbackVar, (rune: Rune) => {
+                rune2StateVar.update(_ => Option(rune))
+                stateVar.update(state => Errors.errors(config, state))
+              }),
+              RunesBuilder(config, rune3StateVar, rune3ErrorSignal, runesShowModalVar, runesModalCallbackVar, (rune: Rune) => {
+                rune3StateVar.update(_ => Option(rune))
+                stateVar.update(state => Errors.errors(config, state))
+              }),
+              RunesBuilder(config, rune4StateVar, rune4ErrorSignal, runesShowModalVar, runesModalCallbackVar, (rune: Rune) => {
+                rune4StateVar.update(_ => Option(rune))
+                stateVar.update(state => Errors.errors(config, state))
+              }),
             )
           }),
         GemsBuilder(config.itemConfig, itemStateVar, itemGemShowModalVar),
