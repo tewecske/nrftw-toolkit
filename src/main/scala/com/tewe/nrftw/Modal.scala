@@ -97,14 +97,14 @@ object Modal {
               )
             )
           ),
-          children <-- Val(items).map(
-            _.filter(_.weaponTypes.exists(_.id == weaponTypeIdVar.now())).map(rune =>
+          children <-- weaponTypeIdVar.signal.map { weaponTypeId =>
+            items.filter(_.weaponTypes.exists(_.id == weaponTypeId)).map(rune =>
               runeComponentCompact(rune, selectedRune => {
                 onItemSelectedVar.now()(selectedRune)
                 showModalVar.set(false)
               })
             )
-          )
+          }
         )
       )
     )

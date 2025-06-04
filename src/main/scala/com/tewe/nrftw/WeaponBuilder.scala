@@ -66,6 +66,26 @@ object WeaponBuilder {
     val runesModalCallbackVar = Var((rune: Rune) => rune1StateVar.update(_ => Option(rune)))
     val runesModal = Modal.runesModal(weaponTypeIdVar, runesShowModalVar, runes, runesModalCallbackVar)
 
+    val runesValidator = (config: WeaponBuilderConfig, stateVar: Var[WeaponState]) => Observer[WeaponState] { state =>
+      println(s"Runes validator ${config.itemConfig.itemSlot}")
+      stateVar.update(_ => {
+        val rune1Update = state.rune1Option.filter(rune => rune.weaponTypes.exists(_.id == state.weaponTypeId))
+        val rune2Update = state.rune2Option.filter(rune => rune.weaponTypes.exists(_.id == state.weaponTypeId))
+        val rune3Update = state.rune3Option.filter(rune => rune.weaponTypes.exists(_.id == state.weaponTypeId))
+        val rune4Update = state.rune4Option.filter(rune => rune.weaponTypes.exists(_.id == state.weaponTypeId))
+        if (rune1Update != state.rune1Option || rune1Update != state.rune1Option || rune1Update != state.rune1Option || rune1Update != state.rune1Option) {
+          state.copy(
+            rune1Option = rune1Update,
+            rune2Option = rune3Update,
+            rune3Option = rune3Update,
+            rune4Option = rune4Update,
+          )
+        } else {
+          state
+        }
+      })
+    }
+
     val slot = config.itemConfig.itemSlot.name
       div(
         cls := "item-card",
@@ -83,6 +103,7 @@ object WeaponBuilder {
                 select(
                   value <-- weaponTypeIdVar,
                   onChange.mapToValue --> weaponTypeIdVar,
+                  onChange.mapTo(stateVar.now()) --> runesValidator(config, stateVar),
                   weapons.map(weaponType =>
                       option(value := weaponType.id, weaponType.name))
                 )

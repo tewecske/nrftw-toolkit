@@ -41,6 +41,7 @@ body {
   border-radius: 5px;
 
   h1 {
+    color: #DDDDDD;
     grid-column: 2;
     text-align: center;
     margin: 0;

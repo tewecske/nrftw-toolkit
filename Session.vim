@@ -15,14 +15,14 @@ else
 endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
 badd +15 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
-badd +109 src/main/scala/com/tewe/nrftw/Items.scala
-badd +122 src/main/scala/com/tewe/nrftw/Main.scala
-badd +66 style.css
+badd +200 src/main/scala/com/tewe/nrftw/Items.scala
+badd +132 src/main/scala/com/tewe/nrftw/Main.scala
+badd +37 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
 badd +1 .gitignore
-badd +100 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
+badd +67 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
 badd +9 package.json
 badd +54 README.md
 badd +1 src/main/scala/com/tewe/nrftw/Main.less
@@ -32,16 +32,16 @@ badd +26 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/r
 badd +18 .metals/readonly/dependencies/scalajs-dom_sjs1_3-2.8.0-sources.jar/org/scalajs/dom/URLSearchParams.scala
 badd +2 index.js
 badd +42 vite.config.js
-badd +48 src/main/scala/com/tewe/nrftw/RingBuilder.scala
-badd +1 src/main/scala/com/tewe/nrftw/Modal.scala
+badd +37 src/main/scala/com/tewe/nrftw/RingBuilder.scala
+badd +112 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
-badd +66 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +70 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
 badd +25 src/main/scala/com/tewe/nrftw/GemsBuilder.scala
-badd +38 src/main/scala/com/tewe/nrftw/Errors.scala
+badd +23 src/main/scala/com/tewe/nrftw/Errors.scala
 badd +38 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 badd +65 src/main/scala/com/tewe/nrftw/StatsBuilder.css
 badd +14 src/main/scala/com/tewe/nrftw/GemsBuilder.css
@@ -52,15 +52,15 @@ badd +1 jar:file:///home/tewe/.cache/coursier/v1/https/repo1.maven.org/maven2/or
 badd +342 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/state/Var.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/api/Implicits.scala
 badd +9 src/main/scala/com/tewe/nrftw/CompactComponent.scala
-badd +41 src/main/scala/com/tewe/nrftw/RunesBuilder.scala
+badd +31 src/main/scala/com/tewe/nrftw/RunesBuilder.scala
 badd +12 src/main/scala/com/tewe/nrftw/RunesBuilder.css
 badd +1331 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/IterableOnce.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
+edit src/main/scala/com/tewe/nrftw/Items.scala
 argglobal
-balt src/main/scala/com/tewe/nrftw/RunesBuilder.scala
+balt style.css
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -71,12 +71,12 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 21) / 43)
+let s:l = 200 - ((21 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 0
+keepjumps 200
+normal! 022|
 lcd ~/projects/scala-projects/nrftw-toolkit
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

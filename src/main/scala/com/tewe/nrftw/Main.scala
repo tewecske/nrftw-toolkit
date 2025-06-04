@@ -109,19 +109,28 @@ case class FullState(
   val ring1Var = fullStateVar.zoomLazy(_.ring1StateOption)((state, ring1State) => state.copy(ring1StateOption = ring1State))
   val ring1ErrorSignal = fullStateVar.signal.map(_.ring1Error)
   val ring1ShowModalVar = Var(false)
-  val ring1Modal = Modal(ring1ShowModalVar, rings, ring => ring1Var.update(_ => Option(ring)))
+  val ring1Modal = Modal(ring1ShowModalVar, rings, ring => {
+    ring1Var.update(_ => Option(ring))
+    fullStateVar.update(fullState => Errors.errors(fullState))
+  })
   val ring1ComponentFull = RingBuilder.ringComponentFull(ring1Var, ring1ErrorSignal, ring1ShowModalVar)
 
   val ring2Var = fullStateVar.zoomLazy(_.ring2StateOption)((state, ring2State) => state.copy(ring2StateOption = ring2State))
   val ring2ErrorSignal = fullStateVar.signal.map(_.ring2Error)
   val ring2ShowModalVar = Var(false)
-  val ring2Modal = Modal(ring2ShowModalVar, rings, ring => ring2Var.update(_ => Option(ring)))
+  val ring2Modal = Modal(ring2ShowModalVar, rings, ring => {
+    ring2Var.update(_ => Option(ring))
+    fullStateVar.update(fullState => Errors.errors(fullState))
+  })
   val ring2ComponentFull = RingBuilder.ringComponentFull(ring2Var, ring2ErrorSignal, ring2ShowModalVar)
 
   val ring3Var = fullStateVar.zoomLazy(_.ring3StateOption)((state, ring3State) => state.copy(ring3StateOption = ring3State))
   val ring3ErrorSignal = fullStateVar.signal.map(_.ring3Error)
   val ring3ShowModalVar = Var(false)
-  val ring3Modal = Modal(ring3ShowModalVar, rings, ring => ring3Var.update(_ => Option(ring)))
+  val ring3Modal = Modal(ring3ShowModalVar, rings, ring => {
+    ring3Var.update(_ => Option(ring))
+    fullStateVar.update(fullState => Errors.errors(fullState))
+  })
   val ring3ComponentFull = RingBuilder.ringComponentFull(ring3Var, ring3ErrorSignal, ring3ShowModalVar)
 
 

@@ -25,7 +25,6 @@ object RunesBuilder {
         div(
           cls := "rune-container",
           onClick --> { _ =>
-            println("RUNECLICK")
             modalCallbackVar.set(modalCallback)
             showModalVar.set(true)
           },

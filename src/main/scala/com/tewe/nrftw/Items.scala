@@ -701,7 +701,7 @@ val rings = List(
     "Increased Experience by 5-10%"
   )),
   RingData("r_jr", "Jade Ring", ItemRarity.Magic, "Description of Jade Ring", 11, 100, 0.0, "/images/ring-jadeRing.png", List(
-    "Gain 3%--6% Stamina on Damage Dealt"
+    "Gain 3%-6% Stamina on Damage Dealt"
   )),
   RingData("r_pr", "Plagued Ring", ItemRarity.Plagued, "Description of Plagued Ring", 11, 100, 0.0, "/images/ring-plaguedRing.png", List(
     "Lifesteal Increased by 20% at Low Health",
@@ -728,10 +728,10 @@ val rings = List(
     "Lose 6 Stamina on Block"
   )),
   RingData("r_tr", "Thistle Ring", ItemRarity.Plagued, "Description of Thistle Ring", 21, 100, 0.0, "/images/ring-thistleRing.png", List(
-    "Deal 21%-X Damage on Damage Taken",
+    "Deal 21%-25% Damage on Damage Taken",
     ),
   enchantDownsides = List(
-    "Lose 8-X Stamina on Damage Taken"
+    "Lose 8-6 Stamina on Damage Taken"
   )),
   RingData("r_wcr", "Willow Cap Ring", ItemRarity.Magic, "Description of Willow Cap Ring", 21, 100, 0.0, "/images/ring-willowCapRing.png", List(
     "Overall Speed increased by 15%"
@@ -751,7 +751,7 @@ val rings = List(
   )),
   RingData("r_ser", "Serendipity Ring", ItemRarity.Legendary, "Description of Serendipity Ring", 0, 100, 0.0, "/images/ring-serendipityRing.png", List(
     "Food Healing is applied over time",
-    "Healing increased by 18%-X"
+    "Healing increased by 18%-30%"
   ))
 )
 
@@ -792,7 +792,7 @@ val runes = List(
     Rune(id = "u_cysw", name = "Cyclone Swipe", imageSrc = "/images/rune-cycloneSwipe.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
     Rune(id = "u_dasu", name = "Damage Surge", imageSrc = "/images/rune-damageSurge.png", cost = FocusCost(100), weaponTypes = WeaponType.allWeapons),
     Rune(id = "u_dast", name = "Dashing Stab", imageSrc = "/images/rune-dashingStab.png", cost = FocusCost(100), weaponTypes = WeaponType.doubleDaggerWeapons),
-    Rune(id = "u_dibr", name = "Dive Break", imageSrc = "/images/rune-diveBreak.png", cost = FocusCost(50), weaponTypes = WeaponType.gauntletWeapons),
+    Rune(id = "u_dibr", name = "Drive Break", imageSrc = "/images/rune-driveBreak.png", cost = FocusCost(50), weaponTypes = WeaponType.gauntletWeapons),
     Rune(id = "u_dosl", name = "Dodge Slamdown", imageSrc = "/images/rune-dodgeSlamdown.png", cost = FocusCost(50), weaponTypes = WeaponType.twoHandedWeapons),
     Rune(id = "u_docru", name = "Double Crush", imageSrc = "/images/rune-doubleCrush.png", cost = FocusCost(100), weaponTypes = WeaponType.twoHandedWeapons),
     Rune(id = "u_dosp", name = "Double Spin", imageSrc = "/images/rune-doubleSpin.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
@@ -899,11 +899,10 @@ val runes = List(
     Rune(id = "u_plda", name = "Plague Dart", imageSrc = "/images/rune-plagueDart.png", cost = FocusCost(50), weaponTypes = WeaponType.wandWeapons),
     Rune(id = "u_plds", name = "Plague Dash", imageSrc = "/images/rune-plagueDash.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
     Rune(id = "u_plen", name = "Plague Enchantment", imageSrc = "/images/rune-plagueEnchantment.png", cost = FocusCost(50), weaponTypes = WeaponType.allWeapons),
-    Rune(id = "u_plex", name = "Plague Explostion", imageSrc = "/images/rune-plagueExplostion.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
+    Rune(id = "u_plex", name = "Plague Explosion", imageSrc = "/images/rune-plagueExplosion.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
     Rune(id = "u_plla", name = "Plague Launch", imageSrc = "/images/rune-plagueLaunch.png", cost = FocusCost(100), weaponTypes = WeaponType.wandWeapons),
     Rune(id = "u_plno", name = "Plague Nova", imageSrc = "/images/rune-plagueNova.png", cost = FocusCost(100), weaponTypes = WeaponType.staffWeapons),
     Rune(id = "u_plre", name = "Plague Retch", imageSrc = "/images/rune-plagueRetch.png", cost = FocusCost(50), weaponTypes = WeaponType.gauntletWeapons),
-    Rune(id = "u_plsr", name = "Plague Smatter", imageSrc = "/images/rune-plagueSmatter.png", cost = FocusCost(150), weaponTypes = WeaponType.wandWeapons),
     Rune(id = "u_plsm", name = "Plague Smite", imageSrc = "/images/rune-plagueSmite.png", cost = FocusCost(50), weaponTypes = WeaponType.wandWeapons),
     Rune(id = "u_plsp", name = "Plague Splatter", imageSrc = "/images/rune-plagueSplatter.png", cost = FocusCost(150), weaponTypes = WeaponType.wandWeapons),
     Rune(id = "u_plst", name = "Plague Strike", imageSrc = "/images/rune-plagueStrike.png", cost = FocusCost(100), weaponTypes = WeaponType.oneHandedWeapons),
