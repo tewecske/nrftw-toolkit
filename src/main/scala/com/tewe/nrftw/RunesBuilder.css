@@ -98,6 +98,10 @@
     vertical-align: middle;
     color: white;
     flex-grow: 1;
+
+    p {
+      margin: 4px;
+    }
   }
 
   .compact-rune-item-slot {

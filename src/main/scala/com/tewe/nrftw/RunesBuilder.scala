@@ -62,14 +62,17 @@ object RunesBuilder {
       "rune",
       onClick --> { _ => onSelect(rune) },
       rune.imageSrc,
-      div(
-        p(
-          cls("compact-rune"),
-          // Rune type fire/frost/plague/lightning/support
-          // cls(if (runeEffect.extra) "plagued-text" else "magic-text"),
-          rune.name
-        )
-      )
+      p(
+        // Rune type fire/frost/plague/lightning/support
+        // cls(if (runeEffect.extra) "plagued-text" else "magic-text"),
+        rune.name,
+
+      ),
+      rune.cost match {
+        case FocusCost(value) => p(cls("focus-cost"), s"Focus cost: $value")
+        case StaminaCost(value) => p(cls("stamina-cost"), s"Stamina cost: $value")
+        case HealthCost(value) => p(cls("health-cost"), s"Health cost: $value")
+      }
     )
 
   }

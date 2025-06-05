@@ -83,6 +83,18 @@ select.x-hasError {
   color: #a48bf3;
 }
 
+.focus-cost {
+  color: #efcf01;
+}
+
+.stamina-cost {
+  color: #51a951;
+}
+
+.health-cost {
+  color: #bc817a;
+}
+
 .item-type-legendary {
   color: #fbbc04;
 }

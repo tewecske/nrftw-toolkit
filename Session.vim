@@ -15,9 +15,9 @@ else
 endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
 badd +15 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
-badd +200 src/main/scala/com/tewe/nrftw/Items.scala
+badd +49 src/main/scala/com/tewe/nrftw/Items.scala
 badd +132 src/main/scala/com/tewe/nrftw/Main.scala
-badd +37 style.css
+badd +89 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
@@ -52,15 +52,22 @@ badd +1 jar:file:///home/tewe/.cache/coursier/v1/https/repo1.maven.org/maven2/or
 badd +342 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/state/Var.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/api/Implicits.scala
 badd +9 src/main/scala/com/tewe/nrftw/CompactComponent.scala
-badd +31 src/main/scala/com/tewe/nrftw/RunesBuilder.scala
-badd +12 src/main/scala/com/tewe/nrftw/RunesBuilder.css
+badd +65 src/main/scala/com/tewe/nrftw/RunesBuilder.scala
+badd +102 src/main/scala/com/tewe/nrftw/RunesBuilder.css
 badd +1331 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/IterableOnce.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit src/main/scala/com/tewe/nrftw/Items.scala
+edit src/main/scala/com/tewe/nrftw/RunesBuilder.css
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 argglobal
-balt style.css
+balt src/main/scala/com/tewe/nrftw/RunesBuilder.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -71,12 +78,12 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 200 - ((21 * winheight(0) + 21) / 43)
+let s:l = 98 - ((26 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 200
-normal! 022|
+keepjumps 98
+normal! 027|
 lcd ~/projects/scala-projects/nrftw-toolkit
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
@@ -85,6 +92,8 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
