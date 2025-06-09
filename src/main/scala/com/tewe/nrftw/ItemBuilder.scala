@@ -16,25 +16,21 @@ object ItemBuilder {
     val sortedEnchants = config.enchants.values.toList.sortBy(_.id)
     val sortedEnchantDownsides = config.enchantDownsides.values.toList.sortBy(_.id)
 
+    val firstEnchant = sortedEnchants.head.id
+    val defaultEnchants = List(firstEnchant, firstEnchant, firstEnchant, firstEnchant)
     initState.filter(!_.isBlank).fold {
       PlaguedItemState(
-        enchant1 = sortedEnchants.head.id,
-        enchant2 = sortedEnchants.head.id,
-        enchant3 = sortedEnchants.head.id,
-        enchant4 = sortedEnchants.head.id,
+        enchants = defaultEnchants,
         downside = sortedEnchantDownsides.head.id
       )
       } { stringState =>
         println(s"STATE: $stringState")
         stringState match {
-          case s"$e1-$e2-$e3-$e4-$d-$g" => PlaguedItemState(e1, e2, e3, e4, d, gemOption = gems.find(_.id == g))
-          case s"$e1-$e2-$e3-$e4-$d" => PlaguedItemState(e1, e2, e3, e4, d)
+          case s"$e1-$e2-$e3-$e4-$d-$g" => PlaguedItemState(defaultEnchants, d, gemOption = gems.find(_.id == g))
+          case s"$e1-$e2-$e3-$e4-$d" => PlaguedItemState(defaultEnchants, d)
           case _ => 
             PlaguedItemState(
-              enchant1 = sortedEnchants.head.id,
-              enchant2 = sortedEnchants.head.id,
-              enchant3 = sortedEnchants.head.id,
-              enchant4 = sortedEnchants.head.id,
+              enchants = defaultEnchants,
               downside = sortedEnchantDownsides.head.id
             )
         }
@@ -43,9 +39,9 @@ object ItemBuilder {
   def apply(config: ItemBuilderConfig, stateVar: Var[ItemState]): HtmlElement = {
 
     val itemGemStateVar = stateVar.zoomLazy(state => state match {
-      case plaguedState @ PlaguedItemState(_, _, _, _, _, _, _, _, _, _) => plaguedState.gemOption
+      case plaguedState @ PlaguedItemState(_, _, _, _) => plaguedState.gemOption
     })((state, gem) => state match {
-      case plaguedState @ PlaguedItemState(_, _, _, _, _, _, _, _, _, _) => plaguedState.copy(gemOption = gem)
+      case plaguedState @ PlaguedItemState(_, _, _, _) => plaguedState.copy(gemOption = gem)
     })
     val itemGemShowModalVar = Var(false)
     val itemGemModal = Modal.gemsModal(config.itemSlot, itemGemShowModalVar, gems, gem => itemGemStateVar.update(_ => Option(gem)))

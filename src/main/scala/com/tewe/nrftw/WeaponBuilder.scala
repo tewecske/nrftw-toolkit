@@ -51,9 +51,9 @@ object WeaponBuilder {
     // TODO try to remove
     val weaponTypeSignal = weaponTypeIdVar.signal.distinct.map(weaponId => allWeapons.find(_.id == weaponId).head)
     val itemGemStateVar = stateVar.zoomLazy(weaponState => weaponState.itemState match {
-      case plaguedState @ PlaguedItemState(_, _, _, _, _, _, _, _, _, _) => plaguedState.gemOption
+      case plaguedState @ PlaguedItemState(_, _, _, _) => plaguedState.gemOption
     })((weaponState, gem) => weaponState.itemState match {
-      case plaguedState @ PlaguedItemState(_, _, _, _, _, _, _, _, _, _) => weaponState.copy(itemState = plaguedState.copy(gemOption = gem))
+      case plaguedState @ PlaguedItemState(_, _, _, _) => weaponState.copy(itemState = plaguedState.copy(gemOption = gem))
     })
     val itemGemShowModalVar = Var(false)
     val itemGemModal = Modal.gemsModal(config.itemConfig.itemSlot, itemGemShowModalVar, gems, gem => itemGemStateVar.update(_ => Option(gem)))

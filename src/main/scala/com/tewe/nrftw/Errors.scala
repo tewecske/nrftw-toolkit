@@ -56,25 +56,11 @@ object Errors {
   def errors(config: ItemBuilderConfig, itemState: ItemState): ItemState = {
     println(s"ItemState errors called for ${config.itemSlot}")
     itemState match {
-      case plaguedItemState @ PlaguedItemState(_, _, _, _, _, _, _, _, _, _) =>
-        val groups = List(
-          config.enchants(plaguedItemState.enchant1).group,
-          config.enchants(plaguedItemState.enchant2).group,
-          config.enchants(plaguedItemState.enchant3).group,
-          config.enchants(plaguedItemState.enchant4).group,
-        )
-        val enchant1Error = groups.count(_ == groups(0)) > 1
-        val enchant2Error = groups.count(_ == groups(1)) > 1
-        val enchant3Error = groups.count(_ == groups(2)) > 1
-        val enchant4Error = groups.count(_ == groups(3)) > 1
-        if (enchant1Error != plaguedItemState.enchant1Error || enchant2Error != plaguedItemState.enchant2Error || enchant3Error != plaguedItemState.enchant3Error || enchant4Error != plaguedItemState.enchant4Error) {
-          println(s"ItemState errors has changed for ${config.itemSlot}")
-          plaguedItemState.copy(
-            enchant1Error = enchant1Error,
-            enchant2Error = enchant2Error,
-            enchant3Error = enchant3Error,
-            enchant4Error = enchant4Error,
-          )
+      case plaguedItemState @ PlaguedItemState(_, _, _, _) =>
+        val groupss = plaguedItemState.enchants.map(config.enchants(_).group)
+        val errors = groupss.map(group => groupss.count(_ == group) > 1)
+        if (plaguedItemState.enchantsError != errors) {
+          plaguedItemState.copy(enchantsError = errors)
         } else {
           plaguedItemState
         }
