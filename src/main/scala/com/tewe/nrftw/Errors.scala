@@ -55,26 +55,29 @@ object Errors {
 
   def errors(config: ItemBuilderConfig, itemState: ItemState): ItemState = {
     println(s"ItemState errors called for ${config.itemSlot}")
-    val groups = List(
-      config.enchants(itemState.enchant1).group,
-      config.enchants(itemState.enchant2).group,
-      config.enchants(itemState.enchant3).group,
-      config.enchants(itemState.enchant4).group,
-    )
-    val enchant1Error = groups.count(_ == groups(0)) > 1
-    val enchant2Error = groups.count(_ == groups(1)) > 1
-    val enchant3Error = groups.count(_ == groups(2)) > 1
-    val enchant4Error = groups.count(_ == groups(3)) > 1
-    if (enchant1Error != itemState.enchant1Error || enchant2Error != itemState.enchant2Error || enchant3Error != itemState.enchant3Error || enchant4Error != itemState.enchant4Error) {
-      println(s"ItemState errors has changed for ${config.itemSlot}")
-      itemState.copy(
-        enchant1Error = enchant1Error,
-        enchant2Error = enchant2Error,
-        enchant3Error = enchant3Error,
-        enchant4Error = enchant4Error,
-      )
-    } else {
-      itemState
+    itemState match {
+      case plaguedItemState @ PlaguedItemState(_, _, _, _, _, _, _, _, _, _) =>
+        val groups = List(
+          config.enchants(plaguedItemState.enchant1).group,
+          config.enchants(plaguedItemState.enchant2).group,
+          config.enchants(plaguedItemState.enchant3).group,
+          config.enchants(plaguedItemState.enchant4).group,
+        )
+        val enchant1Error = groups.count(_ == groups(0)) > 1
+        val enchant2Error = groups.count(_ == groups(1)) > 1
+        val enchant3Error = groups.count(_ == groups(2)) > 1
+        val enchant4Error = groups.count(_ == groups(3)) > 1
+        if (enchant1Error != plaguedItemState.enchant1Error || enchant2Error != plaguedItemState.enchant2Error || enchant3Error != plaguedItemState.enchant3Error || enchant4Error != plaguedItemState.enchant4Error) {
+          println(s"ItemState errors has changed for ${config.itemSlot}")
+          plaguedItemState.copy(
+            enchant1Error = enchant1Error,
+            enchant2Error = enchant2Error,
+            enchant3Error = enchant3Error,
+            enchant4Error = enchant4Error,
+          )
+        } else {
+          plaguedItemState
+        }
     }
   }
 

@@ -17,7 +17,7 @@ object ItemBuilder {
     val sortedEnchantDownsides = config.enchantDownsides.values.toList.sortBy(_.id)
 
     initState.filter(!_.isBlank).fold {
-      ItemState(
+      PlaguedItemState(
         enchant1 = sortedEnchants.head.id,
         enchant2 = sortedEnchants.head.id,
         enchant3 = sortedEnchants.head.id,
@@ -27,10 +27,10 @@ object ItemBuilder {
       } { stringState =>
         println(s"STATE: $stringState")
         stringState match {
-          case s"$e1-$e2-$e3-$e4-$d-$g" => ItemState(e1, e2, e3, e4, d, gemOption = gems.find(_.id == g))
-          case s"$e1-$e2-$e3-$e4-$d" => ItemState(e1, e2, e3, e4, d)
+          case s"$e1-$e2-$e3-$e4-$d-$g" => PlaguedItemState(e1, e2, e3, e4, d, gemOption = gems.find(_.id == g))
+          case s"$e1-$e2-$e3-$e4-$d" => PlaguedItemState(e1, e2, e3, e4, d)
           case _ => 
-            ItemState(
+            PlaguedItemState(
               enchant1 = sortedEnchants.head.id,
               enchant2 = sortedEnchants.head.id,
               enchant3 = sortedEnchants.head.id,
@@ -42,7 +42,11 @@ object ItemBuilder {
   }
   def apply(config: ItemBuilderConfig, stateVar: Var[ItemState]): HtmlElement = {
 
-    val itemGemStateVar = stateVar.zoomLazy(_.gemOption)((state, gem) => state.copy(gemOption = gem))
+    val itemGemStateVar = stateVar.zoomLazy(state => state match {
+      case plaguedState @ PlaguedItemState(_, _, _, _, _, _, _, _, _, _) => plaguedState.gemOption
+    })((state, gem) => state match {
+      case plaguedState @ PlaguedItemState(_, _, _, _, _, _, _, _, _, _) => plaguedState.copy(gemOption = gem)
+    })
     val itemGemShowModalVar = Var(false)
     val itemGemModal = Modal.gemsModal(config.itemSlot, itemGemShowModalVar, gems, gem => itemGemStateVar.update(_ => Option(gem)))
     val slot = config.itemSlot.name
@@ -64,7 +68,7 @@ object ItemBuilder {
           // )
         ),
 
-        GemsBuilder(config, stateVar, itemGemShowModalVar),
+        GemsBuilder(config, itemGemStateVar, itemGemShowModalVar),
         EnchantmentsBuilder.enchantmentsSelect(config, stateVar)
       )
   }

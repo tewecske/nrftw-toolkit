@@ -16,18 +16,16 @@ object GemsBuilder {
 
   def apply(
     config: ItemBuilderConfig,
-    stateVar: Var[ItemState],
+    gemStateVar: Var[Option[Gem]],
     showModalVar: Var[Boolean]
   ): HtmlElement = {
-    val gemOptionVar = stateVar.zoomLazy(_.gemOption)((state, gem) => state.copy(gemOption = gem))
-    // val gemOptionVar: Var[Option[Gem]] = Var(None)
     div(
       cls := "gem-container",
       onClick --> { _ =>
         println("TEST")
         showModalVar.set(true)
       },
-      child <-- gemOptionVar.signal.map(_.fold {
+      child <-- gemStateVar.signal.map(_.fold {
       div(cls := "gem-item",
         div(
           cls("gem-text"),

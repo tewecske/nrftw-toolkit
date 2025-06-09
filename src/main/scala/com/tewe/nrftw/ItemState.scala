@@ -1,6 +1,10 @@
 package com.tewe.nrftw
 
-  case class ItemState(
+  sealed trait ItemState {
+    def shortState(): String
+  }
+
+  case class PlaguedItemState (
     enchant1: String,
     enchant2: String,
     enchant3: String,
@@ -11,7 +15,7 @@ package com.tewe.nrftw
     enchant3Error: Boolean = false,
     enchant4Error: Boolean = false,
     gemOption: Option[Gem] = None
-  ) {
+  ) extends ItemState {
     def shortState(): String = {
       s"${enchant1}-${enchant2}-${enchant3}-${enchant4}-${downside}${gemOption.fold("")(gem => s"-${gem.id}")}"
     }
