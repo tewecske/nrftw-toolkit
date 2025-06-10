@@ -10,7 +10,8 @@ import com.tewe.nrftw.CompactComponent.compactComponent
 object RunesBuilder {
 
   @JSImport("@find/**/RunesBuilder.css", JSImport.Namespace)
-  @js.native private object Stylesheet extends js.Object
+  @js.native
+  private object Stylesheet extends js.Object
 
   val _ = Stylesheet // Use import to prevent DCE
 
@@ -20,62 +21,60 @@ object RunesBuilder {
     errorSignal: Signal[Boolean],
     showModalVar: Var[Boolean],
     modalCallbackVar: Var[Rune => Unit],
-    modalCallback: Rune => Unit
+    modalCallback: Rune => Unit,
   ): HtmlElement = {
-        div(
-          cls := "rune-container",
-          onClick --> { _ =>
-            modalCallbackVar.set(modalCallback)
-            showModalVar.set(true)
-          },
-          child <-- stateVar.signal.map(_.fold {
-            div(cls := "rune-item",
+    div(
+      cls := "rune-container",
+      onClick --> { _ =>
+        modalCallbackVar.set(modalCallback)
+        showModalVar.set(true)
+      },
+      child <--
+        stateVar
+          .signal
+          .map(
+            _.fold {
+              div(cls := "rune-item", div(cls("rune-text"), "Select a Rune"))
+            } { rune =>
               div(
-                cls("rune-text"),
-                "Select a Rune"
+                cls := "rune-item",
+                cls("x-hasError") <-- errorSignal,
+                img(cls("rune-icon"), src(rune.imageSrc)),
+                div(
+                  cls("rune-text"),
+                  // Rune effect like fire/frost/plague/lightning/support
+                  // rune.filter(_.extra).fold(cls("magic-text"))(_ => cls("plagued-text")),
+                  rune.name,
+                ),
               )
-            )
-          } { rune =>
-            div(cls := "rune-item",
-              cls("x-hasError") <-- errorSignal,
-              img(
-                cls("rune-icon"),
-                src(rune.imageSrc),
-              ),
-              div(
-                cls("rune-text"),
-                // Rune effect like fire/frost/plague/lightning/support
-                // rune.filter(_.extra).fold(cls("magic-text"))(_ => cls("plagued-text")),
-                rune.name
-              )
-            )
-          })
-        )
+            }
+          ),
+    )
 
   }
 
-  def runeComponentCompact(
-      rune: Rune,
-      onSelect: Rune => Unit
-  ): Element = {
+  def runeComponentCompact(rune: Rune, onSelect: Rune => Unit): Element = {
     compactComponent(
       "rune",
-      onClick --> { _ => onSelect(rune) },
+      onClick --> { _ =>
+        onSelect(rune)
+      },
       rune.imageSrc,
       p(
         // Rune type fire/frost/plague/lightning/support
         // cls(if (runeEffect.extra) "plagued-text" else "magic-text"),
-        rune.name,
-
+        rune.name
       ),
       rune.cost match {
-        case FocusCost(value) => p(cls("focus-cost"), s"Focus cost: $value")
-        case StaminaCost(value) => p(cls("stamina-cost"), s"Stamina cost: $value")
-        case HealthCost(value) => p(cls("health-cost"), s"Health cost: $value")
-      }
+        case FocusCost(value) =>
+          p(cls("focus-cost"), s"Focus cost: $value")
+        case StaminaCost(value) =>
+          p(cls("stamina-cost"), s"Stamina cost: $value")
+        case HealthCost(value) =>
+          p(cls("health-cost"), s"Health cost: $value")
+      },
     )
 
   }
 
 }
-

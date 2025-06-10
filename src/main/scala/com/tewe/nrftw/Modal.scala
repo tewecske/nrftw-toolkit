@@ -10,14 +10,14 @@ import com.tewe.nrftw.RunesBuilder.runeComponentCompact
 
 object Modal {
   def gemsModal(
-      itemSlot: ItemSlot,
-      showModalVar: Var[Boolean],
-      items: List[Gem],
-      onItemSelected: Gem => Unit
+    itemSlot: ItemSlot,
+    showModalVar: Var[Boolean],
+    items: List[Gem],
+    onItemSelected: Gem => Unit,
   ): Element = {
     val isVisibleVar = Var(false)
 
-    showModalVar --> { value => 
+    showModalVar --> { value =>
       println(s"Modal showSignal triggered: $value")
     }
 
@@ -41,32 +41,33 @@ object Modal {
               showModalVar.set(false)
             },
             "/images/icon-cancel.svg",
-            div(
-              p(
-                cls("compact-gem-effect"),
-                "No Gem"
-              )
-            )
+            div(p(cls("compact-gem-effect"), "No Gem")),
           ),
-          children <-- Val(items).map(
-            _.filter(_.gemEffects.exists(_.itemSlot == itemSlot)).map(gem =>
-              gemComponentCompact(itemSlot, gem, selectedGem => {
-                onItemSelected(selectedGem)
-                showModalVar.set(false)
-              })
-            )
-          )
-        )
-      )
+          children <--
+            Val(items).map(
+              _.filter(_.gemEffects.exists(_.itemSlot == itemSlot))
+                .map(gem => {
+                  gemComponentCompact(
+                    itemSlot,
+                    gem,
+                    selectedGem => {
+                      onItemSelected(selectedGem)
+                      showModalVar.set(false)
+                    },
+                  )
+                })
+            ),
+        ),
+      ),
     )
   }
 
   def runesModal(
-      weaponTypeIdVar: Var[String],
-      showModalVar: Var[Boolean],
-      items: List[Rune],
-      onItemSelectedVar: Var[Rune => Unit]
-      // onItemSelected: Rune => Unit
+    weaponTypeIdVar: Var[String],
+    showModalVar: Var[Boolean],
+    items: List[Rune],
+    onItemSelectedVar: Var[Rune => Unit],
+    // onItemSelected: Rune => Unit
   ): Element = {
     val isVisibleVar = Var(false)
 
@@ -90,34 +91,37 @@ object Modal {
               showModalVar.set(false)
             },
             "/images/icon-cancel.svg",
-            div(
-              p(
-                cls("compact-rune-name"),
-                "No Rune"
-              )
-            )
+            div(p(cls("compact-rune-name"), "No Rune")),
           ),
-          children <-- weaponTypeIdVar.signal.map { weaponTypeId =>
-            items.filter(_.weaponTypes.exists(_.id == weaponTypeId)).map(rune =>
-              runeComponentCompact(rune, selectedRune => {
-                onItemSelectedVar.now()(selectedRune)
-                showModalVar.set(false)
-              })
-            )
-          }
-        )
-      )
+          children <--
+            weaponTypeIdVar
+              .signal
+              .map { weaponTypeId =>
+                items
+                  .filter(_.weaponTypes.exists(_.id == weaponTypeId))
+                  .map(rune => {
+                    runeComponentCompact(
+                      rune,
+                      selectedRune => {
+                        onItemSelectedVar.now()(selectedRune)
+                        showModalVar.set(false)
+                      },
+                    )
+                  })
+              },
+        ),
+      ),
     )
   }
 
   def apply(
-      showModalVar: Var[Boolean],
-      items: List[RingData],
-      onItemSelected: RingData => Unit
+    showModalVar: Var[Boolean],
+    items: List[RingData],
+    onItemSelected: RingData => Unit,
   ): Element = {
     val isVisibleVar = Var(false)
 
-    showModalVar --> { value => 
+    showModalVar --> { value =>
       println(s"Modal showSignal triggered: $value")
     }
 
@@ -134,17 +138,20 @@ object Modal {
         h3(cls("modal-title"), "Select a Ring"),
         div(
           cls("compact-rings-grid"),
-          children <-- Val(items).map(
-            _.map(ringData =>
-              ringComponentCompact(ringData, selectedRing => {
-                onItemSelected(selectedRing)
-                showModalVar.set(false) // Close modal on item selection
+          children <--
+            Val(items).map(
+              _.map(ringData => {
+                ringComponentCompact(
+                  ringData,
+                  selectedRing => {
+                    onItemSelected(selectedRing)
+                    showModalVar.set(false) // Close modal on item selection
+                  },
+                )
               })
-            )
-          )
-        )
-      )
+            ),
+        ),
+      ),
     )
   }
 }
-

@@ -14,15 +14,15 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
-badd +29 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
-badd +101 src/main/scala/com/tewe/nrftw/Items.scala
+badd +23 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+badd +1 src/main/scala/com/tewe/nrftw/Items.scala
 badd +16 src/main/scala/com/tewe/nrftw/Main.scala
 badd +89 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
 badd +1 .gitignore
-badd +62 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
+badd +210 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
 badd +9 package.json
 badd +54 README.md
 badd +1 src/main/scala/com/tewe/nrftw/Main.less
@@ -36,7 +36,7 @@ badd +37 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +112 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
-badd +3 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +13 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
@@ -56,12 +56,13 @@ badd +10 src/main/scala/com/tewe/nrftw/RunesBuilder.scala
 badd +99 src/main/scala/com/tewe/nrftw/RunesBuilder.css
 badd +1331 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/IterableOnce.scala
 badd +128 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/LinearSeq.scala
+badd +5 .scalafmt.conf
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+edit src/main/scala/com/tewe/nrftw/GemsBuilder.scala
 argglobal
-balt src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
+balt src/main/scala/com/tewe/nrftw/Items.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -72,11 +73,11 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 21) / 43)
+let s:l = 36 - ((20 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
+keepjumps 36
 normal! 0
 lcd ~/projects/scala-projects/nrftw-toolkit
 tabnext 1
@@ -92,6 +93,7 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
+nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost

@@ -8,7 +8,8 @@ import scala.scalajs.js.annotation.JSImport
 object HelloWorld {
 
   @JSImport("@find/**/HelloWorld.less", JSImport.Namespace)
-  @js.native private object Stylesheet extends js.Object
+  @js.native
+  private object Stylesheet extends js.Object
 
   val _ = Stylesheet // Use import to prevent DCE
 
@@ -20,13 +21,13 @@ object HelloWorld {
       input(
         onMountFocus,
         placeholder := "Enter your name here",
-        onInput.mapToValue --> nameVar
+        onInput.mapToValue --> nameVar,
       ),
       div(
         cls("-greeting"),
         "Hello, ",
-        text <-- nameVar.signal.map(_.toUpperCase)
-      )
+        text <-- nameVar.signal.map(_.toUpperCase),
+      ),
     )
   }
 }
