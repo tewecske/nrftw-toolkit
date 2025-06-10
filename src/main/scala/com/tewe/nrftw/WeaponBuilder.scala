@@ -83,11 +83,15 @@ object WeaponBuilder {
         weaponState.itemState match {
           case plaguedState @ PlaguedItemState(_, _, _, _) =>
             plaguedState.gemOption
+          case magicState @ MagicItemState(_, _, _) =>
+            magicState.gemOption
         }
       })((weaponState, gem) => {
         weaponState.itemState match {
           case plaguedState @ PlaguedItemState(_, _, _, _) =>
             weaponState.copy(itemState = plaguedState.copy(gemOption = gem))
+          case magicState @ MagicItemState(_, _, _) =>
+            weaponState.copy(itemState = magicState.copy(gemOption = gem))
         }
       })
     }

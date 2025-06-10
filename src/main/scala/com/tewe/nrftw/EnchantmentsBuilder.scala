@@ -57,27 +57,14 @@ object EnchantmentsBuilder {
     )
   }
 
-  def updateListElement[A](list: List[A], index: Int, newValue: A): List[A] = {
-    if (index < 0 || index >= list.length) {
-      throw new IndexOutOfBoundsException(
-        s"Index $index is out of bounds for list of length ${list.length}"
-      )
-    }
-    list.take(index) ::: (newValue :: list.drop(index + 1))
-  }
-  def enchantsSelectComponent(
+  def enchantSplitSelectComponent(
     index: Int,
     config: ItemBuilderConfig,
     sortedEnchants: List[Enchant],
     stateVar: Var[ItemState],
-    enchantsVar: Var[List[String]],
+    enchantVar: Var[String],
     enchantsErrorSignal: Signal[List[Boolean]],
   ) = {
-    val enchantVar = {
-      enchantsVar.zoomLazy(_.apply(index))((list, enchant) =>
-        updateListElement(list, index, enchant)
-      )
-    }
     select(
       cls := "enchant-text",
       cls("x-hasError") <-- enchantsErrorSignal.map(_.apply(index)),
@@ -105,53 +92,44 @@ object EnchantmentsBuilder {
       .sortBy(_.id)
 
     val enchantsVar = {
-      stateVar.zoomLazy(state => {
-        state match {
-          case plaguedState @ PlaguedItemState(_, _, _, _) =>
-            plaguedState.enchants
-        }
-      })((state, enchants) => {
+      stateVar.zoomLazy(_.enchants)((state, enchants) => {
         state match {
           case plaguedState @ PlaguedItemState(_, _, _, _) =>
             plaguedState.copy(enchants = enchants)
+          case magicState @ MagicItemState(_, _, _) =>
+            magicState.copy(enchants = enchants)
         }
       })
     }
     val downsideVar = {
       stateVar.zoomLazy(state => {
         state match {
-          case plaguedState @ PlaguedItemState(_, _, _, _) =>
-            plaguedState.downside
+          case PlaguedItemState(_, downside, _, _) =>
+            downside
         }
-      })((state, enchant) => {
+      })((state, downside) => {
         state match {
           case plaguedState @ PlaguedItemState(_, _, _, _) =>
-            plaguedState.copy(downside = enchant)
+            plaguedState.copy(downside = downside)
         }
       })
     }
 
-    val enchantsErrorSignal = stateVar
-      .signal
-      .map(state => {
-        state match {
-          case plaguedState @ PlaguedItemState(_, _, _, _) =>
-            plaguedState.enchantsError
-        }
-      })
+    val enchantsErrorSignal = stateVar.signal.map(_.enchantsError)
 
     div(
       cls := "enchantments-container",
-      (0 until 4).map(index => {
-        enchantsSelectComponent(
-          index,
-          config,
-          sortedEnchants,
-          stateVar,
-          enchantsVar,
-          enchantsErrorSignal,
-        )
-      }),
+      children <--
+        enchantsVar.splitByIndex { (index, value, valueVar) =>
+          enchantSplitSelectComponent(
+            index,
+            config,
+            sortedEnchants,
+            stateVar,
+            valueVar,
+            enchantsErrorSignal,
+          )
+        },
       select(
         cls := "downside-text",
         value <-- downsideVar,

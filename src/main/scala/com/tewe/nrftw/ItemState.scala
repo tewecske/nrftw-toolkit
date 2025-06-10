@@ -19,6 +19,16 @@ case class PlaguedItemState(
   }
 }
 
+case class MagicItemState(
+  enchants: List[String],
+  enchantsError: List[Boolean] = List(false, false, false),
+  gemOption: Option[Gem] = None,
+) extends ItemState {
+  def shortState(): String = {
+    s"${enchants.mkString("-")}${gemOption.fold("")(gem => s"-${gem.id}")}"
+  }
+}
+
 case class WeaponState(
   itemState: ItemState,
   weaponTypeId: String,

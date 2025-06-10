@@ -93,18 +93,26 @@ object Errors {
     println(s"ItemState errors called for ${config.itemSlot}")
     itemState match {
       case plaguedItemState @ PlaguedItemState(_, _, _, _) =>
-        val groupss = plaguedItemState.enchants.map(config.enchants(_).group)
-        val errors = groupss.map(group => groupss.count(_ == group) > 1)
+        val groups = plaguedItemState.enchants.map(config.enchants(_).group)
+        val errors = groups.map(group => groups.count(_ == group) > 1)
         if (plaguedItemState.enchantsError != errors) {
           plaguedItemState.copy(enchantsError = errors)
         } else {
           plaguedItemState
         }
+      case magicItemState @ MagicItemState(_, _, _) =>
+        val groups = magicItemState.enchants.map(config.enchants(_).group)
+        val errors = groups.map(group => groups.count(_ == group) > 1)
+        if (magicItemState.enchantsError != errors) {
+          magicItemState.copy(enchantsError = errors)
+        } else {
+          magicItemState
+        }
     }
   }
 
-  val validator = {
-    (config: ItemBuilderConfig, stateVar: Var[ItemState]) => {
+  val validator = { (config: ItemBuilderConfig, stateVar: Var[ItemState]) =>
+    {
       Observer[ItemState] { state =>
         println(s"Validator ${config.itemSlot}")
         stateVar.update(_ => Errors.errors(config, state))
@@ -113,12 +121,13 @@ object Errors {
   }
 
   val weaponValidator = {
-    (config: WeaponBuilderConfig, stateVar: Var[WeaponState]) => {
-      Observer[WeaponState] { state =>
-        println(s"Weapon Validator ${config.itemConfig.itemSlot}")
-        stateVar.update(_ => Errors.errors(config, state))
+    (config: WeaponBuilderConfig, stateVar: Var[WeaponState]) =>
+      {
+        Observer[WeaponState] { state =>
+          println(s"Weapon Validator ${config.itemConfig.itemSlot}")
+          stateVar.update(_ => Errors.errors(config, state))
+        }
       }
-    }
   }
 
 }

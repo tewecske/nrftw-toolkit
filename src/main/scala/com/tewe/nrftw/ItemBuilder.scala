@@ -49,6 +49,10 @@ object ItemBuilder {
             )
           case s"$e1-$e2-$e3-$e4-$d" =>
             PlaguedItemState(defaultEnchants, d)
+          case s"$e1-$e2-$e3-$g" =>
+            MagicItemState(defaultEnchants, gemOption = gems.find(_.id == g))
+          case s"$e1-$e2-$e3" =>
+            MagicItemState(defaultEnchants)
           case _ =>
             PlaguedItemState(
               enchants = defaultEnchants,
@@ -67,11 +71,15 @@ object ItemBuilder {
         state match {
           case plaguedState @ PlaguedItemState(_, _, _, _) =>
             plaguedState.gemOption
+          case magicState @ MagicItemState(_, _, _) =>
+            magicState.gemOption
         }
       })((state, gem) => {
         state match {
           case plaguedState @ PlaguedItemState(_, _, _, _) =>
             plaguedState.copy(gemOption = gem)
+          case magicState @ MagicItemState(_, _, _) =>
+            magicState.copy(gemOption = gem)
         }
       })
     }
