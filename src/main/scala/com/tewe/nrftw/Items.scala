@@ -93,12 +93,15 @@ enum EnchantGroup {
     Downside
 }
 
-enum ItemRarity(value: String) {
-  case Common extends ItemRarity("common")
-  case Magic extends ItemRarity("magic")
-  case Plagued extends ItemRarity("plagued")
-  case Legendary extends ItemRarity("legendary")
+enum ItemRarity(val id: String, val value: String) {
+  case Common extends ItemRarity("c", "common")
+  case Magic extends ItemRarity("m", "magic")
+  case Plagued extends ItemRarity("p", "plagued")
+  case Legendary extends ItemRarity("l", "legendary")
   override def toString(): String = value
+}
+object ItemRarity {
+  def findById(id: String): ItemRarity = ItemRarity.values.find(_.id == id).getOrElse(ItemRarity.Plagued)
 }
 
 case class Enchant(id: String, group: EnchantGroup, value: String)

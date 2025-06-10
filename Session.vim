@@ -14,19 +14,19 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
-badd +51 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
-badd +119 src/main/scala/com/tewe/nrftw/Items.scala
-badd +16 src/main/scala/com/tewe/nrftw/Main.scala
-badd +89 style.css
+badd +119 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+badd +104 src/main/scala/com/tewe/nrftw/Items.scala
+badd +32 src/main/scala/com/tewe/nrftw/Main.scala
+badd +101 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
 badd +1 .gitignore
-badd +84 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
+badd +87 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
 badd +9 package.json
 badd +54 README.md
 badd +1 src/main/scala/com/tewe/nrftw/Main.less
-badd +11 src/main/scala/com/tewe/nrftw/ItemState.scala
+badd +3 src/main/scala/com/tewe/nrftw/ItemState.scala
 badd +47 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/api/AirstreamAliases.scala
 badd +26 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/core/Signal.scala
 badd +18 .metals/readonly/dependencies/scalajs-dom_sjs1_3-2.8.0-sources.jar/org/scalajs/dom/URLSearchParams.scala
@@ -36,16 +36,16 @@ badd +37 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +112 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
-badd +107 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +70 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
 badd +46 src/main/scala/com/tewe/nrftw/GemsBuilder.scala
-badd +95 src/main/scala/com/tewe/nrftw/Errors.scala
+badd +97 src/main/scala/com/tewe/nrftw/Errors.scala
 badd +31 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 badd +65 src/main/scala/com/tewe/nrftw/StatsBuilder.css
 badd +14 src/main/scala/com/tewe/nrftw/GemsBuilder.css
-badd +50 src/main/scala/com/tewe/nrftw/ItemBuilder.css
+badd +22 src/main/scala/com/tewe/nrftw/ItemBuilder.css
 badd +54 src/main/scala/com/tewe/nrftw/RingBuilder.css
 badd +503 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/tags/HtmlTags.scala
 badd +1 jar:file:///home/tewe/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.5.2/scala3-library_3-3.5.2-sources.jar\!/scala/runtime/stdLibPatches/Predef.scala
@@ -57,12 +57,13 @@ badd +99 src/main/scala/com/tewe/nrftw/RunesBuilder.css
 badd +1331 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/IterableOnce.scala
 badd +128 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/LinearSeq.scala
 badd +5 .scalafmt.conf
+badd +47 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/keys/EventProcessor.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+edit src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 argglobal
-balt src/main/scala/com/tewe/nrftw/ItemState.scala
+balt src/main/scala/com/tewe/nrftw/Items.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -93,7 +94,6 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost

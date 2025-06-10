@@ -1,31 +1,15 @@
 package com.tewe.nrftw
 
-sealed trait ItemState {
-  def enchants: List[String]
-  def enchantsError: List[Boolean]
-  def shortState(): String
-}
-
-case class PlaguedItemState(
+case class ItemState(
+  itemRarity: ItemRarity = ItemRarity.Plagued,
   enchants: List[String],
-  downside: String,
+  downside: Option[String],
   enchantsError: List[Boolean] = List(false, false, false, false),
   gemOption: Option[Gem] = None,
-) extends ItemState {
+) {
   def shortState(): String = {
-    s"${enchants.mkString("-")}-${downside}${gemOption.fold("")(gem =>
-        s"-${gem.id}"
-      )}"
-  }
-}
-
-case class MagicItemState(
-  enchants: List[String],
-  enchantsError: List[Boolean] = List(false, false, false),
-  gemOption: Option[Gem] = None,
-) extends ItemState {
-  def shortState(): String = {
-    s"${enchants.mkString("-")}${gemOption.fold("")(gem => s"-${gem.id}")}"
+    s"${enchants.mkString("-")}${downside.fold("")(d => s"-$d")}${gemOption
+        .fold("")(gem => s"-${gem.id}")}"
   }
 }
 

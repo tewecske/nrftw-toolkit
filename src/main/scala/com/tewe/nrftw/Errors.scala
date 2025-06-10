@@ -91,23 +91,12 @@ object Errors {
 
   def errors(config: ItemBuilderConfig, itemState: ItemState): ItemState = {
     println(s"ItemState errors called for ${config.itemSlot}")
-    itemState match {
-      case plaguedItemState @ PlaguedItemState(_, _, _, _) =>
-        val groups = plaguedItemState.enchants.map(config.enchants(_).group)
-        val errors = groups.map(group => groups.count(_ == group) > 1)
-        if (plaguedItemState.enchantsError != errors) {
-          plaguedItemState.copy(enchantsError = errors)
-        } else {
-          plaguedItemState
-        }
-      case magicItemState @ MagicItemState(_, _, _) =>
-        val groups = magicItemState.enchants.map(config.enchants(_).group)
-        val errors = groups.map(group => groups.count(_ == group) > 1)
-        if (magicItemState.enchantsError != errors) {
-          magicItemState.copy(enchantsError = errors)
-        } else {
-          magicItemState
-        }
+    val groups = itemState.enchants.map(config.enchants(_).group)
+    val errors = groups.map(group => groups.count(_ == group) > 1)
+    if (itemState.enchantsError != errors) {
+      itemState.copy(enchantsError = errors)
+    } else {
+      itemState
     }
   }
 

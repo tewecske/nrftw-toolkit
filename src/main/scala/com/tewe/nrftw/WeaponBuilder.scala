@@ -79,20 +79,10 @@ object WeaponBuilder {
       .distinct
       .map(weaponId => allWeapons.find(_.id == weaponId).head)
     val itemGemStateVar = {
-      stateVar.zoomLazy(weaponState => {
-        weaponState.itemState match {
-          case plaguedState @ PlaguedItemState(_, _, _, _) =>
-            plaguedState.gemOption
-          case magicState @ MagicItemState(_, _, _) =>
-            magicState.gemOption
-        }
-      })((weaponState, gem) => {
-        weaponState.itemState match {
-          case plaguedState @ PlaguedItemState(_, _, _, _) =>
-            weaponState.copy(itemState = plaguedState.copy(gemOption = gem))
-          case magicState @ MagicItemState(_, _, _) =>
-            weaponState.copy(itemState = magicState.copy(gemOption = gem))
-        }
+      stateVar.zoomLazy(_.itemState.gemOption)((weaponState, gem) => {
+        weaponState.copy(itemState =
+          weaponState.itemState.copy(gemOption = gem)
+        )
       })
     }
     val itemGemShowModalVar = Var(false)

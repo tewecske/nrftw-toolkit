@@ -69,15 +69,18 @@ select.x-hasError {
   background-color: #551111 !important;
 }
 
+.rarity-common-text,
 .item-type-common {
   color: #a48bf3;
 }
 
+.rarity-magic-text,
 .item-type-magic,
 .magic-text {
   color: #a0c0ff;
 }
 
+.rarity-plagued-text,
 .item-type-plagued,
 .plagued-text {
   color: #a48bf3;
@@ -95,6 +98,7 @@ select.x-hasError {
   color: #bc817a;
 }
 
+.rarity-legendary-text,
 .item-type-legendary {
   color: #fbbc04;
 }

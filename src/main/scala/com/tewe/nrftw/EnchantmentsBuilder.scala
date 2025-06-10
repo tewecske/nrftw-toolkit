@@ -93,25 +93,12 @@ object EnchantmentsBuilder {
 
     val enchantsVar = {
       stateVar.zoomLazy(_.enchants)((state, enchants) => {
-        state match {
-          case plaguedState @ PlaguedItemState(_, _, _, _) =>
-            plaguedState.copy(enchants = enchants)
-          case magicState @ MagicItemState(_, _, _) =>
-            magicState.copy(enchants = enchants)
-        }
+        state.copy(enchants = enchants)
       })
     }
     val downsideVar = {
-      stateVar.zoomLazy(state => {
-        state match {
-          case PlaguedItemState(_, downside, _, _) =>
-            downside
-        }
-      })((state, downside) => {
-        state match {
-          case plaguedState @ PlaguedItemState(_, _, _, _) =>
-            plaguedState.copy(downside = downside)
-        }
+      stateVar.zoomLazy(_.downside.getOrElse(""))((state, downside) => {
+        state.copy(downside = Option.when(downside.nonEmpty)(downside))
       })
     }
 
@@ -130,18 +117,22 @@ object EnchantmentsBuilder {
             enchantsErrorSignal,
           )
         },
-      select(
-        cls := "downside-text",
-        value <-- downsideVar,
-        onChange.mapToValue --> downsideVar,
-        sortedEnchantDownsides.map(enchant => {
-          option(
-            value := enchant.id,
-            cls := s"enchant-group-${enchant.group}",
-            enchant.value,
-          )
-        }),
-      ),
+      if (config.itemRarity == ItemRarity.Plagued) {
+        select(
+          cls := "downside-text",
+          value <-- downsideVar,
+          onChange.mapToValue --> downsideVar,
+          sortedEnchantDownsides.map(enchant => {
+            option(
+              value := enchant.id,
+              cls := s"enchant-group-${enchant.group}",
+              enchant.value,
+            )
+          }),
+        )
+      } else {
+        div()
+      },
     )
   }
 }
