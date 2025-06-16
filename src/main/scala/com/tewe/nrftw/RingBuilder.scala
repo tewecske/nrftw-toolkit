@@ -5,6 +5,8 @@ import com.raquo.laminar.api.L.{*, given}
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
+import com.tewe.nrftw.items.rings
+
 object RingBuilder {
 
   @JSImport("@find/**/RingBuilder.css", JSImport.Namespace)

@@ -5,6 +5,7 @@ import com.raquo.laminar.api.L.{*, given}
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import com.tewe.nrftw.WeaponType.allWeapons
+import com.tewe.nrftw.items.*
 import com.tewe.nrftw.Errors
 
 object WeaponBuilder {

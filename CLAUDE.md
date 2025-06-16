@@ -68,7 +68,12 @@ sbt exit      # Exit sbt session
 - `FullState` - Application-wide state with URL serialization
 
 **Data Models:**
-- Game items defined in `Items.scala` with comprehensive data structures
+- Game item models defined in `ItemModel.scala` with data type definitions
+- Game item data organized in `items/` package with specialized files:
+  - `Equipment.scala` - Weapons, armor, and equipment data
+  - `Gems.scala` - Gem definitions and properties
+  - `Rings.scala` - Ring types and attributes
+  - `Runes.scala` - Rune data and effects
 - Image assets organized by type (gems, rings, runes) in `public/images/`
 
 ### Key Patterns
@@ -92,7 +97,7 @@ sbt exit      # Exit sbt session
 ```
 src/main/scala/com/tewe/nrftw/
 ├── Main.scala              # Application entry point
-├── Items.scala             # Game data definitions
+├── ItemModel.scala         # Game data type definitions
 ├── ItemState.scala         # State case classes
 ├── ItemBuilder.scala       # Armor item builder
 ├── WeaponBuilder.scala     # Weapon/bow/shield builder
@@ -100,6 +105,11 @@ src/main/scala/com/tewe/nrftw/
 ├── *Builder.scala          # Specialized component builders
 ├── Modal.scala             # Modal dialog component
 ├── Errors.scala            # Validation logic
+├── items/                  # Game data package
+│   ├── Equipment.scala     # Weapons, armor, equipment data
+│   ├── Gems.scala          # Gem definitions
+│   ├── Rings.scala         # Ring data
+│   └── Runes.scala         # Rune data
 └── *.css                   # Component stylesheets
 ```
 

@@ -5,6 +5,8 @@ import com.raquo.laminar.api.L.{*, given}
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
+import com.tewe.nrftw.items.*
+
 object ItemBuilder {
 
   @JSImport("@find/**/ItemBuilder.css", JSImport.Namespace)

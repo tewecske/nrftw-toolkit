@@ -7,6 +7,8 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import org.scalajs.dom.URLSearchParams
 
+import com.tewe.nrftw.items.*
+
 @JSImport("@find/**/HelloWorld.less", JSImport.Namespace)
 @js.native
 private object Stylesheet extends js.Object
