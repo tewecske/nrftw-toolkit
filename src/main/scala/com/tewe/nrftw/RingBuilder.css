@@ -1,11 +1,11 @@
 .ring-big-container {
   width: 500px;
   margin: 0 auto;
-  background-color: rgba(10, 10, 25, 0.9);
-  border: 1px solid #333;
+  background-color: var(--color-bg-dark);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+  box-shadow: 0 0 20px var(--color-shadow-blue);
   cursor: pointer;
   /* Indicate clickability */
   transition: transform 0.1s ease-in-out;
@@ -45,7 +45,7 @@
   .ring-type {
     font-size: 0.9em;
     margin: 0;
-    color: #bbb;
+    color: var(--color-text-muted);
   }
 
 
@@ -62,18 +62,18 @@
 
 /* Compact Component Styles */
 .ring-container-compact {
-  background-color: rgba(10, 10, 25, 0.9);
-  border: 1px solid #333;
+  background-color: var(--color-bg-dark);
+  border: 1px solid var(--color-border);
   padding: 10px;
   border-radius: 4px;
-  box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+  box-shadow: 0 0 20px var(--color-shadow-blue);
   cursor: pointer;
   transition: transform 0.1s ease-in-out;
 }
 
 .ring-container-compact:hover {
   transform: translateY(-3px);
-  border-color: #7aff7a;
+  border-color: var(--color-hover-green);
 }
 
 .ring-container-compact {
@@ -104,6 +104,6 @@
   .compact-ring-type {
     font-size: 0.8em;
     margin: 0;
-    color: #bbb;
+    color: var(--color-text-muted);
   }
 }

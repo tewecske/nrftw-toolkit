@@ -18,7 +18,7 @@ object RingBuilder {
     onSelect: RingData => Unit,
   ): Element = {
     div(
-      cls("ring-container-compact"),
+      cls(s"ring-container-compact rarity-${ringData.itemRarity}"),
       onClick --> { _ =>
         onSelect(ringData)
       },
@@ -31,15 +31,11 @@ object RingBuilder {
         ),
         div(
           cls("compact-ring-titles"),
-          h3(
-            cls(s"compact-ring-name item-type-${ringData.itemRarity}"),
-            ringData.name,
-          ),
+          h3(cls(s"compact-ring-name"), ringData.name),
           p(cls("compact-ring-type"), "Ring"),
         ),
       ),
       EnchantmentsBuilder.enchantmentsCompact(
-        ringData.itemRarity,
         ringData.enchantments,
         ringData.enchantDownsides,
       ),
@@ -54,6 +50,10 @@ object RingBuilder {
 
     div(
       cls("ring-big-container"),
+      cls <--
+        ringDataOptionVar
+          .signal
+          .map(rdo => s"rarity-${rdo.map(_.itemRarity).getOrElse("none")}"),
       cls("x-hasError") <-- ringErrorSignal,
       onClick --> { _ =>
         showModalVar.set(true)
@@ -82,10 +82,7 @@ object RingBuilder {
                   ),
                   div(
                     cls("ring-titles"),
-                    h2(
-                      cls(s"ring-name item-type-${ringData.itemRarity}"),
-                      ringData.name,
-                    ),
+                    h2(cls(s"ring-name"), ringData.name),
                     p(cls("ring-type"), "Ring"),
                   ),
                 ),
@@ -111,7 +108,6 @@ object RingBuilder {
                 //   )
                 // ),
                 EnchantmentsBuilder.enchantmentsFull(
-                  ringData.itemRarity,
                   ringData.enchantments,
                   ringData.enchantDownsides,
                 ),

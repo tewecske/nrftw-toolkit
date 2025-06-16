@@ -102,22 +102,21 @@ object ItemBuilder {
     val slot = config.itemSlot.name
     div(
       cls := "item-card",
-      cls := s"item-rarity-${config.itemRarity.value}",
+      cls <--
+        itemRarityVar
+          .signal
+          .map { itemRarity =>
+            s"rarity-${ItemRarity.findById(itemRarity)}"
+          },
       itemGemModal,
       div(
         cls := "item-header",
         h1(cls := "item-name", slot),
         div(
-          cls := "item-type-select",
+          cls := "item-rarity-select",
           select(
             value <-- itemRarityVar,
             onChange.mapToValue --> itemRarityVar,
-            cls <--
-              itemRarityVar
-                .signal
-                .map { itemRarity =>
-                  s"rarity-${ItemRarity.findById(itemRarity)}-text"
-                },
             ItemRarity
               .values
               .map { itemRarity =>

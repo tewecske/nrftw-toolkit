@@ -36,14 +36,11 @@ object GemsBuilder {
               val gemEffect = gem.gemEffects.find(_.itemSlot == config.itemSlot)
               div(
                 cls := "gem-item",
+                gemEffect
+                  .filter(_.extra)
+                  .fold(cls("rarity-magic"))(_ => cls("rarity-plagued")),
                 img(cls("gem-icon"), src(gem.imageSrc)),
-                div(
-                  cls("gem-text"),
-                  gemEffect
-                    .filter(_.extra)
-                    .fold(cls("magic-text"))(_ => cls("plagued-text")),
-                  gemEffect.fold("")(_.value),
-                ),
+                div(cls("gem-text"), gemEffect.fold("")(_.value)),
               )
             }
           ),
@@ -66,17 +63,14 @@ object GemsBuilder {
         .find(_.itemSlot == itemSlot)
         .map(gemEffect => {
           div(
-            h3(cls("compact-gem-item-slot"), gemEffect.itemSlot.name),
-            p(
-              cls("compact-gem-effect"),
-              cls(
-                if (gemEffect.extra)
-                  "plagued-text"
-                else
-                  "magic-text"
-              ),
-              gemEffect.value,
+            cls(
+              if (gemEffect.extra)
+                "rarity-plagued"
+              else
+                "rarity-magic"
             ),
+            h3(cls("compact-gem-item-slot"), gemEffect.itemSlot.name),
+            p(cls("compact-gem-effect"), gemEffect.value),
           )
         }),
     )

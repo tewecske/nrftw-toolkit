@@ -1,5 +1,5 @@
 .runes-container {
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--color-border);
   display: grid;
   /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
   grid-template-columns: 1fr 1fr;
@@ -16,8 +16,8 @@
       display: flex;
       align-items: center;
       padding: 4px;
-      background-color: rgba(20, 20, 40, 0.6);
-      border: 1px solid #444;
+      background-color: var(--color-bg-item);
+      border: 1px solid var(--color-border-dark);
       border-radius: 4px;
       cursor: pointer;
       outline: none;
@@ -53,15 +53,15 @@
 
 .rune-container-compact:hover {
   transform: translateY(-3px);
-  border-color: #7aff7a;
+  border-color: var(--color-hover-green);
 }
 
 .rune-container-compact {
-  background-color: rgba(10, 10, 25, 0.9);
-  border: 1px solid #333;
+  background-color: var(--color-bg-dark);
+  border: 1px solid var(--color-border);
   padding: 10px;
   border-radius: 4px;
-  box-shadow: 0 0 20px rgba(0, 150, 255, 0.2);
+  box-shadow: 0 0 20px var(--color-shadow-blue);
   cursor: pointer;
   transition: transform 0.1s ease-in-out;
 
@@ -96,7 +96,7 @@
     margin: 0;
     display: inline-block;
     vertical-align: middle;
-    color: white;
+    color: var(--color-white-bright);
     flex-grow: 1;
 
     p {

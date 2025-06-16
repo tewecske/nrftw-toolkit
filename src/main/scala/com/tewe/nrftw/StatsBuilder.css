@@ -17,18 +17,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #aaa;
+  color: var(--color-text-gray);
 }
 
 .stat-name {
-  color: #aaa;
+  color: var(--color-text-gray);
   font-size: 14px;
   margin-right: 8px;
 }
 
 .stat-value {
   font-size: 16px;
-  color: white;
+  color: var(--color-white-bright);
 }
 
 .stats-container {
@@ -50,12 +50,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #aaa;
+  color: var(--color-text-gray);
 }
 
 .stat-value {
   font-size: 20px;
-  color: white;
+  color: var(--color-white-bright);
 }
 
 .base-stat-icon {
@@ -73,14 +73,14 @@
 }
 
 .scales-text {
-  color: #aaa;
+  color: var(--color-text-gray);
   margin-right: 10px;
 }
 
 .scales-select {
   background-color: transparent;
   border: none;
-  color: #ccc;
+  color: var(--color-text-light-gray);
   padding: 5px;
   margin-right: 5px;
   cursor: pointer;
@@ -97,16 +97,16 @@
 .rune-slot {
   display: flex;
   align-items: center;
-  background-color: rgba(30, 30, 50, 0.6);
+  background-color: var(--color-bg-slot);
   border-radius: 4px;
   padding: 8px;
-  border: 1px solid #444;
+  border: 1px solid var(--color-border-dark);
 }
 
 .slot-number {
   width: 24px;
   height: 24px;
-  background-color: #444;
+  background-color: var(--color-border-dark);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -118,7 +118,7 @@
 .slot-select {
   background-color: transparent;
   border: none;
-  color: white;
+  color: var(--color-white-bright);
   flex-grow: 1;
   cursor: pointer;
   outline: none;
@@ -127,8 +127,8 @@
 .resource-bar {
   display: flex;
   padding: 15px;
-  border-top: 1px solid #333;
-  border-bottom: 1px solid #333;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .cost {
@@ -154,15 +154,15 @@
 }
 
 .cost-icon {
-  color: #4fd69c;
+  color: var(--color-resource-cost);
 }
 
 .gain-icon {
-  color: #f9d423;
+  color: var(--color-resource-gain);
 }
 
 .resource-label {
-  color: #aaa;
+  color: var(--color-text-gray);
   margin-right: 8px;
 }
 
@@ -175,7 +175,7 @@
   padding: 6px 15px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--color-border);
 
   .resistance {
     display: flex;
@@ -184,14 +184,14 @@
   }
 
   .resistance-type {
-    color: #aaa;
+    color: var(--color-text-gray);
     font-size: 14px;
     margin-bottom: 5px;
   }
 
   .resistance-value {
     font-size: 14px;
-    color: #8df5c0;
+    color: var(--color-resistance);
     font-weight: bold;
   }
 
@@ -200,12 +200,12 @@
 .required-level {
   font-size: 0.9em;
   padding: 6px 15px;
-  border-top: 1px solid #333;
-  color: #aaa;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-gray);
 
   .level-value {
     font-weight: bold;
-    color: white;
+    color: var(--color-white-bright);
   }
 
 }
@@ -214,7 +214,7 @@
 .bottom-stats {
   display: flex;
   padding: 6px 15px;
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--color-border);
 
   .durability {
     flex: 1;
@@ -239,7 +239,7 @@
 
   .durability-value,
   .weight-value {
-    color: white;
+    color: var(--color-white-bright);
   }
 
 }

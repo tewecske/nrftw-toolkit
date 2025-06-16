@@ -14,10 +14,10 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
-badd +119 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+badd +125 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +104 src/main/scala/com/tewe/nrftw/Items.scala
 badd +32 src/main/scala/com/tewe/nrftw/Main.scala
-badd +101 style.css
+badd +55 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
@@ -32,21 +32,21 @@ badd +26 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/r
 badd +18 .metals/readonly/dependencies/scalajs-dom_sjs1_3-2.8.0-sources.jar/org/scalajs/dom/URLSearchParams.scala
 badd +2 index.js
 badd +42 vite.config.js
-badd +37 src/main/scala/com/tewe/nrftw/RingBuilder.scala
+badd +58 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +112 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
-badd +70 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +30 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
-badd +46 src/main/scala/com/tewe/nrftw/GemsBuilder.scala
+badd +47 src/main/scala/com/tewe/nrftw/GemsBuilder.scala
 badd +97 src/main/scala/com/tewe/nrftw/Errors.scala
-badd +31 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
+badd +17 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 badd +65 src/main/scala/com/tewe/nrftw/StatsBuilder.css
 badd +14 src/main/scala/com/tewe/nrftw/GemsBuilder.css
-badd +22 src/main/scala/com/tewe/nrftw/ItemBuilder.css
-badd +54 src/main/scala/com/tewe/nrftw/RingBuilder.css
+badd +47 src/main/scala/com/tewe/nrftw/ItemBuilder.css
+badd +1 src/main/scala/com/tewe/nrftw/RingBuilder.css
 badd +503 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/tags/HtmlTags.scala
 badd +1 jar:file:///home/tewe/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.5.2/scala3-library_3-3.5.2-sources.jar\!/scala/runtime/stdLibPatches/Predef.scala
 badd +270 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/state/Var.scala
@@ -63,7 +63,7 @@ argglobal
 $argadd ~/projects/scala-projects/nrftw-toolkit
 edit src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 argglobal
-balt src/main/scala/com/tewe/nrftw/Items.scala
+balt src/main/scala/com/tewe/nrftw/ItemBuilder.css
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}

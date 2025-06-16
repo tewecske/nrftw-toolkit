@@ -1,13 +1,13 @@
 .enchantments-container {
   padding: 6px 15px;
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--color-border);
 
   .enchantment-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    color: #aaa;
+    color: var(--color-text-gray);
     font-size: 14px;
   }
 
@@ -16,12 +16,12 @@
     padding: 6px;
     margin-bottom: 4px;
     border-radius: 4px;
-    background-color: rgba(20, 20, 40, 0.6);
+    background-color: var(--color-bg-item);
   }
 
   select {
-    background-color: rgba(20, 20, 40, 0.6);
-    border: 1px solid #444;
+    background-color: var(--color-bg-item);
+    border: 1px solid var(--color-border-dark);
     padding: 4px;
     border-radius: 4px;
     width: 100%;
@@ -31,60 +31,56 @@
   }
 
   option {
-    background-color: rgba(20, 20, 40, 0.6);
-    color: white;
-  }
-
-  .enchant-text {
-    color: #a48bf3;
+    background-color: var(--color-bg-item);
+    color: var(--color-white-bright);
   }
 
   .enchant-group-Other {
-    background-color: #333333;
+    background-color: var(--color-enchant-other);
   }
 
   .enchant-group-Attack {
-    background-color: #4f240e;
+    background-color: var(--color-enchant-attack);
   }
 
   .enchant-group-Stamina {
-    background-color: #4b2659;
+    background-color: var(--color-enchant-stamina);
   }
 
   .enchant-group-Durability {
-    background-color: #435825;
+    background-color: var(--color-enchant-durability);
   }
 
   .enchant-group-Healing {
-    background-color: #2f3a3a;
+    background-color: var(--color-enchant-healing);
   }
 
   .enchant-group-Weight {
-    background-color: #294435;
+    background-color: var(--color-enchant-weight);
   }
 
   .enchant-group-Focus {
-    background-color: #014b1e;
+    background-color: var(--color-enchant-focus);
   }
 
   .enchant-group-Defense {
-    background-color: #313567;
+    background-color: var(--color-enchant-defense);
   }
 
   .enchant-group-Indestructible {
-    background-color: #435825;
+    background-color: var(--color-enchant-durability);
   }
 
   .enchant-group-Resistance {
-    background-color: #12650e;
+    background-color: var(--color-enchant-resistance);
   }
 
   .enchant-group-Movement {
-    background-color: #1d284b;
+    background-color: var(--color-enchant-movement);
   }
 
   .enchant-group-Downside {
-    background-color: #000000;
+    background-color: var(--color-enchant-downside);
   }
 
 }
@@ -92,7 +88,7 @@
 
 .enchantments-container-compact {
   padding-top: 8px;
-  border-top: 1px solid #333;
+  border-top: 1px solid var(--color-border);
 
   .enchantment-item-compact {
     display: flex;
