@@ -56,6 +56,19 @@ object ItemBuilder {
               enchants = List(e1, e2, e3, e4),
               Option(d),
             )
+          case s"RY-$r-ENH-$e1-$e2-$e3-$g" =>
+            ItemState(
+              ItemRarity.values.find(_.id == r).getOrElse(ItemRarity.Magic),
+              enchants = List(e1, e2, e3),
+              downside = None,
+              gemOption = gems.find(_.id == g),
+            )
+          case s"RY-$r-ENH-$e1-$e2-$e3" =>
+            ItemState(
+              ItemRarity.values.find(_.id == r).getOrElse(ItemRarity.Magic),
+              List(e1, e2, e3),
+              downside = None,
+            )
           case s"$e1-$e2-$e3-$e4-$d-$g" =>
             ItemState(
               ItemRarity.Plagued,
@@ -65,15 +78,6 @@ object ItemBuilder {
             )
           case s"$e1-$e2-$e3-$e4-$d" =>
             ItemState(ItemRarity.Plagued, List(e1, e2, e3, e4), Option(d))
-          case s"$e1-$e2-$e3-$g" =>
-            ItemState(
-              ItemRarity.Magic,
-              enchants = List(e1, e2, e3),
-              downside = None,
-              gemOption = gems.find(_.id == g),
-            )
-          case s"$e1-$e2-$e3" =>
-            ItemState(ItemRarity.Magic, List(e1, e2, e3), downside = None)
           case _ =>
             ItemState(
               ItemRarity.Plagued,
@@ -90,9 +94,11 @@ object ItemBuilder {
 
     val itemRarityVar = {
       stateVar.zoomLazy(_.itemRarity.id)((state, id) => {
-        state.copy(itemRarity =
-          ItemRarity.values.find(_.id == id).getOrElse(ItemRarity.Plagued)
-        )
+        val itemRarity = ItemRarity
+          .values
+          .find(_.id == id)
+          .getOrElse(ItemRarity.Plagued)
+        state.copy(itemRarity = itemRarity).resetEnchants(itemRarity, config)
       })
     }
     val itemGemStateVar = {

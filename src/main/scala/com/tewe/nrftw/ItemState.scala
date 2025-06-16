@@ -12,6 +12,43 @@ case class ItemState(
         s"-$d"
       )}${gemOption.fold("")(gem => s"-${gem.id}")}"
   }
+  def resetEnchants(
+    itemRarity: ItemRarity,
+    config: ItemBuilderConfig,
+  ): ItemState = {
+    println(
+      s"resetEnchants called for ${config.itemSlot} and rarity $itemRarity"
+    )
+    val firstEnchant = config.enchants.values.toList.map(_.id).sorted.head
+    val firstMagicEnchant =
+      config.magicEnchants.values.toList.map(_.id).sorted.head
+    val firstDownside =
+      config.enchantDownsides.values.toList.map(_.id).sorted.head
+    Errors.errors(
+      config,
+      this.copy(
+        enchants =
+          itemRarity match {
+            case ItemRarity.Plagued =>
+              List(firstEnchant, firstEnchant, firstEnchant, firstEnchant)
+            case ItemRarity.Magic =>
+              List(firstMagicEnchant, firstMagicEnchant, firstMagicEnchant)
+            case _ =>
+              List(firstEnchant, firstEnchant, firstEnchant, firstEnchant)
+          },
+        downside = {
+          itemRarity match {
+            case ItemRarity.Plagued =>
+              Some(firstDownside)
+            case _ =>
+              None
+          }
+        },
+      ),
+    )
+
+  }
+
 }
 
 case class WeaponState(

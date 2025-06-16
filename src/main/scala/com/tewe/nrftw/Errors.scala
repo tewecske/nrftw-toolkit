@@ -90,8 +90,21 @@ object Errors {
   }
 
   def errors(config: ItemBuilderConfig, itemState: ItemState): ItemState = {
-    println(s"ItemState errors called for ${config.itemSlot}")
-    val groups = itemState.enchants.map(config.enchants(_).group)
+    println(
+      s"ItemState errors called for ${config.itemSlot} and rarity ${itemState
+          .itemRarity}"
+    )
+    val actualEnchants = {
+      itemState.itemRarity match {
+        case ItemRarity.Plagued =>
+          config.enchants
+        case ItemRarity.Magic =>
+          config.magicEnchants
+        case _ =>
+          config.enchants
+      }
+    }
+    val groups = itemState.enchants.map(actualEnchants(_).group)
     val errors = groups.map(group => groups.count(_ == group) > 1)
     if (itemState.enchantsError != errors) {
       itemState.copy(enchantsError = errors)

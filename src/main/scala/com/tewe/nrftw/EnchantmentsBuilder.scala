@@ -76,12 +76,14 @@ object EnchantmentsBuilder {
     stateVar: Var[ItemState],
   ) = {
     val sortedEnchants = config.enchants.values.toList.sortBy(_.id)
+    val sortedMagicEnchants = config.magicEnchants.values.toList.sortBy(_.id)
     val sortedEnchantDownsides = config
       .enchantDownsides
       .values
       .toList
       .sortBy(_.id)
 
+    val itemRaritySignal = stateVar.signal.map(_.itemRarity)
     val enchantsVar = {
       stateVar.zoomLazy(_.enchants)((state, enchants) => {
         state.copy(enchants = enchants)
@@ -92,38 +94,45 @@ object EnchantmentsBuilder {
         state.copy(downside = Option.when(downside.nonEmpty)(downside))
       })
     }
-
     val enchantsErrorSignal = stateVar.signal.map(_.enchantsError)
 
     div(
-      cls := "enchantments-container",
-      children <--
-        enchantsVar.splitByIndex { (index, value, valueVar) =>
-          enchantSplitSelectComponent(
-            index,
-            config,
-            sortedEnchants,
-            stateVar,
-            valueVar,
-            enchantsErrorSignal,
+      child <--
+        itemRaritySignal.map { itemRarity =>
+          div(
+            cls := "enchantments-container",
+            children <--
+              enchantsVar.splitByIndex { (index, value, valueVar) =>
+                enchantSplitSelectComponent(
+                  index,
+                  config,
+                  if (itemRarity == ItemRarity.Plagued)
+                    sortedEnchants
+                  else
+                    sortedMagicEnchants,
+                  stateVar,
+                  valueVar,
+                  enchantsErrorSignal,
+                )
+              },
+            if (itemRarity == ItemRarity.Plagued) {
+              select(
+                cls := "downside-text",
+                value <-- downsideVar,
+                onChange.mapToValue --> downsideVar,
+                sortedEnchantDownsides.map(enchant => {
+                  option(
+                    value := enchant.id,
+                    cls := s"enchant-group-${enchant.group}",
+                    enchant.value,
+                  )
+                }),
+              )
+            } else {
+              div()
+            },
           )
-        },
-      if (config.itemRarity == ItemRarity.Plagued) {
-        select(
-          cls := "downside-text",
-          value <-- downsideVar,
-          onChange.mapToValue --> downsideVar,
-          sortedEnchantDownsides.map(enchant => {
-            option(
-              value := enchant.id,
-              cls := s"enchant-group-${enchant.group}",
-              enchant.value,
-            )
-          }),
-        )
-      } else {
-        div()
-      },
+        }
     )
   }
 }

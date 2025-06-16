@@ -71,12 +71,15 @@ object WeaponBuilder {
     }
     val itemRarityVar = {
       stateVar.zoomLazy(_.itemState.itemRarity.id)((state, id) => {
+        val itemRarity = ItemRarity
+          .values
+          .find(_.id == id)
+          .getOrElse(ItemRarity.Plagued)
         state.copy(itemState = {
           state
             .itemState
-            .copy(itemRarity =
-              ItemRarity.values.find(_.id == id).getOrElse(ItemRarity.Plagued)
-            )
+            .copy(itemRarity = itemRarity)
+            .resetEnchants(itemRarity, config.itemConfig)
         }
         )
       })

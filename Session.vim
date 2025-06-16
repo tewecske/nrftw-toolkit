@@ -13,20 +13,21 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
+badd +1 src/main/scala/com/tewe/nrftw
 badd +1 ~/projects/scala-projects/nrftw-toolkit
-badd +19 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+badd +101 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +141 src/main/scala/com/tewe/nrftw/Items.scala
-badd +10 src/main/scala/com/tewe/nrftw/Main.scala
+badd +153 src/main/scala/com/tewe/nrftw/Main.scala
 badd +271 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
 badd +1 .gitignore
-badd +1 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
+badd +81 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
 badd +9 package.json
 badd +54 README.md
 badd +1 src/main/scala/com/tewe/nrftw/Main.less
-badd +3 src/main/scala/com/tewe/nrftw/ItemState.scala
+badd +15 src/main/scala/com/tewe/nrftw/ItemState.scala
 badd +47 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/api/AirstreamAliases.scala
 badd +26 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/core/Signal.scala
 badd +18 .metals/readonly/dependencies/scalajs-dom_sjs1_3-2.8.0-sources.jar/org/scalajs/dom/URLSearchParams.scala
@@ -36,12 +37,12 @@ badd +19 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +112 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
-badd +30 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +64 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
 badd +47 src/main/scala/com/tewe/nrftw/GemsBuilder.scala
-badd +97 src/main/scala/com/tewe/nrftw/Errors.scala
+badd +116 src/main/scala/com/tewe/nrftw/Errors.scala
 badd +17 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 badd +65 src/main/scala/com/tewe/nrftw/StatsBuilder.css
 badd +14 src/main/scala/com/tewe/nrftw/GemsBuilder.css
@@ -58,17 +59,25 @@ badd +1331 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala
 badd +128 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/LinearSeq.scala
 badd +5 .scalafmt.conf
 badd +47 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/keys/EventProcessor.scala
-badd +17 src/main/scala/com/tewe/nrftw/ItemRarityComponent.scala
+badd +12 src/main/scala/com/tewe/nrftw/ItemRarityComponent.scala
 badd +1 src/main/scala/com/tewe/nrftw/items/Gems.scala
-badd +52 src/main/scala/com/tewe/nrftw/items/Equipment.scala
+badd +334 src/main/scala/com/tewe/nrftw/items/Equipment.scala
 badd +1 src/main/scala/com/tewe/nrftw/items/Rings.scala
 badd +24 src/main/scala/com/tewe/nrftw/items/Runes.scala
+badd +114 src/main/scala/com/tewe/nrftw/ItemModel.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit src/main/scala/com/tewe/nrftw
+edit src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 argglobal
-balt src/main/scala/com/tewe/nrftw/Items.scala
+balt src/main/scala/com/tewe/nrftw/Errors.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -79,11 +88,11 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 23 - ((22 * winheight(0) + 21) / 43)
+let s:l = 1 - ((0 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 23
+keepjumps 1
 normal! 0
 lcd ~/projects/scala-projects/nrftw-toolkit
 tabnext 1
@@ -93,13 +102,14 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost

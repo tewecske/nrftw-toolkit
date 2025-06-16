@@ -21,7 +21,14 @@ enum WeaponType(val id: String, val name: String) {
 }
 
 object WeaponType {
-  val weaponTypesSelect = Set(DoubleDaggers, Gauntlets, OneHanded, TwoHanded, Wand, Staff)
+  val weaponTypesSelect = Set(
+    DoubleDaggers,
+    Gauntlets,
+    OneHanded,
+    TwoHanded,
+    Wand,
+    Staff,
+  )
   val allWeapons = WeaponType.values.toSet
 
   val shields = Set(Shield)
@@ -39,14 +46,25 @@ object WeaponType {
 }
 
 case class GemEffect(itemSlot: ItemSlot, value: String, extra: Boolean = false)
-case class Gem(id: String, value: String, imageSrc: String, gemEffects: List[GemEffect])
+case class Gem(
+  id: String,
+  value: String,
+  imageSrc: String,
+  gemEffects: List[GemEffect],
+)
 
 sealed trait RuneCost
 case class FocusCost(value: Int) extends RuneCost
 case class StaminaCost(value: Int) extends RuneCost
 case class HealthCost(value: Int) extends RuneCost
 
-case class Rune(id: String, name: String, imageSrc: String, cost: RuneCost, weaponTypes: Set[WeaponType])
+case class Rune(
+  id: String,
+  name: String,
+  imageSrc: String,
+  cost: RuneCost,
+  weaponTypes: Set[WeaponType],
+)
 
 enum WeaponSource {
   case Vendor,
@@ -79,18 +97,18 @@ case class Weapon(
 )
 
 enum EnchantGroup {
-  case Attack,
-    Defense,
-    Durability,
-    Focus,
-    Healing,
-    Indestructible,
-    Movement,
-    Other,
-    Resistance,
-    Stamina,
-    Weight,
-    Downside
+  case Attack, // a
+    Defense, // d
+    Durability, // u
+    Focus, // f
+    Healing, // h
+    Indestructible, // i
+    Movement, // m
+    Other, // o
+    Resistance, // r
+    Stamina, // s
+    Weight, // w
+    Downside // down
 }
 
 enum ItemRarity(val id: String, val value: String) {
@@ -101,7 +119,10 @@ enum ItemRarity(val id: String, val value: String) {
   override def toString(): String = value
 }
 object ItemRarity {
-  def findById(id: String): ItemRarity = ItemRarity.values.find(_.id == id).getOrElse(ItemRarity.Plagued)
+  def findById(id: String): ItemRarity = ItemRarity
+    .values
+    .find(_.id == id)
+    .getOrElse(ItemRarity.Plagued)
 }
 
 case class Enchant(id: String, group: EnchantGroup, value: String)
@@ -121,11 +142,15 @@ case class ItemBuilderConfig(
   itemSlot: ItemSlot,
   itemRarity: ItemRarity,
   gems: List[Gem],
+  magicEnchants: Map[String, Enchant],
   enchants: Map[String, Enchant],
   enchantDownsides: Map[String, Enchant],
 )
 
-case class WeaponBuilderConfig(itemConfig: ItemBuilderConfig, weaponTypes: Set[WeaponType])
+case class WeaponBuilderConfig(
+  itemConfig: ItemBuilderConfig,
+  weaponTypes: Set[WeaponType],
+)
 
 case class RingData(
   id: String,

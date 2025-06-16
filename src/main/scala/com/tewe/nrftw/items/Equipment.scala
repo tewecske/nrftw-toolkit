@@ -8,6 +8,35 @@ import com.tewe.nrftw.ItemSlot.*
 import com.tewe.nrftw.WeaponBuilderConfig
 import com.tewe.nrftw.WeaponType.*
 
+// format: off
+
+val helmetMagicEnchants = List(
+  Enchant("o_hme1", Other, "Poise Defense increased by 1-3."),
+  Enchant("a_hme2", Attack, "Heat Damage increased by 4%-15%"),
+  Enchant("a_hme3", Attack, "Cold Damage increased by 4%-15%"),
+  Enchant("a_hme4", Attack, "Lightning Damage increased by 4%-15%"),
+  Enchant("a_hme5", Attack, "Plague Damage increased by 4%-15%"),
+  Enchant("f_hme6", Focus, "Focus Gain increased by 4%-15%"),
+  Enchant("f_hme7", Focus, "Focus Cost decreased by 7%-25% at Full Focus"),
+  Enchant("f_hme8", Focus, "Focus Cost decreased by 6%-25% at Low Health"),
+  Enchant("f_hme9", Focus, "Gain 3-10 Focus on inflicting Any Buildup"),
+  Enchant("f_hme10", Focus, "Max Focus increased by 7%-25%"),
+  Enchant("f_hme11", Focus, "Focus Cost decreased by 6%-20% for 6s after Rune Attack."),
+  Enchant("f_hme12", Focus, "Regenerate Focus in Combat"),
+  Enchant("s_hme13", Stamina, "Stamina Recovery increased by 6%-20% based on Durability"),
+  Enchant("u_hme14", Durability, "Durability increased by 30%-100%."),
+  Enchant("u_hme15", Durability, "Chance to ignore Durability Loss increased by 6%-20%."),
+  Enchant("r_hme16", Resistance, "Cold Resistance increased by 10%-20%."),
+  Enchant("r_hme17", Resistance, "Heat Resistance increased by 10%-20%."),
+  Enchant("r_hme18", Resistance, "Lightning Resistance increased by 10%-20%."),
+  Enchant("r_hme19", Resistance, "Plague Resistance increased by 10%-20%."),
+  Enchant("r_hme20", Resistance, "Stagger Resistance increased by 7%-15%."),
+  Enchant("h_hme21", Healing, "Regainable health increased by 10%-20%"),
+  Enchant("h_hme22", Healing, "Healing increased by 4%-15% based on Durability"),
+  Enchant("w_hme23", Weight, "Item Weight decreased by 3%-10%."),
+  Enchant("d_hme24", Defense, "Damage Taken decreased up to 2%-6% based on Durability"),
+  Enchant("d_hme25", Defense, "Armor increased by 10%-20%.")
+)
 
 val helmetEnchants = List(
   Enchant("o_bnc", Other, "Bomb not consumed with 10%-20% chance"),
@@ -50,8 +79,33 @@ val helmetPlagued = ItemBuilderConfig(
   itemSlot = HelmetSlot,
   itemRarity = ItemRarity.Plagued,
   gems = gems,
+  magicEnchants = helmetMagicEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchants = helmetEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchantDownsides = helmetEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
+)
+
+val armorMagicEnchants = List(
+  Enchant("o_ame1", Other, "Poise Defense increased by 1-3."),
+  Enchant("f_ame2", Focus, "Gain 3-10 Focus on Staggering an Enemy"),
+  Enchant("f_ame3", Focus, "Focus Gain increased by 4%-15% based on Durability"),
+  Enchant("u_ame4", Durability, "Durability increased by 30%-100%."),
+  Enchant("u_ame5", Durability, "Chance to ignore Durability Loss increased by 6%-20%."),
+  Enchant("r_ame6", Resistance, "Cold Resistance increased by 10%-20%."),
+  Enchant("r_ame7", Resistance, "Heat Resistance increased by 10%-20%."),
+  Enchant("r_ame8", Resistance, "Lightning Resistance increased by 10%-20%."),
+  Enchant("r_ame9", Resistance, "Plague Resistance increased by 10%-20%."),
+  Enchant("r_ame10", Resistance, "Stagger Resistance increased by 7%-15%."),
+  Enchant("h_ame11", Healing, "Max Health increased by 4%-15%"),
+  Enchant("h_ame12", Healing, "Regainable health increased by 10%-20%"),
+  Enchant("h_ame13", Healing, "Health increased by 4%-15%."),
+  Enchant("h_ame14", Healing, "Healing increased by 6%-20%"),
+  Enchant("w_ame15", Weight, "Item Weight decreased by 3%-10%."),
+  Enchant("d_ame16", Defense, "Damage Taken decreased by 6%-20% at Low Health"),
+  Enchant("d_ame17", Defense, "Damage taken decreased by 2%-5% for each Nearby Enemy"),
+  Enchant("d_ame18", Defense, "Damage Taken reduced by 6%-20% at Max Stamina"),
+  Enchant("d_ame19", Defense, "Damage Taken reduced by 2-5% per nearby enemy (up to 5% max)."),
+  Enchant("d_ame20", Defense, "Damage Taken decreased up to 2%-6% based on Durability"),
+  Enchant("d_ame21", Defense, "Armor increased by 10%-20%.")
 )
 
 val armorEnchants = List(
@@ -101,8 +155,37 @@ val armorPlagued = ItemBuilderConfig(
   itemSlot = ArmorSlot,
   itemRarity = ItemRarity.Plagued,
   gems = gems,
+  magicEnchants = armorMagicEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchants = armorEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchantDownsides = armorEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
+)
+
+val pantsMagicEnchants = List(
+  Enchant("o_pme1", Other, "Poise Defense increased by 1-3."),
+  Enchant("a_pme2", Attack, "Damage increased by 4%-15% for 5 seconds after Damage Dodged"),
+  Enchant("a_pme3", Attack, "Deal 4-15% Damage on Damage Dodged"),
+  Enchant("f_pme4", Focus, "Gain 5-15 Focus on Damage Dodged"),
+  Enchant("f_pme5", Focus, "Focus Gain increased by 4%-15% based on Durability"),
+  Enchant("s_pme6", Stamina, "Stamina Cost decreased by 7%-25% at Full Health"),
+  Enchant("s_pme7", Stamina, "Stamina Cost decreased by 7%-25% at Low Health"),
+  Enchant("s_pme8", Stamina, "Stamina Recovery increased by 6%-20%"),
+  Enchant("s_pme9", Stamina, "Stamina Cost decreased by 8%-25% at High Focus"),
+  Enchant("s_pme10", Stamina, "Gain 5-15 Stamina on Damage Dodged"),
+  Enchant("s_pme11", Stamina, "Dodge Stamina Cost decreased by 7%-25%"),
+  Enchant("u_pme12", Durability, "Durability increased by 30%-100%."),
+  Enchant("u_pme13", Durability, "Chance to ignore Durability Loss increased by 6%-20%."),
+  Enchant("r_pme14", Resistance, "Cold Resistance increased by 10%-20%."),
+  Enchant("r_pme15", Resistance, "Heat Resistance increased by 10%-20%."),
+  Enchant("r_pme16", Resistance, "Lightning Resistance increased by 10%-20%."),
+  Enchant("r_pme17", Resistance, "Plague Resistance increased by 10%-20%."),
+  Enchant("r_pme18", Resistance, "Stagger Resistance increased by 7%-15%."),
+  Enchant("h_pme19", Healing, "Healing increased by 4%-15% based on Durability"),
+  Enchant("h_pme20", Healing, "Regainable health increased by 10%-20%"),
+  Enchant("m_pme21", Movement, "Movement Speed increased by 4%-15% for 10 seconds after Kill"),
+  Enchant("m_pme22", Movement, "Movement Speed increased by 3%-10%."),
+  Enchant("w_pme23", Weight, "Item Weight decreased by 3%-10%."),
+  Enchant("d_pme24", Defense, "Damage Taken decreased up to 2%-6% based on Durability"),
+  Enchant("d_pme25", Defense, "Armor increased by 10%-20%.")
 )
 
 val pantsEnchants = List(
@@ -148,8 +231,38 @@ val pantsPlagued = ItemBuilderConfig(
   itemSlot = PantsSlot,
   itemRarity = ItemRarity.Plagued,
   gems = gems,
+  magicEnchants = pantsMagicEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchants = pantsEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchantDownsides = pantsEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
+)
+
+val glovesMagicEnchants = List(
+  Enchant("o_gme1", Other, "Poise Defense increased by 1-3."),
+  Enchant("a_gme2", Attack, "Physical Damage increased by 4%-15%"),
+  Enchant("a_gme3", Attack, "Burn Buildup increased by 6%-20%."),
+  Enchant("a_gme4", Attack, "Shock Buildup increased by 6%-20%."),
+  Enchant("a_gme5", Attack, "Freeze Buildup increased by 6%-20%."),
+  Enchant("a_gme6", Attack, "Infect Buildup increased by 6%-20%."),
+  Enchant("a_gme7", Attack, "On Parry, deal 7%-25% of Weapon Damage."),
+  Enchant("a_gme8", Attack, "Damage increased by 4%-15% for 5 seconds after Parry"),
+  Enchant("a_gme9", Attack, "Damage increased by 3%-10% based on Durability"),
+  Enchant("f_gme10", Focus, "Focus Gain increased by 4%-15% based on Durability"),
+  Enchant("f_gme11", Focus, "Gain 5-15 Focus on Parry"),
+  Enchant("s_gme12", Stamina, "Stamina Recovery increased by 6%-20% based on Durability"),
+  Enchant("s_gme13", Stamina, "Gain 9-30 Stamina on Parry"),
+  Enchant("u_gme14", Durability, "Durability increased by 30%-100%."),
+  Enchant("u_gme15", Durability, "Chance to ignore Durability Loss increased by 6%-20%."),
+  Enchant("r_gme16", Resistance, "Heat Resistance increased by 10%-20%."),
+  Enchant("r_gme17", Resistance, "Cold Resistance increased by 10%-20%."),
+  Enchant("r_gme18", Resistance, "Lightning Resistance increased by 10%-20%."),
+  Enchant("r_gme19", Resistance, "Plague Resistance increased by 10%-20%."),
+  Enchant("r_gme20", Resistance, "Stagger Resistance increased by 7%-15%."),
+  Enchant("h_gme21", Healing, "Healing increased by 4%-15% based on Durability"),
+  Enchant("h_gme22", Healing, "Regainable health increased by 10%-20%"),
+  Enchant("h_gme23", Healing, "Gain 3%-10% Health on Kill."),
+  Enchant("w_gme24", Weight, "Item Weight decreased by 3%-10%."),
+  Enchant("d_gme25", Defense, "Damage Taken decreased up to 2%-6% based on Durability"),
+  Enchant("d_gme26", Defense, "Armor increased by 10%-20%.")
 )
 
 val glovesEnchants = List(
@@ -197,8 +310,39 @@ val glovesPlagued = ItemBuilderConfig(
   itemSlot = GlovesSlot,
   itemRarity = ItemRarity.Plagued,
   gems = gems,
+  magicEnchants = glovesMagicEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchants = glovesEnchants.map(enchant => (enchant.id, enchant)).toMap,
   enchantDownsides = glovesEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
+)
+
+val weaponMagicEnchants = List(
+  Enchant("o_wme0", Other, "Damage increased by 15%-30% for 30s after Backstab"),
+  Enchant("o_wme1", Other, "Stagger Damage increased by 15%-30% for 30s after Backstab."),
+  Enchant("o_wme2", Other, "Stagger Damage increased by 15%-30% for 20s after Kill."),
+  Enchant("a_wme3", Attack, "Damage increased by up to 3%-10% based on Durability"),
+  Enchant("a_wme4", Attack, "Deal 25%-50% Explosion Damage on Kill"),
+  Enchant("a_wme5", Attack, "Deal 7%-25% Damage on Staggering an Enemy"),
+  Enchant("a_wme6", Attack, "Attack Stamina Cost decreased by 7%-15%."),
+  Enchant("a_wme7", Attack, "Attack Speed increased by 3%-10% based on Durability"),
+  Enchant("a_wme8", Attack, "Damage increased by 6%-20% when at High Focus"),
+  Enchant("a_wme9", Attack, "Attack Stamina Cost decreased by 7%-25% at Low Health"),
+  Enchant("a_wme10", Attack, "Damage increased by 2%-5% for each Nearby Enemy"),
+  Enchant("a_wme11", Attack, "Stagger Damage increased by 4%-15%."),
+  Enchant("a_wme12", Attack, "Stagger Damage increased by 6%-20% for 4s after Charged Attack."),
+  Enchant("a_wme13", Attack, "Deal 15-50% Explosion Damage on Rune Attack with 10% chance"),
+  Enchant("a_wme14", Attack, "Damage increased by 3%-10%"),
+  Enchant("a_wme15", Attack, "Rune Damage increased by 4%-15%"),
+  Enchant("a_wme16", Attack, "Heat Damage Infusion"),
+  Enchant("a_wme17", Attack, "Cold Damage Infusion"),
+  Enchant("a_wme18", Attack, "Lightning Damage Infusion"),
+  Enchant("a_wme19", Attack, "Plague Damage Infusion"),
+  Enchant("a_wme20", Attack, "Attack damage increased by 6%-20% for 5s after Rune Attack."),
+  Enchant("a_wme21", Attack, "Normal attack damage increased by 4%-15% for 4s after Charged Attack."),
+  Enchant("s_wme22", Stamina, "Stamina Recovery increased by 6%-20% based on Durability"),
+  Enchant("s_wme23", Stamina, "Attack Stamina Cost decreased by 7%-25% after Backstab"),
+  Enchant("u_wme24", Durability, "Durability increased by 30%-100%."),
+  Enchant("h_wme25", Healing, "Healing increased by 4%-15% based on Durability"),
+  Enchant("w_wme26", Weight, "Item Weight decreased by 3%-10%.")
 )
 
 val weaponEnchants = List(
@@ -255,10 +399,29 @@ val weaponPlagued = WeaponBuilderConfig(
     itemSlot = WeaponSlot,
     itemRarity = ItemRarity.Plagued,
     gems = gems,
+    magicEnchants = weaponMagicEnchants.map(enchant => (enchant.id, enchant)).toMap,
     enchants = weaponEnchants.map(enchant => (enchant.id, enchant)).toMap,
     enchantDownsides = weaponEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
   ),
   weaponTypes = weaponTypesSelect,
+)
+
+val shieldMagicEnchants = List(
+  Enchant("a_sme0", Attack, "Damage increased by up to 3%-10% based on Durability"),
+  Enchant("a_sme1", Attack, "Deal 7-25% Damage on Parry"),
+  Enchant("a_sme2", Attack, "Damage increased by 5%-10% for 5 seconds after Block"),
+  Enchant("a_sme3", Attack, "Damage increased by 4%-15% for 5 seconds after Parry"),
+  Enchant("a_sme4", Attack, "Deal 5%-15% Damage on Block"),
+  Enchant("f_sme5", Focus, "Focus Gain increased by 4%-15% based on Durability"),
+  Enchant("f_sme6", Focus, "Gain 2-5 Focus on Block."),
+  Enchant("f_sme7", Focus, "Gain 5-15 Focus on Parry"),
+  Enchant("s_sme8", Stamina, "Stamina Recovery increased by 6%-20% based on Durability"),
+  Enchant("s_sme9", Stamina, "Gain 2-5 Stamina on Blocked Attacks."),
+  Enchant("s_sme10", Stamina, "Gain 9-30 Stamina on Parry"),
+  Enchant("s_sme11", Stamina, "Attack Stamina Cost decreased by 7%-25% for 5s after Parry."),
+  Enchant("d_sme12", Durability, "Durability increased by 30%-100%."),
+  Enchant("h_sme13", Healing, "Healing increased by 4%-15% based on Durability"),
+  Enchant("w_sme14", Weight, "Item Weight decreased by 3%-10%.")
 )
 
 val shieldEnchants = List(
@@ -292,10 +455,30 @@ val shieldPlagued = WeaponBuilderConfig(
     itemSlot = ShieldSlot,
     itemRarity = ItemRarity.Plagued,
     gems = gems,
+    magicEnchants = shieldMagicEnchants.map(enchant => (enchant.id, enchant)).toMap,
     enchants = shieldEnchants.map(enchant => (enchant.id, enchant)).toMap,
     enchantDownsides = shieldEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
   ),
   weaponTypes = shields,
+)
+
+val bowMagicEnchants = List(
+  Enchant("a_bme1", Attack, "Damage increased by up to 3%-10% based on Durability"),
+  Enchant("a_bme2", Attack, "Heat Damage Infusion"),
+  Enchant("a_bme3", Attack, "Cold Damage Infusion"),
+  Enchant("a_bme4", Attack, "Lightning Damage Infusion"),
+  Enchant("a_bme5", Attack, "Plague Damage Infusion"),
+  Enchant("a_bme6", Attack, "Damage increased by 4%-15% if no Enemies nearby"),
+  Enchant("a_bme7", Attack, "Damage increased by 4%-15% for 5 seconds after Damage Dodged"),
+  Enchant("a_bme8", Attack, "Deal 4-15% Damage on Damage Dodged"),
+  Enchant("f_bme9", Focus, "Focus Gain increased by 4%-15% based on Durability"),
+  Enchant("f_bme10", Focus, "Gain 5-15 Focus on Damage Dodged"),
+  Enchant("s_bme11", Stamina, "Stamina Recovery increased by 6%-20% based on Durability"),
+  Enchant("s_bme12", Stamina, "Dodge Stamina Cost decreased by 7%-25%"),
+  Enchant("s_bme13", Stamina, "Gain 5-15 Stamina on Damage Dodged"),
+  Enchant("d_bme14", Durability, "Durability increased by 30%-100%."),
+  Enchant("h_bme15", Healing, "Healing increased by 4%-15% based on Durability"),
+  Enchant("w_bme16", Weight, "Item Weight decreased by 3%-10%.")
 )
 
 val bowEnchants = List(
@@ -330,6 +513,7 @@ val bowPlagued = WeaponBuilderConfig(
     itemSlot = BowSlot,
     itemRarity = ItemRarity.Plagued,
     gems = gems,
+    magicEnchants = bowMagicEnchants.map(enchant => (enchant.id, enchant)).toMap,
     enchants = bowEnchants.map(enchant => (enchant.id, enchant)).toMap,
     enchantDownsides = bowEnchantDownsides.map(enchant => (enchant.id, enchant)).toMap,
   ),
