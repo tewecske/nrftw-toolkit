@@ -268,11 +268,6 @@ select.x-hasError {
   box-shadow: 0 0 20px var(--color-shadow-blue);
 }
 
-.weapon-header {
-  padding: 15px;
-  position: relative;
-}
-
 .weapon-name {
   font-size: 24px;
   font-weight: bold;

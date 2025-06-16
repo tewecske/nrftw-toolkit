@@ -68,6 +68,18 @@ object WeaponBuilder {
         state.copy(itemState = itemState)
       )
     }
+    val itemRarityVar = {
+      stateVar.zoomLazy(_.itemState.itemRarity.id)((state, id) => {
+        state.copy(itemState = {
+          state
+            .itemState
+            .copy(itemRarity =
+              ItemRarity.values.find(_.id == id).getOrElse(ItemRarity.Plagued)
+            )
+        }
+        )
+      })
+    }
     val weaponTypeIdVar = {
       stateVar.zoomLazy(_.weaponTypeId)((state, weaponTypeId) =>
         state.copy(weaponTypeId = weaponTypeId)
@@ -177,12 +189,22 @@ object WeaponBuilder {
     val slot = config.itemConfig.itemSlot.name
     div(
       cls := "item-card",
+      cls <--
+        itemRarityVar
+          .signal
+          .map { itemRarity =>
+            s"rarity-${ItemRarity.findById(itemRarity)}"
+          },
       itemGemModal,
       runesModal,
       div(
-        cls := "item-header",
-        h1(cls := "item-name", slot),
-        div(cls := "item-level", span("16")),
+        cls := "weapon-header",
+        div(
+          cls := "item-header",
+          h1(cls := "item-name", slot),
+          div(cls := "item-level", span("16")),
+          ItemRarityComponent(itemRarityVar),
+        ),
         div(
           cls := "item-type-select",
           config.weaponTypes.toList match {

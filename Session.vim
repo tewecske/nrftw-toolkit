@@ -14,15 +14,15 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
-badd +125 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
-badd +104 src/main/scala/com/tewe/nrftw/Items.scala
-badd +32 src/main/scala/com/tewe/nrftw/Main.scala
-badd +55 style.css
+badd +43 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+badd +96 src/main/scala/com/tewe/nrftw/Items.scala
+badd +74 src/main/scala/com/tewe/nrftw/Main.scala
+badd +271 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
 badd +1 .gitignore
-badd +87 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
+badd +206 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
 badd +9 package.json
 badd +54 README.md
 badd +1 src/main/scala/com/tewe/nrftw/Main.less
@@ -45,7 +45,7 @@ badd +97 src/main/scala/com/tewe/nrftw/Errors.scala
 badd +17 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 badd +65 src/main/scala/com/tewe/nrftw/StatsBuilder.css
 badd +14 src/main/scala/com/tewe/nrftw/GemsBuilder.css
-badd +47 src/main/scala/com/tewe/nrftw/ItemBuilder.css
+badd +51 src/main/scala/com/tewe/nrftw/ItemBuilder.css
 badd +1 src/main/scala/com/tewe/nrftw/RingBuilder.css
 badd +503 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/tags/HtmlTags.scala
 badd +1 jar:file:///home/tewe/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.5.2/scala3-library_3-3.5.2-sources.jar\!/scala/runtime/stdLibPatches/Predef.scala
@@ -58,12 +58,20 @@ badd +1331 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala
 badd +128 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/LinearSeq.scala
 badd +5 .scalafmt.conf
 badd +47 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/keys/EventProcessor.scala
+badd +0 src/main/scala/com/tewe/nrftw/ItemRarityComponent.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+edit src/main/scala/com/tewe/nrftw/ItemRarityComponent.scala
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 argglobal
-balt src/main/scala/com/tewe/nrftw/ItemBuilder.css
+balt src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -88,12 +96,15 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
+nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost

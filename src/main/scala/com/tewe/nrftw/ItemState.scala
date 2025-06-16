@@ -8,8 +8,9 @@ case class ItemState(
   gemOption: Option[Gem] = None,
 ) {
   def shortState(): String = {
-    s"${enchants.mkString("-")}${downside.fold("")(d => s"-$d")}${gemOption
-        .fold("")(gem => s"-${gem.id}")}"
+    s"RY-${itemRarity.id}-ENH-${enchants.mkString("-")}${downside.fold("")(d =>
+        s"-$d"
+      )}${gemOption.fold("")(gem => s"-${gem.id}")}"
   }
 }
 

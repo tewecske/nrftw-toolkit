@@ -8,6 +8,12 @@
   box-shadow: 0 0 20px var(--color-shadow-blue);
 }
 
+.weapon-header {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
 .item-header {
   display: flex;
   padding: 15px;
@@ -43,10 +49,16 @@
   transform: rotate(-45deg);
 }
 
-.item-type-select,
+.item-type-select {
+  padding: 0 0 5px 15px
+}
+
 .item-rarity-select {
   margin-top: 5px;
-  color: var(--color-text-gray);
+}
+
+.item-type-select,
+.item-rarity-select {
 
   .item-type-common {
     color: var(--rarity-common-color);
