@@ -94,6 +94,7 @@ object ItemBuilder {
 
     val itemRarityVar = {
       stateVar.zoomLazy(_.itemRarity.id)((state, id) => {
+        println(s"Item ${config.itemSlot} rarity changed to $id")
         val itemRarity = ItemRarity
           .values
           .find(_.id == id)
@@ -111,7 +112,12 @@ object ItemBuilder {
       config.itemSlot,
       itemGemShowModalVar,
       gems,
-      gem => itemGemStateVar.update(_ => Option(gem)),
+      gem => {
+        itemGemStateVar.update { _ =>
+          println(s"Update ${config.itemSlot} itemGemStateVar to ${gem.id}")
+          Option(gem)
+        }
+      },
     )
     val slot = config.itemSlot.name
     div(

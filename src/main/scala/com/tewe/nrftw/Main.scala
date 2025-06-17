@@ -119,14 +119,20 @@ def main(): Unit = {
     )
   )
 
-  fullStateVar.update(fullState => Errors.errors(fullState))
+  fullStateVar.update { fullState =>
+    println("Init fullState update with errors")
+    Errors.errors(fullState)
+  }
 
   val helmetStateVar = {
     fullStateVar.zoomLazy(_.helmetState) { (state, helmetState) =>
       state.copy(helmetState = helmetState)
     }
   }
-  helmetStateVar.update(state => Errors.errors(helmetPlagued, state))
+  helmetStateVar.update { state =>
+    println("Init helmetStateVar update with errors")
+    Errors.errors(helmetPlagued, state)
+  }
   val helmetComponent = ItemBuilder(helmetPlagued, helmetStateVar)
 
   val armorStateVar = {
@@ -134,7 +140,10 @@ def main(): Unit = {
       state.copy(armorState = armorState)
     )
   }
-  armorStateVar.update(state => Errors.errors(armorPlagued, state))
+  armorStateVar.update { state =>
+    println("Init armorStateVar update with errors")
+    Errors.errors(armorPlagued, state)
+  }
   val armorComponent = ItemBuilder(armorPlagued, armorStateVar)
 
   val pantsStateVar = {
@@ -142,7 +151,10 @@ def main(): Unit = {
       state.copy(pantsState = pantsState)
     )
   }
-  pantsStateVar.update(state => Errors.errors(pantsPlagued, state))
+  pantsStateVar.update { state =>
+    println("Init pantsStateVar update with errors")
+    Errors.errors(pantsPlagued, state)
+  }
   val pantsComponent = ItemBuilder(pantsPlagued, pantsStateVar)
 
   val glovesStateVar = {
@@ -150,7 +162,10 @@ def main(): Unit = {
       state.copy(glovesState = glovesState)
     )
   }
-  glovesStateVar.update(state => Errors.errors(glovesPlagued, state))
+  glovesStateVar.update { state =>
+    println("Init glovesStateVar update with errors")
+    Errors.errors(glovesPlagued, state)
+  }
   val glovesComponent = ItemBuilder(glovesPlagued, glovesStateVar)
 
   val weaponStateVar = {
@@ -158,7 +173,10 @@ def main(): Unit = {
       state.copy(weaponState = weaponState)
     )
   }
-  weaponStateVar.update(state => Errors.errors(weaponPlagued, state))
+  weaponStateVar.update { state =>
+    println("Init weaponStateVar update with errors")
+    Errors.errors(weaponPlagued, state)
+  }
   val weaponComponent = WeaponBuilder(weaponPlagued, weaponStateVar)
 
   val shieldStateVar = {
@@ -166,7 +184,10 @@ def main(): Unit = {
       state.copy(shieldState = shieldState)
     )
   }
-  shieldStateVar.update(state => Errors.errors(shieldPlagued, state))
+  shieldStateVar.update { state =>
+    println("Init shieldStateVar update with errors")
+    Errors.errors(shieldPlagued, state)
+  }
   val shieldComponent = WeaponBuilder(shieldPlagued, shieldStateVar)
 
   val bowStateVar = {
@@ -174,7 +195,10 @@ def main(): Unit = {
       state.copy(bowState = bowState)
     )
   }
-  bowStateVar.update(state => Errors.errors(bowPlagued, state))
+  bowStateVar.update { state =>
+    println("Init bowStateVar update with errors")
+    Errors.errors(bowPlagued, state)
+  }
   val bowComponent = WeaponBuilder(bowPlagued, bowStateVar)
 
   val ring1Var = {
@@ -188,8 +212,14 @@ def main(): Unit = {
     ring1ShowModalVar,
     rings,
     ring => {
-      ring1Var.update(_ => Option(ring))
-      fullStateVar.update(fullState => Errors.errors(fullState))
+      ring1Var.update { _ =>
+        println(s"Update ring1Var with $ring")
+        Option(ring)
+      }
+      fullStateVar.update { fullState =>
+        println(s"Update fullState with errors after ring1Var $ring update")
+        Errors.errors(fullState)
+      }
     },
   )
   val ring1ComponentFull = RingBuilder.ringComponentFull(
@@ -209,8 +239,14 @@ def main(): Unit = {
     ring2ShowModalVar,
     rings,
     ring => {
-      ring2Var.update(_ => Option(ring))
-      fullStateVar.update(fullState => Errors.errors(fullState))
+      ring2Var.update { _ =>
+        println(s"Update ring2Var with $ring")
+        Option(ring)
+      }
+      fullStateVar.update { fullState =>
+        println(s"Update fullState with errors after ring2Var $ring update")
+        Errors.errors(fullState)
+      }
     },
   )
   val ring2ComponentFull = RingBuilder.ringComponentFull(
@@ -230,8 +266,14 @@ def main(): Unit = {
     ring3ShowModalVar,
     rings,
     ring => {
-      ring3Var.update(_ => Option(ring))
-      fullStateVar.update(fullState => Errors.errors(fullState))
+      ring3Var.update { _ =>
+        println(s"Update ring1Var with $ring")
+        Option(ring)
+      }
+      fullStateVar.update { fullState =>
+        println(s"Update fullState with errors after ring3Var $ring update")
+        Errors.errors(fullState)
+      }
     },
   )
   val ring3ComponentFull = RingBuilder.ringComponentFull(

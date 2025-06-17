@@ -52,29 +52,67 @@ object EnchantmentsBuilder {
     index: Int,
     config: ItemBuilderConfig,
     sortedEnchants: List[Enchant],
+    sortedMagicEnchants: List[Enchant],
+    itemRaritySignal: Signal[ItemRarity],
     stateVar: Var[ItemState],
     enchantVar: Var[String],
     enchantsErrorSignal: Signal[List[Boolean]],
   ) = {
+    println(
+      s"Rendering enchantSplitSelectComponent for ${config
+          .itemSlot} and index: $index errors: ${stateVar
+          .now()
+          .enchantsError
+          .mkString(",")}"
+    )
     select(
       cls := "enchant-text",
-      cls("x-hasError") <-- enchantsErrorSignal.map(_.apply(index)),
-      value <-- enchantVar,
+      cls("x-hasError") <--
+        enchantsErrorSignal.map { errors =>
+          if (errors.size - 1 >= index)
+            errors.apply(index)
+          else
+            false
+        },
+      value <--
+        enchantVar
+          .signal
+          .debugWithName(s"${config.itemSlot} enchantVar $index")
+          .debugLog(),
       onChange.mapToValue --> enchantVar,
       onChange.mapTo(stateVar.now()) --> Errors.validator(config, stateVar),
-      sortedEnchants.map(enchant => {
-        option(
-          value := enchant.id,
-          cls := s"enchant-group-${enchant.group}",
-          enchant.value,
-        )
-      }),
+      children <--
+        itemRaritySignal.map(itemRarity => {
+          println(
+            s"Rendering ${config.itemSlot} $index options for $itemRarity"
+          )
+          if (itemRarity == ItemRarity.Plagued) {
+            sortedEnchants.map(enchant => {
+              option(
+                value := enchant.id,
+                selected <-- enchantVar.signal.map(_ == enchant.id),
+                cls := s"enchant-group-${enchant.group}",
+                enchant.value,
+              )
+            })
+          } else {
+            sortedMagicEnchants.map(enchant => {
+              option(
+                value := enchant.id,
+                selected <-- enchantVar.signal.map(_ == enchant.id),
+                cls := s"enchant-group-${enchant.group}",
+                enchant.value,
+              )
+            })
+          }
+        }),
     )
   }
   def enchantmentsSelect(
     config: ItemBuilderConfig,
     stateVar: Var[ItemState],
   ) = {
+    println(s"Rendering enchantmentsSelect for ${config.itemSlot}")
     val sortedEnchants = config.enchants.values.toList.sortBy(_.id)
     val sortedMagicEnchants = config.magicEnchants.values.toList.sortBy(_.id)
     val sortedEnchantDownsides = config
@@ -84,6 +122,13 @@ object EnchantmentsBuilder {
       .sortBy(_.id)
 
     val itemRaritySignal = stateVar.signal.map(_.itemRarity)
+    // val itemRaritySignal = {
+    //   stateVar
+    //     .zoomLazy(_.itemRarity)((state, itemRarity) =>
+    //       state.copy(itemRarity = itemRarity)
+    //     )
+    //     .signal
+    // }
     val enchantsVar = {
       stateVar.zoomLazy(_.enchants)((state, enchants) => {
         state.copy(enchants = enchants)
@@ -96,43 +141,53 @@ object EnchantmentsBuilder {
     }
     val enchantsErrorSignal = stateVar.signal.map(_.enchantsError)
 
+    // div(
+    // child <--
+    // itemRaritySignal.map { itemRarity =>
+    // println(s"Rendering enchantmentsSelect for $itemRarity")
     div(
       child <--
-        itemRaritySignal.map { itemRarity =>
-          div(
-            cls := "enchantments-container",
-            children <--
-              enchantsVar.splitByIndex { (index, value, valueVar) =>
-                enchantSplitSelectComponent(
-                  index,
-                  config,
-                  if (itemRarity == ItemRarity.Plagued)
-                    sortedEnchants
-                  else
-                    sortedMagicEnchants,
-                  stateVar,
-                  valueVar,
-                  enchantsErrorSignal,
-                )
-              },
-            if (itemRarity == ItemRarity.Plagued) {
-              select(
-                cls := "downside-text",
-                value <-- downsideVar,
-                onChange.mapToValue --> downsideVar,
-                sortedEnchantDownsides.map(enchant => {
-                  option(
-                    value := enchant.id,
-                    cls := s"enchant-group-${enchant.group}",
-                    enchant.value,
-                  )
-                }),
-              )
-            } else {
-              div()
-            },
+        itemRaritySignal
+          .debugWithName(s"${config.itemSlot}.itemRaritySignal")
+          .debugLog()
+          .map(itemRarity => {
+            div()
+          }),
+      cls := "enchantments-container",
+      children <--
+        enchantsVar.splitByIndex { (index, value, valueVar) =>
+          enchantSplitSelectComponent(
+            index,
+            config,
+            sortedEnchants,
+            sortedMagicEnchants,
+            itemRaritySignal,
+            stateVar,
+            valueVar,
+            enchantsErrorSignal,
           )
-        }
+        },
+      child <--
+        itemRaritySignal.map { itemRarity =>
+          if (itemRarity == ItemRarity.Plagued) {
+            select(
+              cls := "downside-text",
+              value <-- downsideVar,
+              onChange.mapToValue --> downsideVar,
+              sortedEnchantDownsides.map(enchant => {
+                option(
+                  value := enchant.id,
+                  cls := s"enchant-group-${enchant.group}",
+                  enchant.value,
+                )
+              }),
+            )
+          } else {
+            div()
+          }
+        },
     )
+    // }
+    // )
   }
 }

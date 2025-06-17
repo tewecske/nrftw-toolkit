@@ -117,7 +117,10 @@ object Errors {
     {
       Observer[ItemState] { state =>
         println(s"Validator ${config.itemSlot}")
-        stateVar.update(_ => Errors.errors(config, state))
+        stateVar.update { _ =>
+          println(s"Update ${config.itemSlot} ItemState by validator")
+          Errors.errors(config, state)
+        }
       }
     }
   }
@@ -127,7 +130,14 @@ object Errors {
       {
         Observer[WeaponState] { state =>
           println(s"Weapon Validator ${config.itemConfig.itemSlot}")
-          stateVar.update(_ => Errors.errors(config, state))
+          stateVar.update { _ =>
+            println(
+              s"Update ${config
+                  .itemConfig
+                  .itemSlot} WeaponState by weaponValidator"
+            )
+            Errors.errors(config, state)
+          }
         }
       }
   }
