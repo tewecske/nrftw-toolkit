@@ -131,6 +131,7 @@ object EnchantmentsBuilder {
     // }
     val enchantsVar = {
       stateVar.zoomLazy(_.enchants)((state, enchants) => {
+        println(s"Updating ${config.itemSlot} enchantsVar ${enchants.size}")
         state.copy(enchants = enchants)
       })
     }

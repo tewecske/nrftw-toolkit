@@ -15,21 +15,21 @@ else
 endif
 badd +1 src/main/scala/com/tewe/nrftw
 badd +1 ~/projects/scala-projects/nrftw-toolkit
-badd +116 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+badd +1 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +141 src/main/scala/com/tewe/nrftw/Items.scala
-badd +122 src/main/scala/com/tewe/nrftw/Main.scala
+badd +135 src/main/scala/com/tewe/nrftw/Main.scala
 badd +271 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
 badd +1 .gitignore
-badd +111 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
+badd +91 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
 badd +9 package.json
 badd +54 README.md
 badd +1 src/main/scala/com/tewe/nrftw/Main.less
-badd +27 src/main/scala/com/tewe/nrftw/ItemState.scala
+badd +7 src/main/scala/com/tewe/nrftw/ItemState.scala
 badd +47 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/api/AirstreamAliases.scala
-badd +26 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/core/Signal.scala
+badd +153 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/core/Signal.scala
 badd +18 .metals/readonly/dependencies/scalajs-dom_sjs1_3-2.8.0-sources.jar/org/scalajs/dom/URLSearchParams.scala
 badd +2 index.js
 badd +42 vite.config.js
@@ -37,12 +37,12 @@ badd +19 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +112 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
-badd +82 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +111 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
 badd +47 src/main/scala/com/tewe/nrftw/GemsBuilder.scala
-badd +125 src/main/scala/com/tewe/nrftw/Errors.scala
+badd +116 src/main/scala/com/tewe/nrftw/Errors.scala
 badd +17 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 badd +65 src/main/scala/com/tewe/nrftw/StatsBuilder.css
 badd +14 src/main/scala/com/tewe/nrftw/GemsBuilder.css
@@ -50,7 +50,7 @@ badd +51 src/main/scala/com/tewe/nrftw/ItemBuilder.css
 badd +1 src/main/scala/com/tewe/nrftw/RingBuilder.css
 badd +503 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/tags/HtmlTags.scala
 badd +1 jar:file:///home/tewe/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.5.2/scala3-library_3-3.5.2-sources.jar\!/scala/runtime/stdLibPatches/Predef.scala
-badd +231 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/state/Var.scala
+badd +115 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/state/Var.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/api/Implicits.scala
 badd +9 src/main/scala/com/tewe/nrftw/CompactComponent.scala
 badd +10 src/main/scala/com/tewe/nrftw/RunesBuilder.scala
@@ -64,14 +64,19 @@ badd +1 src/main/scala/com/tewe/nrftw/items/Gems.scala
 badd +334 src/main/scala/com/tewe/nrftw/items/Equipment.scala
 badd +1 src/main/scala/com/tewe/nrftw/items/Rings.scala
 badd +24 src/main/scala/com/tewe/nrftw/items/Runes.scala
-badd +114 src/main/scala/com/tewe/nrftw/ItemModel.scala
-badd +59 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/split/SplittableVar.scala
+badd +159 src/main/scala/com/tewe/nrftw/ItemModel.scala
+badd +47 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/split/SplittableVar.scala
+badd +83 CLAUDE.md
+badd +19 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/combine/generated/CombinableSignal.scala
+badd +12 .metals/readonly/dependencies/tuplez-full-light_sjs1_3-0.4.0-sources.jar/app/tulz/tuplez/TupleComposition.scala
+badd +12 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/debug/DebuggerSignal.scala
+badd +17 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/debug/Debugger.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
 edit src/main/scala/com/tewe/nrftw/Main.scala
 argglobal
-balt src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+balt .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/core/Signal.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -82,7 +87,7 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 21) / 43)
+let s:l = 1 - ((0 * winheight(0) + 23) / 46)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -102,7 +107,6 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
-nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost

@@ -65,9 +65,15 @@ object WeaponBuilder {
   ): HtmlElement = {
 
     val itemStateVar = {
-      stateVar.zoomLazy(_.itemState)((state, itemState) =>
+      stateVar.zoomLazy(_.itemState)((state, itemState) => {
+        println(
+          s"Update ${config
+              .itemConfig
+              .itemSlot} itemStateVar with stateVar.zoomLazy to ${itemState
+              .shortState()}"
+        )
         state.copy(itemState = itemState)
-      )
+      })
     }
     val itemRarityVar = {
       stateVar.zoomLazy(_.itemState.itemRarity.id)((state, id) => {
@@ -97,6 +103,11 @@ object WeaponBuilder {
       .map(weaponId => allWeapons.find(_.id == weaponId).head)
     val itemGemStateVar = {
       stateVar.zoomLazy(_.itemState.gemOption)((weaponState, gem) => {
+        println(
+          s"Update ${config
+              .itemConfig
+              .itemSlot} itemGemStateVar with stateVar.zoomLazy to $gem"
+        )
         weaponState.copy(itemState =
           weaponState.itemState.copy(gemOption = gem)
         )

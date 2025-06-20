@@ -126,6 +126,10 @@ def main(): Unit = {
 
   val helmetStateVar = {
     fullStateVar.zoomLazy(_.helmetState) { (state, helmetState) =>
+      println(
+        s"Update helmetStateVar with fullStateVar.zoomLazy to ${helmetState
+            .shortState()}"
+      )
       state.copy(helmetState = helmetState)
     }
   }
@@ -136,9 +140,13 @@ def main(): Unit = {
   val helmetComponent = ItemBuilder(helmetPlagued, helmetStateVar)
 
   val armorStateVar = {
-    fullStateVar.zoomLazy(_.armorState)((state, armorState) =>
+    fullStateVar.zoomLazy(_.armorState)((state, armorState) => {
+      println(
+        s"Update armorStateVar with fullStateVar.zoomLazy to ${armorState
+            .shortState()}"
+      )
       state.copy(armorState = armorState)
-    )
+    })
   }
   armorStateVar.update { state =>
     println("Init armorStateVar update with errors")
@@ -147,9 +155,13 @@ def main(): Unit = {
   val armorComponent = ItemBuilder(armorPlagued, armorStateVar)
 
   val pantsStateVar = {
-    fullStateVar.zoomLazy(_.pantsState)((state, pantsState) =>
+    fullStateVar.zoomLazy(_.pantsState)((state, pantsState) => {
+      println(
+        s"Update pantsStateVar with fullStateVar.zoomLazy to ${pantsState
+            .shortState()}"
+      )
       state.copy(pantsState = pantsState)
-    )
+    })
   }
   pantsStateVar.update { state =>
     println("Init pantsStateVar update with errors")
@@ -158,9 +170,13 @@ def main(): Unit = {
   val pantsComponent = ItemBuilder(pantsPlagued, pantsStateVar)
 
   val glovesStateVar = {
-    fullStateVar.zoomLazy(_.glovesState)((state, glovesState) =>
+    fullStateVar.zoomLazy(_.glovesState)((state, glovesState) => {
+      println(
+        s"Update glovesStateVar with fullStateVar.zoomLazy to ${glovesState
+            .shortState()}"
+      )
       state.copy(glovesState = glovesState)
-    )
+    })
   }
   glovesStateVar.update { state =>
     println("Init glovesStateVar update with errors")
@@ -169,9 +185,13 @@ def main(): Unit = {
   val glovesComponent = ItemBuilder(glovesPlagued, glovesStateVar)
 
   val weaponStateVar = {
-    fullStateVar.zoomLazy(_.weaponState)((state, weaponState) =>
+    fullStateVar.zoomLazy(_.weaponState)((state, weaponState) => {
+      println(
+        s"Update weaponStateVar with fullStateVar.zoomLazy to ${weaponState
+            .shortState()}"
+      )
       state.copy(weaponState = weaponState)
-    )
+    })
   }
   weaponStateVar.update { state =>
     println("Init weaponStateVar update with errors")
@@ -180,9 +200,13 @@ def main(): Unit = {
   val weaponComponent = WeaponBuilder(weaponPlagued, weaponStateVar)
 
   val shieldStateVar = {
-    fullStateVar.zoomLazy(_.shieldState)((state, shieldState) =>
+    fullStateVar.zoomLazy(_.shieldState)((state, shieldState) => {
+      println(
+        s"Update shieldStateVar with fullStateVar.zoomLazy to ${shieldState
+            .shortState()}"
+      )
       state.copy(shieldState = shieldState)
-    )
+    })
   }
   shieldStateVar.update { state =>
     println("Init shieldStateVar update with errors")
@@ -191,9 +215,13 @@ def main(): Unit = {
   val shieldComponent = WeaponBuilder(shieldPlagued, shieldStateVar)
 
   val bowStateVar = {
-    fullStateVar.zoomLazy(_.bowState)((state, bowState) =>
+    fullStateVar.zoomLazy(_.bowState)((state, bowState) => {
+      println(
+        s"Update bowStateVar with fullStateVar.zoomLazy to ${bowState
+            .shortState()}"
+      )
       state.copy(bowState = bowState)
-    )
+    })
   }
   bowStateVar.update { state =>
     println("Init bowStateVar update with errors")
@@ -202,9 +230,12 @@ def main(): Unit = {
   val bowComponent = WeaponBuilder(bowPlagued, bowStateVar)
 
   val ring1Var = {
-    fullStateVar.zoomLazy(_.ring1StateOption)((state, ring1State) =>
+    fullStateVar.zoomLazy(_.ring1StateOption)((state, ring1State) => {
+      println(
+        s"Update ring1Var with fullStateVar.zoomLazy to ${ring1State.map(_.id)}"
+      )
       state.copy(ring1StateOption = ring1State)
-    )
+    })
   }
   val ring1ErrorSignal = fullStateVar.signal.map(_.ring1Error)
   val ring1ShowModalVar = Var(false)
@@ -229,9 +260,12 @@ def main(): Unit = {
   )
 
   val ring2Var = {
-    fullStateVar.zoomLazy(_.ring2StateOption)((state, ring2State) =>
+    fullStateVar.zoomLazy(_.ring2StateOption)((state, ring2State) => {
+      println(
+        s"Update ring2Var with fullStateVar.zoomLazy to ${ring2State.map(_.id)}"
+      )
       state.copy(ring2StateOption = ring2State)
-    )
+    })
   }
   val ring2ErrorSignal = fullStateVar.signal.map(_.ring2Error)
   val ring2ShowModalVar = Var(false)
@@ -256,9 +290,12 @@ def main(): Unit = {
   )
 
   val ring3Var = {
-    fullStateVar.zoomLazy(_.ring3StateOption)((state, ring3State) =>
+    fullStateVar.zoomLazy(_.ring3StateOption)((state, ring3State) => {
+      println(
+        s"Update ring3Var with fullStateVar.zoomLazy to ${ring3State.map(_.id)}"
+      )
       state.copy(ring3StateOption = ring3State)
-    )
+    })
   }
   val ring3ErrorSignal = fullStateVar.signal.map(_.ring3Error)
   val ring3ShowModalVar = Var(false)
@@ -282,13 +319,64 @@ def main(): Unit = {
     ring3ShowModalVar,
   )
 
+  val newFullStateSignal = helmetStateVar
+    .signal
+    .combineWith(
+      armorStateVar.signal,
+      pantsStateVar.signal,
+      glovesStateVar.signal,
+      weaponStateVar.signal,
+      shieldStateVar.signal,
+      bowStateVar.signal,
+    )
+    .combineWith(ring1Var.signal)
+    .combineWith(ring2Var.signal)
+    .combineWith(ring3Var.signal)
+    .combineWith(ring1ErrorSignal)
+    .combineWith(ring2ErrorSignal)
+    .combineWith(ring3ErrorSignal)
+    .map {
+      case (
+            (
+              helmetState,
+              armorState,
+              pantsState,
+              glovesState,
+              weaponState,
+              shieldState,
+              bowState,
+              ring1State,
+              ring2State,
+              ring3State,
+            ),
+            ring1Error,
+            ring2Error,
+            ring3Error,
+          ) =>
+        FullState(
+          helmetState = helmetState,
+          armorState = armorState,
+          pantsState = pantsState,
+          glovesState = glovesState,
+          weaponState = weaponState,
+          shieldState = shieldState,
+          bowState = bowState,
+          ring1StateOption = ring1State,
+          ring2StateOption = ring2State,
+          ring3StateOption = ring3State,
+          ring1Error = ring1Error,
+          ring2Error = ring2Error,
+          ring3Error = ring3Error,
+        )
+    }
+
   renderOnDomContentLoaded(
     container = dom.document.querySelector("#app"),
     rootNode = {
       div(
-        ring1Modal,
-        ring2Modal,
-        ring3Modal,
+        // ring1Modal,
+        // ring2Modal,
+        // ring3Modal,
         div(
           fullStateVar.signal -->
             (state => {
@@ -313,16 +401,16 @@ def main(): Unit = {
               },
             ),
           ),
-          div(cls := "grid-item", cls := "row-span-3", weaponComponent),
-          div(cls := "grid-item", cls := "row-span-3", shieldComponent),
-          div(cls := "grid-item", cls := "row-span-3", bowComponent),
+          // div(cls := "grid-item", cls := "row-span-3", weaponComponent),
+          // div(cls := "grid-item", cls := "row-span-3", shieldComponent),
+          // div(cls := "grid-item", cls := "row-span-3", bowComponent),
           div(cls := "grid-item", cls := "row-span-3", helmetComponent),
           div(cls := "grid-item", cls := "row-span-3", armorComponent),
-          div(cls := "grid-item", cls := "row-span-2", ring1ComponentFull),
-          div(cls := "grid-item", cls := "row-span-2", ring2ComponentFull),
+          // div(cls := "grid-item", cls := "row-span-2", ring1ComponentFull),
+          // div(cls := "grid-item", cls := "row-span-2", ring2ComponentFull),
           div(cls := "grid-item", cls := "row-span-3", pantsComponent),
           div(cls := "grid-item", cls := "row-span-3", glovesComponent),
-          div(cls := "grid-item", cls := "row-span-2", ring3ComponentFull),
+          // div(cls := "grid-item", cls := "row-span-2", ring3ComponentFull),
         ),
         div(
           "Images are from",
