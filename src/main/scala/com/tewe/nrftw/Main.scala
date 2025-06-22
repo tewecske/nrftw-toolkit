@@ -132,7 +132,7 @@ def main(): Unit = {
       )
       state.copy(helmetState = helmetState)
     }
-  }
+  }.distinct
   helmetStateVar.update { state =>
     println("Init helmetStateVar update with errors")
     Errors.errors(helmetPlagued, state)
@@ -147,7 +147,7 @@ def main(): Unit = {
       )
       state.copy(armorState = armorState)
     })
-  }
+  }.distinct
   armorStateVar.update { state =>
     println("Init armorStateVar update with errors")
     Errors.errors(armorPlagued, state)
@@ -162,7 +162,7 @@ def main(): Unit = {
       )
       state.copy(pantsState = pantsState)
     })
-  }
+  }.distinct
   pantsStateVar.update { state =>
     println("Init pantsStateVar update with errors")
     Errors.errors(pantsPlagued, state)
@@ -177,7 +177,7 @@ def main(): Unit = {
       )
       state.copy(glovesState = glovesState)
     })
-  }
+  }.distinct
   glovesStateVar.update { state =>
     println("Init glovesStateVar update with errors")
     Errors.errors(glovesPlagued, state)
@@ -192,7 +192,7 @@ def main(): Unit = {
       )
       state.copy(weaponState = weaponState)
     })
-  }
+  }.distinct
   weaponStateVar.update { state =>
     println("Init weaponStateVar update with errors")
     Errors.errors(weaponPlagued, state)
@@ -207,7 +207,7 @@ def main(): Unit = {
       )
       state.copy(shieldState = shieldState)
     })
-  }
+  }.distinct
   shieldStateVar.update { state =>
     println("Init shieldStateVar update with errors")
     Errors.errors(shieldPlagued, state)
@@ -222,7 +222,7 @@ def main(): Unit = {
       )
       state.copy(bowState = bowState)
     })
-  }
+  }.distinct
   bowStateVar.update { state =>
     println("Init bowStateVar update with errors")
     Errors.errors(bowPlagued, state)
@@ -236,7 +236,7 @@ def main(): Unit = {
       )
       state.copy(ring1StateOption = ring1State)
     })
-  }
+  }.distinct
   val ring1ErrorSignal = fullStateVar.signal.map(_.ring1Error)
   val ring1ShowModalVar = Var(false)
   val ring1Modal = Modal(
@@ -266,7 +266,7 @@ def main(): Unit = {
       )
       state.copy(ring2StateOption = ring2State)
     })
-  }
+  }.distinct
   val ring2ErrorSignal = fullStateVar.signal.map(_.ring2Error)
   val ring2ShowModalVar = Var(false)
   val ring2Modal = Modal(
@@ -296,7 +296,7 @@ def main(): Unit = {
       )
       state.copy(ring3StateOption = ring3State)
     })
-  }
+  }.distinct
   val ring3ErrorSignal = fullStateVar.signal.map(_.ring3Error)
   val ring3ShowModalVar = Var(false)
   val ring3Modal = Modal(
@@ -319,64 +319,13 @@ def main(): Unit = {
     ring3ShowModalVar,
   )
 
-  val newFullStateSignal = helmetStateVar
-    .signal
-    .combineWith(
-      armorStateVar.signal,
-      pantsStateVar.signal,
-      glovesStateVar.signal,
-      weaponStateVar.signal,
-      shieldStateVar.signal,
-      bowStateVar.signal,
-    )
-    .combineWith(ring1Var.signal)
-    .combineWith(ring2Var.signal)
-    .combineWith(ring3Var.signal)
-    .combineWith(ring1ErrorSignal)
-    .combineWith(ring2ErrorSignal)
-    .combineWith(ring3ErrorSignal)
-    .map {
-      case (
-            (
-              helmetState,
-              armorState,
-              pantsState,
-              glovesState,
-              weaponState,
-              shieldState,
-              bowState,
-              ring1State,
-              ring2State,
-              ring3State,
-            ),
-            ring1Error,
-            ring2Error,
-            ring3Error,
-          ) =>
-        FullState(
-          helmetState = helmetState,
-          armorState = armorState,
-          pantsState = pantsState,
-          glovesState = glovesState,
-          weaponState = weaponState,
-          shieldState = shieldState,
-          bowState = bowState,
-          ring1StateOption = ring1State,
-          ring2StateOption = ring2State,
-          ring3StateOption = ring3State,
-          ring1Error = ring1Error,
-          ring2Error = ring2Error,
-          ring3Error = ring3Error,
-        )
-    }
-
   renderOnDomContentLoaded(
     container = dom.document.querySelector("#app"),
     rootNode = {
       div(
-        // ring1Modal,
-        // ring2Modal,
-        // ring3Modal,
+        ring1Modal,
+        ring2Modal,
+        ring3Modal,
         div(
           fullStateVar.signal -->
             (state => {
@@ -401,16 +350,16 @@ def main(): Unit = {
               },
             ),
           ),
-          // div(cls := "grid-item", cls := "row-span-3", weaponComponent),
-          // div(cls := "grid-item", cls := "row-span-3", shieldComponent),
-          // div(cls := "grid-item", cls := "row-span-3", bowComponent),
+          div(cls := "grid-item", cls := "row-span-3", weaponComponent),
+          div(cls := "grid-item", cls := "row-span-3", shieldComponent),
+          div(cls := "grid-item", cls := "row-span-3", bowComponent),
           div(cls := "grid-item", cls := "row-span-3", helmetComponent),
           div(cls := "grid-item", cls := "row-span-3", armorComponent),
-          // div(cls := "grid-item", cls := "row-span-2", ring1ComponentFull),
-          // div(cls := "grid-item", cls := "row-span-2", ring2ComponentFull),
+          div(cls := "grid-item", cls := "row-span-2", ring1ComponentFull),
+          div(cls := "grid-item", cls := "row-span-2", ring2ComponentFull),
           div(cls := "grid-item", cls := "row-span-3", pantsComponent),
           div(cls := "grid-item", cls := "row-span-3", glovesComponent),
-          // div(cls := "grid-item", cls := "row-span-2", ring3ComponentFull),
+          div(cls := "grid-item", cls := "row-span-2", ring3ComponentFull),
         ),
         div(
           "Images are from",

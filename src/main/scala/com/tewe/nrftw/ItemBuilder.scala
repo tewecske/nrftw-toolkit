@@ -101,7 +101,7 @@ object ItemBuilder {
           .getOrElse(ItemRarity.Plagued)
         state.copy(itemRarity = itemRarity).resetEnchants(itemRarity, config)
       })
-    }.distinct
+    }
     val itemGemStateVar = {
       stateVar.zoomLazy(_.gemOption)((state, gem) => {
         state.copy(gemOption = gem)
