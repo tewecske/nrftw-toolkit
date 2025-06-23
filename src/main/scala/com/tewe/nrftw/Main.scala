@@ -53,7 +53,7 @@ case class FullState(
 @main
 def main(): Unit = {
 
-  println(s"DEV MODE: ${BuildConfig.isDev}")
+  println(s"DEV MODE: ${BuildInfo.isDev}")
 
   if (rings.size != rings.map(_.id).toSet.size) {
     throw IllegalStateException(

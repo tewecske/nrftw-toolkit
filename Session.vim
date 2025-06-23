@@ -3,7 +3,7 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/projects/scala-projects/nrftw-toolkit
+cd ~/projects/nrftw-toolkit
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -17,7 +17,7 @@ badd +1 src/main/scala/com/tewe/nrftw
 badd +1 ~/projects/scala-projects/nrftw-toolkit
 badd +1 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +141 src/main/scala/com/tewe/nrftw/Items.scala
-badd +135 src/main/scala/com/tewe/nrftw/Main.scala
+badd +68 src/main/scala/com/tewe/nrftw/Main.scala
 badd +271 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
@@ -75,6 +75,13 @@ argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
 edit src/main/scala/com/tewe/nrftw/Main.scala
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 argglobal
 balt .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/core/Signal.scala
 setlocal foldmethod=manual
@@ -87,13 +94,12 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 23) / 46)
+let s:l = 68 - ((18 * winheight(0) + 16) / 32)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
+keepjumps 68
 normal! 0
-lcd ~/projects/scala-projects/nrftw-toolkit
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -101,6 +107,8 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
