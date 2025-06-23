@@ -53,6 +53,8 @@ case class FullState(
 @main
 def main(): Unit = {
 
+  println(s"DEV MODE: ${BuildConfig.isDev}")
+
   if (rings.size != rings.map(_.id).toSet.size) {
     throw IllegalStateException(
       "Rings have conflicting ids" +
