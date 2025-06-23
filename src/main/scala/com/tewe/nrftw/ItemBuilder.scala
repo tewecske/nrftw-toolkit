@@ -41,7 +41,7 @@ object ItemBuilder {
           downside = Option(sortedEnchantDownsides.head.id),
         )
       } { stringState =>
-        println(s"STATE: $stringState")
+        Log.debug(s"STATE: $stringState")
         stringState match {
           case s"RY-$r-ENH-$e1-$e2-$e3-$e4-$d-$g" =>
             ItemState(
@@ -94,7 +94,7 @@ object ItemBuilder {
 
     val itemRarityVar = {
       stateVar.zoomLazy(_.itemRarity.id)((state, id) => {
-        println(s"Item ${config.itemSlot} rarity changed to $id")
+        Log.debug(s"Item ${config.itemSlot} rarity changed to $id")
         val itemRarity = ItemRarity
           .values
           .find(_.id == id)
@@ -114,7 +114,7 @@ object ItemBuilder {
       gems,
       gem => {
         itemGemStateVar.update { _ =>
-          println(s"Update ${config.itemSlot} itemGemStateVar to ${gem.id}")
+          Log.debug(s"Update ${config.itemSlot} itemGemStateVar to ${gem.id}")
           Option(gem)
         }
       },

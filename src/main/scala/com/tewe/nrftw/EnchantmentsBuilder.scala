@@ -58,7 +58,7 @@ object EnchantmentsBuilder {
     enchantVar: Var[String],
     enchantsErrorSignal: Signal[List[Boolean]],
   ) = {
-    println(
+    Log.debug(
       s"Rendering enchantSplitSelectComponent for ${config
           .itemSlot} and index: $index errors: ${stateVar
           .now()
@@ -78,12 +78,12 @@ object EnchantmentsBuilder {
         enchantVar
           .signal
           .debugWithName(s"${config.itemSlot} enchantVar $index")
-          .debugLog(),
+          .debugLog(Config.debugLogWhenFunction),
       onChange.mapToValue --> enchantVar,
       onChange.mapTo(stateVar.now()) --> Errors.validator(config, stateVar),
       children <--
         itemRaritySignal.map(itemRarity => {
-          println(
+          Log.debug(
             s"Rendering ${config.itemSlot} $index options for $itemRarity"
           )
           if (itemRarity == ItemRarity.Plagued) {
@@ -112,7 +112,7 @@ object EnchantmentsBuilder {
     config: ItemBuilderConfig,
     stateVar: Var[ItemState],
   ) = {
-    println(s"Rendering enchantmentsSelect for ${config.itemSlot}")
+    Log.debug(s"Rendering enchantmentsSelect for ${config.itemSlot}")
     val sortedEnchants = config.enchants.values.toList.sortBy(_.id)
     val sortedMagicEnchants = config.magicEnchants.values.toList.sortBy(_.id)
     val sortedEnchantDownsides = config
@@ -131,7 +131,7 @@ object EnchantmentsBuilder {
     // }
     val enchantsVar = {
       stateVar.zoomLazy(_.enchants)((state, enchants) => {
-        println(s"Updating ${config.itemSlot} enchantsVar ${enchants.size}")
+        Log.debug(s"Updating ${config.itemSlot} enchantsVar ${enchants.size}")
         state.copy(enchants = enchants)
       })
     }
@@ -145,12 +145,12 @@ object EnchantmentsBuilder {
     // div(
     // child <--
     // itemRaritySignal.map { itemRarity =>
-    // println(s"Rendering enchantmentsSelect for $itemRarity")
+    // Log.debug(s"Rendering enchantmentsSelect for $itemRarity")
     div(
       child <--
         itemRaritySignal
           .debugWithName(s"${config.itemSlot}.itemRaritySignal")
-          .debugLog()
+          .debugLog(Config.debugLogWhenFunction)
           .map(itemRarity => {
             div()
           }),

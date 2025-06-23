@@ -122,13 +122,13 @@ def main(): Unit = {
   )
 
   fullStateVar.update { fullState =>
-    println("Init fullState update with errors")
+    Log.debug("Init fullState update with errors")
     Errors.errors(fullState)
   }
 
   val helmetStateVar = {
     fullStateVar.zoomLazy(_.helmetState) { (state, helmetState) =>
-      println(
+      Log.debug(
         s"Update helmetStateVar with fullStateVar.zoomLazy to ${helmetState
             .shortState()}"
       )
@@ -136,14 +136,14 @@ def main(): Unit = {
     }
   }.distinct
   helmetStateVar.update { state =>
-    println("Init helmetStateVar update with errors")
+    Log.debug("Init helmetStateVar update with errors")
     Errors.errors(helmetPlagued, state)
   }
   val helmetComponent = ItemBuilder(helmetPlagued, helmetStateVar)
 
   val armorStateVar = {
     fullStateVar.zoomLazy(_.armorState)((state, armorState) => {
-      println(
+      Log.debug(
         s"Update armorStateVar with fullStateVar.zoomLazy to ${armorState
             .shortState()}"
       )
@@ -151,14 +151,14 @@ def main(): Unit = {
     })
   }.distinct
   armorStateVar.update { state =>
-    println("Init armorStateVar update with errors")
+    Log.debug("Init armorStateVar update with errors")
     Errors.errors(armorPlagued, state)
   }
   val armorComponent = ItemBuilder(armorPlagued, armorStateVar)
 
   val pantsStateVar = {
     fullStateVar.zoomLazy(_.pantsState)((state, pantsState) => {
-      println(
+      Log.debug(
         s"Update pantsStateVar with fullStateVar.zoomLazy to ${pantsState
             .shortState()}"
       )
@@ -166,14 +166,14 @@ def main(): Unit = {
     })
   }.distinct
   pantsStateVar.update { state =>
-    println("Init pantsStateVar update with errors")
+    Log.debug("Init pantsStateVar update with errors")
     Errors.errors(pantsPlagued, state)
   }
   val pantsComponent = ItemBuilder(pantsPlagued, pantsStateVar)
 
   val glovesStateVar = {
     fullStateVar.zoomLazy(_.glovesState)((state, glovesState) => {
-      println(
+      Log.debug(
         s"Update glovesStateVar with fullStateVar.zoomLazy to ${glovesState
             .shortState()}"
       )
@@ -181,14 +181,14 @@ def main(): Unit = {
     })
   }.distinct
   glovesStateVar.update { state =>
-    println("Init glovesStateVar update with errors")
+    Log.debug("Init glovesStateVar update with errors")
     Errors.errors(glovesPlagued, state)
   }
   val glovesComponent = ItemBuilder(glovesPlagued, glovesStateVar)
 
   val weaponStateVar = {
     fullStateVar.zoomLazy(_.weaponState)((state, weaponState) => {
-      println(
+      Log.debug(
         s"Update weaponStateVar with fullStateVar.zoomLazy to ${weaponState
             .shortState()}"
       )
@@ -196,14 +196,14 @@ def main(): Unit = {
     })
   }.distinct
   weaponStateVar.update { state =>
-    println("Init weaponStateVar update with errors")
+    Log.debug("Init weaponStateVar update with errors")
     Errors.errors(weaponPlagued, state)
   }
   val weaponComponent = WeaponBuilder(weaponPlagued, weaponStateVar)
 
   val shieldStateVar = {
     fullStateVar.zoomLazy(_.shieldState)((state, shieldState) => {
-      println(
+      Log.debug(
         s"Update shieldStateVar with fullStateVar.zoomLazy to ${shieldState
             .shortState()}"
       )
@@ -211,14 +211,14 @@ def main(): Unit = {
     })
   }.distinct
   shieldStateVar.update { state =>
-    println("Init shieldStateVar update with errors")
+    Log.debug("Init shieldStateVar update with errors")
     Errors.errors(shieldPlagued, state)
   }
   val shieldComponent = WeaponBuilder(shieldPlagued, shieldStateVar)
 
   val bowStateVar = {
     fullStateVar.zoomLazy(_.bowState)((state, bowState) => {
-      println(
+      Log.debug(
         s"Update bowStateVar with fullStateVar.zoomLazy to ${bowState
             .shortState()}"
       )
@@ -226,14 +226,14 @@ def main(): Unit = {
     })
   }.distinct
   bowStateVar.update { state =>
-    println("Init bowStateVar update with errors")
+    Log.debug("Init bowStateVar update with errors")
     Errors.errors(bowPlagued, state)
   }
   val bowComponent = WeaponBuilder(bowPlagued, bowStateVar)
 
   val ring1Var = {
     fullStateVar.zoomLazy(_.ring1StateOption)((state, ring1State) => {
-      println(
+      Log.debug(
         s"Update ring1Var with fullStateVar.zoomLazy to ${ring1State.map(_.id)}"
       )
       state.copy(ring1StateOption = ring1State)
@@ -246,11 +246,11 @@ def main(): Unit = {
     rings,
     ring => {
       ring1Var.update { _ =>
-        println(s"Update ring1Var with $ring")
+        Log.debug(s"Update ring1Var with $ring")
         Option(ring)
       }
       fullStateVar.update { fullState =>
-        println(s"Update fullState with errors after ring1Var $ring update")
+        Log.debug(s"Update fullState with errors after ring1Var $ring update")
         Errors.errors(fullState)
       }
     },
@@ -263,7 +263,7 @@ def main(): Unit = {
 
   val ring2Var = {
     fullStateVar.zoomLazy(_.ring2StateOption)((state, ring2State) => {
-      println(
+      Log.debug(
         s"Update ring2Var with fullStateVar.zoomLazy to ${ring2State.map(_.id)}"
       )
       state.copy(ring2StateOption = ring2State)
@@ -276,11 +276,11 @@ def main(): Unit = {
     rings,
     ring => {
       ring2Var.update { _ =>
-        println(s"Update ring2Var with $ring")
+        Log.debug(s"Update ring2Var with $ring")
         Option(ring)
       }
       fullStateVar.update { fullState =>
-        println(s"Update fullState with errors after ring2Var $ring update")
+        Log.debug(s"Update fullState with errors after ring2Var $ring update")
         Errors.errors(fullState)
       }
     },
@@ -293,7 +293,7 @@ def main(): Unit = {
 
   val ring3Var = {
     fullStateVar.zoomLazy(_.ring3StateOption)((state, ring3State) => {
-      println(
+      Log.debug(
         s"Update ring3Var with fullStateVar.zoomLazy to ${ring3State.map(_.id)}"
       )
       state.copy(ring3StateOption = ring3State)
@@ -306,11 +306,11 @@ def main(): Unit = {
     rings,
     ring => {
       ring3Var.update { _ =>
-        println(s"Update ring1Var with $ring")
+        Log.debug(s"Update ring1Var with $ring")
         Option(ring)
       }
       fullStateVar.update { fullState =>
-        println(s"Update fullState with errors after ring3Var $ring update")
+        Log.debug(s"Update fullState with errors after ring3Var $ring update")
         Errors.errors(fullState)
       }
     },

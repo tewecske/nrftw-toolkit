@@ -18,7 +18,7 @@ object Modal {
     val isVisibleVar = Var(false)
 
     showModalVar --> { value =>
-      println(s"Modal showSignal triggered: $value")
+      Log.debug(s"Modal showSignal triggered: $value")
     }
 
     div(
@@ -122,7 +122,7 @@ object Modal {
     val isVisibleVar = Var(false)
 
     showModalVar --> { value =>
-      println(s"Modal showSignal triggered: $value")
+      Log.debug(s"Modal showSignal triggered: $value")
     }
 
     div(

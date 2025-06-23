@@ -13,7 +13,6 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +1 src/main/scala/com/tewe/nrftw
 badd +1 ~/projects/scala-projects/nrftw-toolkit
 badd +1 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +141 src/main/scala/com/tewe/nrftw/Items.scala
@@ -37,12 +36,12 @@ badd +19 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +112 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
-badd +111 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +153 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
 badd +47 src/main/scala/com/tewe/nrftw/GemsBuilder.scala
-badd +116 src/main/scala/com/tewe/nrftw/Errors.scala
+badd +12 src/main/scala/com/tewe/nrftw/Errors.scala
 badd +17 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 badd +65 src/main/scala/com/tewe/nrftw/StatsBuilder.css
 badd +14 src/main/scala/com/tewe/nrftw/GemsBuilder.css
@@ -71,19 +70,15 @@ badd +19 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/r
 badd +12 .metals/readonly/dependencies/tuplez-full-light_sjs1_3-0.4.0-sources.jar/app/tulz/tuplez/TupleComposition.scala
 badd +12 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/debug/DebuggerSignal.scala
 badd +17 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/debug/Debugger.scala
+badd +7 Config.scala
+badd +105 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/debug/DebuggableObservable.scala
+badd +4 Log.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
 edit src/main/scala/com/tewe/nrftw/Main.scala
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
 argglobal
-balt .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/core/Signal.scala
+balt src/main/scala/com/tewe/nrftw/Errors.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -94,12 +89,13 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 68 - ((18 * winheight(0) + 16) / 32)
+let s:l = 1 - ((0 * winheight(0) + 16) / 32)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 68
+keepjumps 1
 normal! 0
+lcd ~/projects/nrftw-toolkit
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -107,14 +103,13 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
+nohlsearch
 let g:this_session = v:this_session
 let g:this_obsession = v:this_session
 doautoall SessionLoadPost

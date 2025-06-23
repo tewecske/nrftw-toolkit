@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation.JSImport
 object Errors {
 
   def errors(fullState: FullState): FullState = {
-    println(s"FullState errors called")
+    Log.debug(s"FullState errors called")
     val rings = {
       fullState.ring1StateOption ++ fullState.ring2StateOption ++
         fullState.ring3StateOption
@@ -30,7 +30,7 @@ object Errors {
       ring1Error != fullState.ring1Error ||
       ring2Error != fullState.ring2Error || ring3Error != fullState.ring3Error
     ) {
-      println(s"FullState errors has changed")
+      Log.debug(s"FullState errors has changed")
       fullState.copy(
         ring1Error = ring1Error,
         ring2Error = ring2Error,
@@ -45,7 +45,7 @@ object Errors {
     config: WeaponBuilderConfig,
     weaponState: WeaponState,
   ): WeaponState = {
-    println(s"WeaponState errors called for ${config.itemConfig.itemSlot}")
+    Log.debug(s"WeaponState errors called for ${config.itemConfig.itemSlot}")
     val itemStateChecked = errors(config.itemConfig, weaponState.itemState)
     val weaponStateWithItemStateUpdated = {
       if (itemStateChecked != weaponState.itemState) {
@@ -74,7 +74,7 @@ object Errors {
       rune3Error != weaponState.rune3Error ||
       rune4Error != weaponState.rune4Error
     ) {
-      println(
+      Log.debug(
         s"WeaponState errors has changed for ${config.itemConfig.itemSlot}"
       )
       weaponStateWithItemStateUpdated.copy(
@@ -90,7 +90,7 @@ object Errors {
   }
 
   def errors(config: ItemBuilderConfig, itemState: ItemState): ItemState = {
-    println(
+    Log.debug(
       s"ItemState errors called for ${config.itemSlot} and rarity ${itemState
           .itemRarity}"
     )
@@ -116,9 +116,9 @@ object Errors {
   val validator = { (config: ItemBuilderConfig, stateVar: Var[ItemState]) =>
     {
       Observer[ItemState] { state =>
-        println(s"Validator ${config.itemSlot}")
+        Log.debug(s"Validator ${config.itemSlot}")
         stateVar.update { _ =>
-          println(s"Update ${config.itemSlot} ItemState by validator")
+          Log.debug(s"Update ${config.itemSlot} ItemState by validator")
           Errors.errors(config, state)
         }
       }
@@ -129,9 +129,9 @@ object Errors {
     (config: WeaponBuilderConfig, stateVar: Var[WeaponState]) =>
       {
         Observer[WeaponState] { state =>
-          println(s"Weapon Validator ${config.itemConfig.itemSlot}")
+          Log.debug(s"Weapon Validator ${config.itemConfig.itemSlot}")
           stateVar.update { _ =>
-            println(
+            Log.debug(
               s"Update ${config
                   .itemConfig
                   .itemSlot} WeaponState by weaponValidator"

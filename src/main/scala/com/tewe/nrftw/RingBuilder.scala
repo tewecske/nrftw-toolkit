@@ -144,7 +144,7 @@ object RingBuilder {
       .fold {
         None
       } { stringState =>
-        println(s"RING: $stringState")
+        Log.debug(s"RING: $stringState")
         rings.find(_.id == stringState)
       }
   }

@@ -16,7 +16,7 @@ case class ItemState(
     itemRarity: ItemRarity,
     config: ItemBuilderConfig,
   ): ItemState = {
-    println(
+    Log.debug(
       s"resetEnchants called for ${config.itemSlot} and rarity $itemRarity"
     )
     val firstEnchant = config.enchants.values.toList.map(_.id).sorted.head

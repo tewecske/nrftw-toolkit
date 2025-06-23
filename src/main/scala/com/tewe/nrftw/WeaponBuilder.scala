@@ -24,7 +24,7 @@ object WeaponBuilder {
           weaponTypeId = config.weaponTypes.head.id,
         )
       } { stringState =>
-        println(s"STATE: $stringState")
+        Log.debug(s"STATE: $stringState")
         stringState match {
           case s"W$w-$itemStateString-R-$runeState" =>
             val runesList = runeState
@@ -66,7 +66,7 @@ object WeaponBuilder {
 
     val itemStateVar = {
       stateVar.zoomLazy(_.itemState)((state, itemState) => {
-        println(
+        Log.debug(
           s"Update ${config
               .itemConfig
               .itemSlot} itemStateVar with stateVar.zoomLazy to ${itemState
@@ -77,7 +77,7 @@ object WeaponBuilder {
     }
     val itemRarityVar = {
       stateVar.zoomLazy(_.itemState.itemRarity.id)((state, id) => {
-        println(s"Item ${config.itemConfig.itemSlot} rarity changed to $id")
+        Log.debug(s"Item ${config.itemConfig.itemSlot} rarity changed to $id")
         val itemRarity = ItemRarity
           .values
           .find(_.id == id)
@@ -103,7 +103,7 @@ object WeaponBuilder {
       .map(weaponId => allWeapons.find(_.id == weaponId).head)
     val itemGemStateVar = {
       stateVar.zoomLazy(_.itemState.gemOption)((weaponState, gem) => {
-        println(
+        Log.debug(
           s"Update ${config
               .itemConfig
               .itemSlot} itemGemStateVar with stateVar.zoomLazy to $gem"
@@ -120,7 +120,7 @@ object WeaponBuilder {
       gems,
       gem => {
         itemGemStateVar.update { _ =>
-          println(
+          Log.debug(
             s"Update ${config.itemConfig.itemSlot} itemGemStateVar to ${gem.id}"
           )
           Option(gem)
@@ -155,11 +155,11 @@ object WeaponBuilder {
     val runesShowModalVar = Var(false)
     val runesModalCallbackVar = Var((rune: Rune) => {
       rune1StateVar.update { _ =>
-        println(s"Update rune1StateVar with $rune")
+        Log.debug(s"Update rune1StateVar with $rune")
         Option(rune)
       }
       stateVar.update { state =>
-        println(s"Update WeaponState errors after rune1StateVar $rune update")
+        Log.debug(s"Update WeaponState errors after rune1StateVar $rune update")
         Errors.errors(config, state)
       }
     })
@@ -174,9 +174,9 @@ object WeaponBuilder {
       (config: WeaponBuilderConfig, stateVar: Var[WeaponState]) =>
         {
           Observer[WeaponState] { state =>
-            println(s"Runes validator ${config.itemConfig.itemSlot}")
+            Log.debug(s"Runes validator ${config.itemConfig.itemSlot}")
             stateVar.update(_ => {
-              println(s"Update WeaponState errors in runesValidator")
+              Log.debug(s"Update WeaponState errors in runesValidator")
               val rune1Update = state
                 .rune1Option
                 .filter(rune =>
@@ -256,7 +256,7 @@ object WeaponBuilder {
       ),
       child <--
         weaponTypeSignal.map(weaponType => {
-          println(s"weaponType: $weaponType")
+          Log.debug(s"weaponType: $weaponType")
           if (weaponType == WeaponType.Shield) {
             div()
           } else {
@@ -270,11 +270,11 @@ object WeaponBuilder {
                 runesModalCallbackVar,
                 (rune: Rune) => {
                   rune1StateVar.update { _ =>
-                    println(s"Update rune1Var with $rune")
+                    Log.debug(s"Update rune1Var with $rune")
                     Option(rune)
                   }
                   stateVar.update { state =>
-                    println(
+                    Log.debug(
                       s"Update WeaponState errors after rune1Var $rune update"
                     )
                     Errors.errors(config, state)
@@ -289,11 +289,11 @@ object WeaponBuilder {
                 runesModalCallbackVar,
                 (rune: Rune) => {
                   rune2StateVar.update { _ =>
-                    println(s"Update rune2Var with $rune")
+                    Log.debug(s"Update rune2Var with $rune")
                     Option(rune)
                   }
                   stateVar.update { state =>
-                    println(
+                    Log.debug(
                       s"Update WeaponState errors after rune2Var $rune update"
                     )
                     Errors.errors(config, state)
@@ -308,11 +308,11 @@ object WeaponBuilder {
                 runesModalCallbackVar,
                 (rune: Rune) => {
                   rune3StateVar.update { _ =>
-                    println(s"Update rune3Var with $rune")
+                    Log.debug(s"Update rune3Var with $rune")
                     Option(rune)
                   }
                   stateVar.update { state =>
-                    println(
+                    Log.debug(
                       s"Update WeaponState errors after rune3Var $rune update"
                     )
                     Errors.errors(config, state)
@@ -327,11 +327,11 @@ object WeaponBuilder {
                 runesModalCallbackVar,
                 (rune: Rune) => {
                   rune4StateVar.update { _ =>
-                    println(s"Update rune4Var with $rune")
+                    Log.debug(s"Update rune4Var with $rune")
                     Option(rune)
                   }
                   stateVar.update { state =>
-                    println(
+                    Log.debug(
                       s"Update WeaponState errors after rune4Var $rune update"
                     )
                     Errors.errors(config, state)

@@ -23,7 +23,7 @@ object GemsBuilder {
     div(
       cls := "gem-container",
       onClick --> { _ =>
-        println("TEST")
+        Log.debug("TEST")
         showModalVar.set(true)
       },
       child <--
