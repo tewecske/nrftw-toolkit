@@ -15,6 +15,28 @@ object RunesBuilder {
 
   val _ = Stylesheet // Use import to prevent DCE
 
+  def enchantmentsSelect(
+    config: ItemBuilderConfig,
+    stateVar: Var[WeaponState],
+  ) = {
+    val weaponTypeSignal = stateVar.signal.map(_.weaponType)
+    val runesVar = {
+      stateVar.zoomLazy(_.runes)((state, runes) => {
+        Log.debug(s"Updating ${config.itemSlot} runesVar ${runes.size}")
+        state.copy(runes = runes)
+      })
+    }
+    val runesErrorSignal = stateVar.signal.map(_.runesError)
+  }
+
+  def runesSplitComponent(
+    index: Int,
+    config: WeaponBuilderConfig,
+    weaponTypeSignal: Signal[WeaponType],
+    runeVar: Var[Rune],
+    runesErrorSignal: Signal[List[Boolean]],
+  ) = {}
+
   def apply(
     config: WeaponBuilderConfig,
     stateVar: Var[Option[Rune]],
