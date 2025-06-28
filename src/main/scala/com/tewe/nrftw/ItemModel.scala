@@ -37,8 +37,8 @@ object WeaponType {
 
   val oneHandedWeapons = Set(AnyWeapon, OneHanded)
   val twoHandedWeapons = Set(AnyWeapon, TwoHanded)
-  val wandWeapons = Set(AnyWeapon, OneHanded, Wand)
-  val staffWeapons = Set(AnyWeapon, OneHanded, Staff)
+  val wandWeapons = Set(AnyWeapon, OneHanded, Wand, Staff)
+  val staffWeapons = Set(AnyWeapon, OneHanded, Wand, Staff)
   val gauntletWeapons = Set(AnyWeapon, DualWield, Gauntlets)
   val doubleDaggerWeapons = Set(AnyWeapon, DualWield, DoubleDaggers)
   val bowWeapons = Set(AnyWeapon, Bow)

@@ -3,7 +3,7 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/projects/nrftw-toolkit
+cd ~/projects/scala-projects/nrftw-toolkit
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -16,7 +16,7 @@ endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
 badd +1 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +141 src/main/scala/com/tewe/nrftw/Items.scala
-badd +68 src/main/scala/com/tewe/nrftw/Main.scala
+badd +24 src/main/scala/com/tewe/nrftw/Main.scala
 badd +271 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
@@ -26,7 +26,7 @@ badd +91 src/main/scala/com/tewe/nrftw/WeaponBuilder.scala
 badd +9 package.json
 badd +54 README.md
 badd +1 src/main/scala/com/tewe/nrftw/Main.less
-badd +7 src/main/scala/com/tewe/nrftw/ItemState.scala
+badd +54 src/main/scala/com/tewe/nrftw/ItemState.scala
 badd +47 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/api/AirstreamAliases.scala
 badd +153 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/core/Signal.scala
 badd +18 .metals/readonly/dependencies/scalajs-dom_sjs1_3-2.8.0-sources.jar/org/scalajs/dom/URLSearchParams.scala
@@ -60,10 +60,10 @@ badd +5 .scalafmt.conf
 badd +32 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/keys/EventProcessor.scala
 badd +5 src/main/scala/com/tewe/nrftw/ItemRarityComponent.scala
 badd +1 src/main/scala/com/tewe/nrftw/items/Gems.scala
-badd +334 src/main/scala/com/tewe/nrftw/items/Equipment.scala
+badd +522 src/main/scala/com/tewe/nrftw/items/Equipment.scala
 badd +1 src/main/scala/com/tewe/nrftw/items/Rings.scala
-badd +24 src/main/scala/com/tewe/nrftw/items/Runes.scala
-badd +159 src/main/scala/com/tewe/nrftw/ItemModel.scala
+badd +7 src/main/scala/com/tewe/nrftw/items/Runes.scala
+badd +40 src/main/scala/com/tewe/nrftw/ItemModel.scala
 badd +47 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/split/SplittableVar.scala
 badd +83 CLAUDE.md
 badd +19 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/combine/generated/CombinableSignal.scala
@@ -76,9 +76,9 @@ badd +4 Log.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit src/main/scala/com/tewe/nrftw/Main.scala
+edit src/main/scala/com/tewe/nrftw/ItemModel.scala
 argglobal
-balt src/main/scala/com/tewe/nrftw/Errors.scala
+balt src/main/scala/com/tewe/nrftw/items/Runes.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -89,13 +89,12 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 16) / 32)
+let s:l = 40 - ((23 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 0
-lcd ~/projects/nrftw-toolkit
+keepjumps 40
+normal! 031|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
