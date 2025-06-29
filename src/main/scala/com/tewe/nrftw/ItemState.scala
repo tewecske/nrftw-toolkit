@@ -62,7 +62,7 @@ case class WeaponState(
   rune2Error: Boolean = false,
   rune3Error: Boolean = false,
   rune4Error: Boolean = false,
-  runes: List[Rune] = List.empty,
+  runes: List[Option[Rune]] = List(None, None, None, None),
   runesError: List[Boolean] = List(false, false, false, false),
 ) {
   def shortState(): String = {
