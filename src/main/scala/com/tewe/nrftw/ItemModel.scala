@@ -31,7 +31,10 @@ object WeaponType {
     Wand,
     Staff,
   )
-  val allWeapons = WeaponType.values.toSet
+  val allWeapons = WeaponType.values.filter(_ != Utility).toSet
+  val allNonMeleeWeapons = Set(Shield, Bow, Utility)
+  val allMeleeWeapons =
+    WeaponType.values.filter(!allNonMeleeWeapons.contains(_)).toSet
 
   val shields = Set(Shield)
 
@@ -106,6 +109,7 @@ enum EnchantGroup {
     Durability, // u
     Focus, // f
     Healing, // h
+    Infusion, // n
     Indestructible, // i
     Movement, // m
     Other, // o
@@ -140,6 +144,7 @@ enum ItemSlot(val name: String) {
   case ShieldSlot extends ItemSlot("Shield")
   case BowSlot extends ItemSlot("Bow")
   case RingSlot extends ItemSlot("Ring")
+  case UtilitySlot extends ItemSlot("Utility")
 }
 
 case class ItemBuilderConfig(

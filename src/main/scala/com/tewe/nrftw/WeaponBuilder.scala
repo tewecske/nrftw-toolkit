@@ -27,6 +27,16 @@ object WeaponBuilder {
       } { stringState =>
         Log.debug(s"STATE: $stringState")
         stringState match {
+          case s"Wu-R-$runeState" =>
+            val runesList = runeState
+              .split("-")
+              .toSeq
+              .flatMap(id => runes.find(_.id == id))
+            WeaponState(
+              itemState = ItemBuilder.createState(config.itemConfig, initState),
+              weaponTypeId = WeaponType.Utility.id,
+              runeState = RuneState((0 to 3).toList.map(runesList.lift)),
+            )
           case s"W$w-$itemStateString-R-$runeState" =>
             val runesList = runeState
               .split("-")

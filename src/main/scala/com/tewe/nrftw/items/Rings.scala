@@ -211,7 +211,6 @@ val rings = List(
     0.0,
     "/images/ring-battlecryRing.png",
     List("Spend Health instead of Focus"),
-    enchantDownsides = List("Cannot Lifesteal"),
   ),
   RingData(
     "r_rod",
@@ -222,10 +221,7 @@ val rings = List(
     100,
     0.0,
     "/images/ring-ringOfDetermination.png",
-    List(
-      "Spend Health if there is not enough Focus available",
-      "Focus Cost decreased by up to 60% based on Missing Health",
-    ),
+    List("Spend Health if there is not enough Focus available"),
   ),
   RingData(
     "r_scr",
@@ -250,4 +246,3 @@ val rings = List(
     List("Food Healing is applied over time", "Healing increased by 18%-30%"),
   ),
 )
-

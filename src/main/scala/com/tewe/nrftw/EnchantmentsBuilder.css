@@ -71,6 +71,10 @@
     background-color: var(--color-enchant-durability);
   }
 
+  .enchant-group-Infusion {
+    background-color: var(--color-enchant-infusion);
+  }
+
   .enchant-group-Resistance {
     background-color: var(--color-enchant-resistance);
   }

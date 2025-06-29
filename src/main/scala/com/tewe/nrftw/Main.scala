@@ -23,6 +23,7 @@ case class FullState(
   weaponState: WeaponState,
   shieldState: WeaponState,
   bowState: WeaponState,
+  utilityState: WeaponState,
   ring1StateOption: Option[RingData],
   ring2StateOption: Option[RingData],
   ring3StateOption: Option[RingData],
@@ -46,7 +47,10 @@ case class FullState(
       ) +
       ring3StateOption.fold("")(ring3State =>
         s"&r3=${js.URIUtils.encodeURIComponent(ring3State.id)}"
-      )
+      ) +
+      s"&u=Wu${js
+          .URIUtils
+          .encodeURIComponent(utilityState.runeState.shortState())}"
   }
 }
 
@@ -106,6 +110,11 @@ def main(): Unit = {
   val ring2State = RingBuilder.createState(Option(params.get("r2")))
   val ring3State = RingBuilder.createState(Option(params.get("r3")))
 
+  val utilityState = WeaponBuilder.createState(
+    utilityPlagued,
+    Option(params.get("u")),
+  )
+
   val fullStateVar = Var(
     FullState(
       helmetState,
@@ -115,6 +124,7 @@ def main(): Unit = {
       weaponState,
       shieldState,
       bowState,
+      utilityState,
       ring1State,
       ring2State,
       ring3State,
@@ -230,6 +240,21 @@ def main(): Unit = {
     Errors.errors(bowPlagued, state)
   }
   val bowComponent = WeaponBuilder(bowPlagued, bowStateVar)
+
+  val utilityStateVar = {
+    fullStateVar.zoomLazy(_.utilityState)((state, utilityState) => {
+      Log.debug(
+        s"Update utilityStateVar with fullStateVar.zoomLazy to ${utilityState
+            .shortState()}"
+      )
+      state.copy(utilityState = utilityState)
+    })
+  }.distinct
+  utilityStateVar.update { state =>
+    Log.debug("Init utilityStateVar update with errors")
+    Errors.errors(utilityPlagued, state)
+  }
+  val utilityComponent = UtilityBuilder(utilityPlagued, utilityStateVar)
 
   val ring1Var = {
     fullStateVar.zoomLazy(_.ring1StateOption)((state, ring1State) => {
@@ -351,6 +376,11 @@ def main(): Unit = {
                   .writeText(dom.window.location.href)
               },
             ),
+          ),
+          div(
+            cls := "grid-item",
+            cls := "row-span-1 col-span-full",
+            utilityComponent,
           ),
           div(cls := "grid-item", cls := "row-span-3", weaponComponent),
           div(cls := "grid-item", cls := "row-span-3", shieldComponent),

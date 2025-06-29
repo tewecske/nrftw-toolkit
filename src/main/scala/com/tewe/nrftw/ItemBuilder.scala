@@ -26,19 +26,30 @@ object ItemBuilder {
       .toList
       .sortBy(_.id)
 
-    val firstEnchant = sortedEnchants.head.id
-    val defaultEnchants = List(
-      firstEnchant,
-      firstEnchant,
-      firstEnchant,
-      firstEnchant,
-    )
+    // TODO List[Option[Enchant]] will fix this
+    val firstEnchant = {
+      if (config.itemSlot == ItemSlot.UtilitySlot)
+        ""
+      else
+        sortedEnchants.head.id
+    }
+    val defaultEnchants = {
+      if (config.itemSlot == ItemSlot.UtilitySlot)
+        List.empty
+      else
+        List(firstEnchant, firstEnchant, firstEnchant, firstEnchant)
+    }
+
+    def safeEnchant(id: String): String = {
+      sortedEnchants.find(_.id == id).map(_.id).getOrElse(firstEnchant)
+    }
+
     initState
       .filter(!_.isBlank)
       .fold {
         ItemState(
           enchants = defaultEnchants,
-          downside = Option(sortedEnchantDownsides.head.id),
+          downside = sortedEnchantDownsides.headOption.map(_.id),
         )
       } { stringState =>
         Log.debug(s"STATE: $stringState")
@@ -46,43 +57,75 @@ object ItemBuilder {
           case s"RY-$r-ENH-$e1-$e2-$e3-$e4-$d-$g" =>
             ItemState(
               ItemRarity.values.find(_.id == r).getOrElse(ItemRarity.Plagued),
-              enchants = List(e1, e2, e3, e4),
+              enchants = List(
+                safeEnchant(e1),
+                safeEnchant(e2),
+                safeEnchant(e3),
+                safeEnchant(e4),
+              ),
               Option(d),
               gemOption = gems.find(_.id == g),
             )
           case s"RY-$r-ENH-$e1-$e2-$e3-$e4-$d" =>
             ItemState(
               ItemRarity.values.find(_.id == r).getOrElse(ItemRarity.Plagued),
-              enchants = List(e1, e2, e3, e4),
+              enchants = List(
+                safeEnchant(e1),
+                safeEnchant(e2),
+                safeEnchant(e3),
+                safeEnchant(e4),
+              ),
               Option(d),
             )
           case s"RY-$r-ENH-$e1-$e2-$e3-$g" =>
             ItemState(
               ItemRarity.values.find(_.id == r).getOrElse(ItemRarity.Magic),
-              enchants = List(e1, e2, e3),
+              enchants = List(
+                safeEnchant(e1),
+                safeEnchant(e2),
+                safeEnchant(e3),
+              ),
               downside = None,
               gemOption = gems.find(_.id == g),
             )
           case s"RY-$r-ENH-$e1-$e2-$e3" =>
             ItemState(
               ItemRarity.values.find(_.id == r).getOrElse(ItemRarity.Magic),
-              List(e1, e2, e3),
+              enchants = List(
+                safeEnchant(e1),
+                safeEnchant(e2),
+                safeEnchant(e3),
+              ),
               downside = None,
             )
           case s"$e1-$e2-$e3-$e4-$d-$g" =>
             ItemState(
               ItemRarity.Plagued,
-              enchants = List(e1, e2, e3, e4),
+              enchants = List(
+                safeEnchant(e1),
+                safeEnchant(e2),
+                safeEnchant(e3),
+                safeEnchant(e4),
+              ),
               Option(d),
               gemOption = gems.find(_.id == g),
             )
           case s"$e1-$e2-$e3-$e4-$d" =>
-            ItemState(ItemRarity.Plagued, List(e1, e2, e3, e4), Option(d))
+            ItemState(
+              ItemRarity.Plagued,
+              enchants = List(
+                safeEnchant(e1),
+                safeEnchant(e2),
+                safeEnchant(e3),
+                safeEnchant(e4),
+              ),
+              Option(d),
+            )
           case _ =>
             ItemState(
               ItemRarity.Plagued,
               enchants = defaultEnchants,
-              downside = Option(sortedEnchantDownsides.head.id),
+              downside = sortedEnchantDownsides.headOption.map(_.id),
             )
         }
       }

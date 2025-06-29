@@ -8,6 +8,33 @@
   box-shadow: 0 0 20px var(--color-shadow-blue);
 }
 
+.utility-card {
+  /* max-width: 500px; */
+  width: 100%;
+  margin: 0;
+  background-color: var(--color-bg-dark);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 0 20px var(--color-shadow-blue);
+
+  .utility-header {
+    display: flex;
+    position: relative;
+  }
+
+  .runes-container {
+    display: flex;
+    border-top: 0;
+    width: 100%;
+    padding: 15px;
+
+    .rune-container {
+      width: 90%;
+    }
+  }
+}
+
 .weapon-header {
   display: flex;
   flex-direction: column;
