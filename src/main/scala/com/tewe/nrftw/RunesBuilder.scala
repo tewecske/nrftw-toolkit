@@ -7,6 +7,7 @@ import scala.scalajs.js.annotation.JSImport
 
 import com.tewe.nrftw.CompactComponent.compactComponent
 import com.tewe.nrftw.WeaponType.allWeapons
+import com.tewe.nrftw.Config.infoLogWhenFunction
 
 object RunesBuilder {
 
@@ -30,7 +31,11 @@ object RunesBuilder {
         state.copy(runes = runes)
       })
     }
-    val runesErrorSignal = stateVar.signal.map(_.runesError)
+    val runesErrorSignal = stateVar
+      .signal
+      .map(_.runesError)
+      .debugWithName(s"${config.itemConfig.itemSlot} runesError")
+      .debugLog(infoLogWhenFunction)
 
     div(
       cls := "runes-container",
@@ -59,14 +64,17 @@ object RunesBuilder {
     showModalVar: Var[Boolean],
     modalCallbackVar: Var[Rune => Unit],
   ) = {
-    val runeErrorSignal = runesErrorSignal.map { errors =>
-      if (errors.size - 1 >= index)
-        errors.apply(index)
-      else
-        false
-    }
+    val runeErrorSignal = runesErrorSignal
+      .map { errors =>
+        if (errors.size - 1 >= index)
+          errors.apply(index)
+        else
+          false
+      }
+      .debugWithName(s"${config.itemConfig.itemSlot} runeErrorSignal $index")
+      .debugLog(Config.infoLogWhenFunction)
 
-    RunesBuilder(
+    runeSplitSelectComponent(
       config,
       runeVar,
       runeErrorSignal,
@@ -109,7 +117,7 @@ object RunesBuilder {
             } { rune =>
               div(
                 cls := "rune-item",
-                cls("x-hasError") <-- errorSignal,
+                // cls("x-hasError") <-- errorSignal,
                 img(cls("rune-icon"), src(rune.imageSrc)),
                 div(
                   cls("rune-text"),

@@ -66,8 +66,7 @@ case class WeaponState(
   runesError: List[Boolean] = List(false, false, false, false),
 ) {
   def shortState(): String = {
-    val runes = rune1Option ++ rune2Option ++ rune3Option ++ rune4Option
-    val runesString = runes.map(_.id).mkString("-")
+    val runesString = runes.flatMap(_.map(_.id)).mkString("-")
     val runesState = {
       if (runesString.nonEmpty)
         s"-R-$runesString"

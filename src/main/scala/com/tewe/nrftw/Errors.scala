@@ -56,37 +56,25 @@ object Errors {
         weaponState
       }
     }
-    val runes = {
-      weaponState.rune1Option ++ weaponState.rune2Option ++
-        weaponState.rune3Option ++ weaponState.rune4Option
-    }
-    val rune1Error =
-      runes.count(rune => weaponState.rune1Option.exists(_.id == rune.id)) > 1
-    val rune2Error =
-      runes.count(rune => weaponState.rune2Option.exists(_.id == rune.id)) > 1
-    val rune3Error =
-      runes.count(rune => weaponState.rune3Option.exists(_.id == rune.id)) > 1
-    val rune4Error =
-      runes.count(rune => weaponState.rune4Option.exists(_.id == rune.id)) > 1
-    if (
-      rune1Error != weaponState.rune1Error ||
-      rune2Error != weaponState.rune2Error ||
-      rune3Error != weaponState.rune3Error ||
-      rune4Error != weaponState.rune4Error
-    ) {
-      Log.debug(
-        s"WeaponState errors has changed for ${config.itemConfig.itemSlot}"
-      )
-      weaponStateWithItemStateUpdated.copy(
-        rune1Error = rune1Error,
-        rune2Error = rune2Error,
-        rune3Error = rune3Error,
-        rune4Error = rune4Error,
-      )
-
+    val runeCounts = weaponState
+      .runes
+      .map(runeOption => {
+        weaponState
+          .runes
+          .count(_.exists(rune => runeOption.exists(_.id == rune.id)))
+      })
+    val runesErrors = runeCounts.map(_ > 1)
+    Log.info(
+      s"itemSlot = ${config.itemConfig.itemSlot}, runes = ${weaponState
+          .runes
+          .flatMap(_.map(_.id))}, runesErrors = $runesErrors"
+    )
+    if (weaponStateWithItemStateUpdated.runesError != runesErrors) {
+      weaponStateWithItemStateUpdated.copy(runesError = runesErrors)
     } else {
       weaponStateWithItemStateUpdated
     }
+
   }
 
   def errors(config: ItemBuilderConfig, itemState: ItemState): ItemState = {
