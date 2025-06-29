@@ -142,19 +142,7 @@ object WeaponBuilder {
             Log.debug(s"Runes validator ${config.itemConfig.itemSlot}")
             stateVar.update(_ => {
               Log.debug(s"Update WeaponState errors in runesValidator")
-              Errors.errors(
-                config,
-                state.copy(runes = {
-                  state
-                    .runes
-                    .map(
-                      _.filter(rune =>
-                        rune.weaponTypes.exists(_.id == state.weaponTypeId)
-                      )
-                    )
-                }
-                ),
-              )
+              Errors.errors(config, state)
             })
           }
         }

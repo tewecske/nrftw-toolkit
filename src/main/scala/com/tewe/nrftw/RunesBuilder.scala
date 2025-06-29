@@ -117,7 +117,7 @@ object RunesBuilder {
             } { rune =>
               div(
                 cls := "rune-item",
-                // cls("x-hasError") <-- errorSignal,
+                cls("x-hasError") <-- errorSignal,
                 img(cls("rune-icon"), src(rune.imageSrc)),
                 div(
                   cls("rune-text"),
