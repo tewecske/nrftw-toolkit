@@ -56,22 +56,29 @@ object Errors {
         weaponState
       }
     }
-    val weaponStateRunesChecked = weaponStateWithItemStateUpdated.copy(runes = {
-      weaponStateWithItemStateUpdated
-        .runes
-        .map(
-          _.filter(rune => {
-            rune
-              .weaponTypes
-              .exists(_.id == weaponStateWithItemStateUpdated.weaponTypeId)
-          })
+    val weaponStateRunesChecked = weaponStateWithItemStateUpdated.copy(
+      runeState = weaponStateWithItemStateUpdated
+        .runeState
+        .copy(runes = {
+          weaponStateWithItemStateUpdated
+            .runeState
+            .runes
+            .map(
+              _.filter(rune => {
+                rune
+                  .weaponTypes
+                  .exists(_.id == weaponStateWithItemStateUpdated.weaponTypeId)
+              })
+            )
+        }
         )
-    }
     )
     val runeCounts = weaponStateRunesChecked
+      .runeState
       .runes
       .map(runeOption => {
         weaponStateRunesChecked
+          .runeState
           .runes
           .count(_.exists(rune => runeOption.exists(_.id == rune.id)))
       })
@@ -80,11 +87,14 @@ object Errors {
       s"itemSlot = ${config
           .itemConfig
           .itemSlot}, runes = ${weaponStateRunesChecked
+          .runeState
           .runes
           .flatMap(_.map(_.id))}, runesErrors = $runesErrors"
     )
-    if (weaponStateRunesChecked.runesError != runesErrors) {
-      weaponStateRunesChecked.copy(runesError = runesErrors)
+    if (weaponStateRunesChecked.runeState.runesError != runesErrors) {
+      weaponStateRunesChecked.copy(runeState =
+        weaponStateRunesChecked.runeState.copy(runesError = runesErrors)
+      )
     } else {
       weaponStateRunesChecked
     }

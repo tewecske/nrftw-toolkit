@@ -18,6 +18,8 @@ enum WeaponType(val id: String, val name: String) {
   case Shield extends WeaponType("sh", "Shield")
 
   case Bow extends WeaponType("b", "Bow")
+
+  case Utility extends WeaponType("u", "Utility")
 }
 
 object WeaponType {
@@ -42,6 +44,8 @@ object WeaponType {
   val gauntletWeapons = Set(AnyWeapon, DualWield, Gauntlets)
   val doubleDaggerWeapons = Set(AnyWeapon, DualWield, DoubleDaggers)
   val bowWeapons = Set(AnyWeapon, Bow)
+
+  val utilities = Set(Utility)
 
 }
 

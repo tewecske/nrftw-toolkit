@@ -38,7 +38,7 @@ object WeaponBuilder {
                 Option(itemStateString),
               ),
               weaponTypeId = w,
-              runes = (0 to 3).toList.map(runesList.lift),
+              runeState = RuneState((0 to 3).toList.map(runesList.lift)),
             )
           case s"W$w-$itemStateString" =>
             WeaponState(

@@ -24,16 +24,16 @@ object RunesBuilder {
     modalCallbackVar: Var[Rune => Unit],
   ) = {
     val runesVar = {
-      stateVar.zoomLazy(_.runes)((state, runes) => {
+      stateVar.zoomLazy(_.runeState.runes)((state, runes) => {
         Log.debug(
           s"Updating ${config.itemConfig.itemSlot} runesVar ${runes.size}"
         )
-        state.copy(runes = runes)
+        state.copy(runeState = state.runeState.copy(runes = runes))
       })
     }
     val runesErrorSignal = stateVar
       .signal
-      .map(_.runesError)
+      .map(_.runeState.runesError)
       .debugWithName(s"${config.itemConfig.itemSlot} runesError")
       .debugLog(infoLogWhenFunction)
 

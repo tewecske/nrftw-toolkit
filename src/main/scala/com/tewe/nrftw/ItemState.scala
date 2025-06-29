@@ -51,28 +51,25 @@ case class ItemState(
 
 }
 
-case class WeaponState(
-  itemState: ItemState,
-  weaponTypeId: String,
-  rune1Option: Option[Rune] = None,
-  rune2Option: Option[Rune] = None,
-  rune3Option: Option[Rune] = None,
-  rune4Option: Option[Rune] = None,
-  rune1Error: Boolean = false,
-  rune2Error: Boolean = false,
-  rune3Error: Boolean = false,
-  rune4Error: Boolean = false,
+case class RuneState(
   runes: List[Option[Rune]] = List(None, None, None, None),
   runesError: List[Boolean] = List(false, false, false, false),
 ) {
   def shortState(): String = {
     val runesString = runes.flatMap(_.map(_.id)).mkString("-")
-    val runesState = {
-      if (runesString.nonEmpty)
-        s"-R-$runesString"
-      else
-        ""
-    }
-    s"W$weaponTypeId-${itemState.shortState()}${runesState}"
+    if (runesString.nonEmpty)
+      s"-R-$runesString"
+    else
+      ""
+  }
+}
+
+case class WeaponState(
+  itemState: ItemState,
+  weaponTypeId: String,
+  runeState: RuneState = RuneState(),
+) {
+  def shortState(): String = {
+    s"W$weaponTypeId-${itemState.shortState()}${runeState.shortState()}"
   }
 }
