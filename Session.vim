@@ -17,7 +17,7 @@ badd +1 ~/projects/scala-projects/nrftw-toolkit
 badd +55 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +1 src/main/scala/com/tewe/nrftw/Items.scala
 badd +60 src/main/scala/com/tewe/nrftw/Main.scala
-badd +77 style.css
+badd +78 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
@@ -36,7 +36,7 @@ badd +19 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +65 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
-badd +82 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +17 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
@@ -60,7 +60,7 @@ badd +5 .scalafmt.conf
 badd +32 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/keys/EventProcessor.scala
 badd +5 src/main/scala/com/tewe/nrftw/ItemRarityComponent.scala
 badd +1 src/main/scala/com/tewe/nrftw/items/Gems.scala
-badd +464 src/main/scala/com/tewe/nrftw/items/Equipment.scala
+badd +1 src/main/scala/com/tewe/nrftw/items/Equipment.scala
 badd +230 src/main/scala/com/tewe/nrftw/items/Rings.scala
 badd +96 src/main/scala/com/tewe/nrftw/items/Runes.scala
 badd +112 src/main/scala/com/tewe/nrftw/ItemModel.scala
@@ -76,10 +76,22 @@ badd +4 Log.scala
 badd +62 src/main/scala/com/tewe/nrftw/UtilityBuilder.scala
 badd +1 build.sbt
 badd +7 ~/projects/scala-projects/nrftw-toolkit/target/scala-3.5.2/src_managed/main/sbt-buildinfo/BuildInfo.scala
+badd +1 src/main/scala/com/tewe/nrftw/items/Enchantments.scala
+badd +1 raw_enchantments.txt
+badd +118 src/main/scala/com/tewe/nrftw/items/EnchantmentData.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit style.css
+edit src/main/scala/com/tewe/nrftw/items/EnchantmentData.scala
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
 wincmd t
 let s:save_winminheight = &winminheight
 let s:save_winminwidth = &winminwidth
@@ -87,8 +99,9 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+wincmd =
 argglobal
-balt src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
+balt src/main/scala/com/tewe/nrftw/RunesBuilder.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -99,12 +112,37 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 21) / 43)
+let s:l = 1 - ((0 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 1
 normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("raw_enchantments.txt", ":p")) | buffer raw_enchantments.txt | else | edit raw_enchantments.txt | endif
+if &buftype ==# 'terminal'
+  silent file raw_enchantments.txt
+endif
+balt src/main/scala/com/tewe/nrftw/items/Enchantments.scala
+setlocal foldmethod=manual
+setlocal foldexpr=0
+setlocal foldmarker={{{,}}}
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldenable
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 1 - ((0 * winheight(0) + 7) / 15)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+wincmd w
+wincmd =
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
