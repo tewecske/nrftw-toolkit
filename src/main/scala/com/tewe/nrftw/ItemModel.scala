@@ -4,6 +4,7 @@ import ItemSlot.*
 import EnchantGroup.*
 import scala.collection.mutable.LinkedHashMap
 import com.tewe.nrftw.WeaponType.*
+import com.tewe.nrftw.EnchantmentData.Enchantment
 
 enum WeaponType(val id: String, val name: String) {
   case AnyWeapon extends WeaponType("w", "Weapon")
@@ -151,9 +152,9 @@ case class ItemBuilderConfig(
   itemSlot: ItemSlot,
   itemRarity: ItemRarity,
   gems: List[Gem],
-  magicEnchants: Map[String, Enchant],
-  enchants: Map[String, Enchant],
-  enchantDownsides: Map[String, Enchant],
+  magicEnchants: Map[String, Enchantment],
+  enchants: Map[String, Enchantment],
+  enchantDownsides: Map[String, Enchantment],
 )
 
 case class WeaponBuilderConfig(

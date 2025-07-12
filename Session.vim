@@ -36,7 +36,7 @@ badd +19 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +65 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
-badd +17 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +8 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
@@ -60,10 +60,10 @@ badd +5 .scalafmt.conf
 badd +32 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/keys/EventProcessor.scala
 badd +5 src/main/scala/com/tewe/nrftw/ItemRarityComponent.scala
 badd +1 src/main/scala/com/tewe/nrftw/items/Gems.scala
-badd +1 src/main/scala/com/tewe/nrftw/items/Equipment.scala
+badd +891 src/main/scala/com/tewe/nrftw/items/Equipment.scala
 badd +230 src/main/scala/com/tewe/nrftw/items/Rings.scala
 badd +96 src/main/scala/com/tewe/nrftw/items/Runes.scala
-badd +112 src/main/scala/com/tewe/nrftw/ItemModel.scala
+badd +123 src/main/scala/com/tewe/nrftw/ItemModel.scala
 badd +47 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/split/SplittableVar.scala
 badd +83 CLAUDE.md
 badd +19 .metals/readonly/dependencies/airstream_sjs1_3-17.2.0-sources.jar/com/raquo/airstream/combine/generated/CombinableSignal.scala
@@ -76,9 +76,9 @@ badd +4 Log.scala
 badd +62 src/main/scala/com/tewe/nrftw/UtilityBuilder.scala
 badd +1 build.sbt
 badd +7 ~/projects/scala-projects/nrftw-toolkit/target/scala-3.5.2/src_managed/main/sbt-buildinfo/BuildInfo.scala
-badd +1 src/main/scala/com/tewe/nrftw/items/Enchantments.scala
-badd +1 raw_enchantments.txt
-badd +1 src/main/scala/com/tewe/nrftw/items/EnchantmentData.scala
+badd +269 src/main/scala/com/tewe/nrftw/items/Enchantments.scala
+badd +20 raw_enchantments.txt
+badd +156 src/main/scala/com/tewe/nrftw/items/EnchantmentData.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
@@ -99,10 +99,9 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 23 + 22) / 45)
-exe '2resize ' . ((&lines * 19 + 22) / 45)
+wincmd =
 argglobal
-balt src/main/scala/com/tewe/nrftw/RunesBuilder.scala
+balt src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -113,7 +112,7 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 11) / 23)
+let s:l = 1 - ((0 * winheight(0) + 14) / 29)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -125,7 +124,7 @@ if bufexists(fnamemodify("raw_enchantments.txt", ":p")) | buffer raw_enchantment
 if &buftype ==# 'terminal'
   silent file raw_enchantments.txt
 endif
-balt src/main/scala/com/tewe/nrftw/items/Enchantments.scala
+balt src/main/scala/com/tewe/nrftw/items/Equipment.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -136,15 +135,14 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 9) / 19)
+let s:l = 16 - ((6 * winheight(0) + 6) / 13)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 0
+keepjumps 16
+normal! 094|
 wincmd w
-exe '1resize ' . ((&lines * 23 + 22) / 45)
-exe '2resize ' . ((&lines * 19 + 22) / 45)
+wincmd =
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

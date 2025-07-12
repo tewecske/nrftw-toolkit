@@ -5,6 +5,7 @@ import com.raquo.laminar.api.L.{*, given}
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import com.raquo.airstream.state.Var
+import com.tewe.nrftw.EnchantmentData.Enchantment
 
 object EnchantmentsBuilder {
 
@@ -51,8 +52,8 @@ object EnchantmentsBuilder {
   def enchantSplitSelectComponent(
     index: Int,
     config: ItemBuilderConfig,
-    sortedEnchants: List[Enchant],
-    sortedMagicEnchants: List[Enchant],
+    sortedEnchants: List[Enchantment],
+    sortedMagicEnchants: List[Enchantment],
     itemRaritySignal: Signal[ItemRarity],
     stateVar: Var[ItemState],
     enchantVar: Var[String],
