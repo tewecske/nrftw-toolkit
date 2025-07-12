@@ -78,7 +78,7 @@ badd +1 build.sbt
 badd +7 ~/projects/scala-projects/nrftw-toolkit/target/scala-3.5.2/src_managed/main/sbt-buildinfo/BuildInfo.scala
 badd +1 src/main/scala/com/tewe/nrftw/items/Enchantments.scala
 badd +1 raw_enchantments.txt
-badd +118 src/main/scala/com/tewe/nrftw/items/EnchantmentData.scala
+badd +1 src/main/scala/com/tewe/nrftw/items/EnchantmentData.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
@@ -99,7 +99,8 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-wincmd =
+exe '1resize ' . ((&lines * 23 + 22) / 45)
+exe '2resize ' . ((&lines * 19 + 22) / 45)
 argglobal
 balt src/main/scala/com/tewe/nrftw/RunesBuilder.scala
 setlocal foldmethod=manual
@@ -112,7 +113,7 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 13) / 27)
+let s:l = 1 - ((0 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -135,14 +136,15 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 7) / 15)
+let s:l = 1 - ((0 * winheight(0) + 9) / 19)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 1
 normal! 0
 wincmd w
-wincmd =
+exe '1resize ' . ((&lines * 23 + 22) / 45)
+exe '2resize ' . ((&lines * 19 + 22) / 45)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
