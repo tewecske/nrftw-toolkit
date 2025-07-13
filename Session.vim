@@ -17,7 +17,7 @@ badd +1 ~/projects/scala-projects/nrftw-toolkit
 badd +55 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +1 src/main/scala/com/tewe/nrftw/Items.scala
 badd +60 src/main/scala/com/tewe/nrftw/Main.scala
-badd +84 style.css
+badd +95 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
@@ -42,7 +42,7 @@ badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
 badd +47 src/main/scala/com/tewe/nrftw/GemsBuilder.scala
 badd +132 src/main/scala/com/tewe/nrftw/Errors.scala
-badd +34 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
+badd +13 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 badd +65 src/main/scala/com/tewe/nrftw/StatsBuilder.css
 badd +14 src/main/scala/com/tewe/nrftw/GemsBuilder.css
 badd +27 src/main/scala/com/tewe/nrftw/ItemBuilder.css
@@ -84,16 +84,9 @@ badd +600 ~/projects/scala-projects/nrftw-toolkit/.metals/readonly/dependencies/
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
+edit style.css
 argglobal
-balt src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+balt src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -117,8 +110,6 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)

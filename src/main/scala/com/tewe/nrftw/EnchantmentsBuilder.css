@@ -39,22 +39,6 @@
       max-height: 400px;
       overflow-y: auto;
       background-color: var(--color-bg-item);
-      scrollbar-width: thin;
-      scrollbar-color: var(--color-border-dark) var(--color-bg-item);
-
-      &::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: var(--color-bg-item);
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: var(--color-border-dark);
-        border-radius: 10px;
-        border: 2px solid var(--color-bg-item);
-      }
     }
   }
 

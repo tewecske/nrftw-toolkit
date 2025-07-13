@@ -88,6 +88,25 @@ body {
   --color-enchant-tag-sPlague: #523b9e;
 }
 
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-dark) var(--color-bg-item);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-item);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-dark);
+  border-radius: 10px;
+  border: 2px solid var(--color-bg-item);
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
