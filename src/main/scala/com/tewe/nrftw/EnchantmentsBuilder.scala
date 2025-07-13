@@ -66,47 +66,91 @@ object EnchantmentsBuilder {
           .enchantsError
           .mkString(",")}"
     )
-    select(
-      cls := "enchant-text",
-      cls("x-hasError") <--
-        enchantsErrorSignal.map { errors =>
-          if (errors.size - 1 >= index)
-            errors.apply(index)
-          else
-            false
+
+    val isDropdownVisible = Var(false)
+
+    val optionsSignal = itemRaritySignal.map { itemRarity =>
+      if (itemRarity == ItemRarity.Plagued)
+        sortedEnchants
+      else
+        sortedMagicEnchants
+    }
+
+    val singleEnchantErrorSignal = enchantsErrorSignal.map { errors =>
+      if (errors.size - 1 >= index)
+        errors(index)
+      else
+        false
+    }
+
+    def renderEnchant(
+      enchant: Enchantment,
+      isSelected: Boolean,
+      mods: Modifier[HtmlElement]*
+    ): HtmlElement = {
+      div(
+        cls :=
+          (if (isSelected)
+             "selected-enchant"
+           else
+             "enchant-option"),
+        // Image can be added here in the future, e.g.:
+        // img(src := s"/images/enchants/${enchant.id}.png"),
+        enchant.htmlDisplay(),
+        mods,
+      )
+    }
+
+    div(
+      cls := "custom-select-container",
+      div(
+        cls := "custom-select-display enchant-text",
+        cls("x-hasError") <-- singleEnchantErrorSignal,
+        onClick --> { _ =>
+          isDropdownVisible.update(!_)
         },
-      value <--
-        enchantVar
-          .signal
-          .debugWithName(s"${config.itemSlot} enchantVar $index")
-          .debugLog(Config.debugLogWhenFunction),
-      onChange.mapToValue --> enchantVar,
-      onChange.mapTo(stateVar.now()) --> Errors.validator(config, stateVar),
-      children <--
-        itemRaritySignal.map(itemRarity => {
-          Log.debug(
-            s"Rendering ${config.itemSlot} $index options for $itemRarity"
-          )
-          if (itemRarity == ItemRarity.Plagued) {
-            sortedEnchants.map(enchant => {
-              option(
-                value := enchant.id,
-                selected <-- enchantVar.signal.map(_ == enchant.id),
-                cls := s"enchant-group-${enchant.group}",
-                enchant.value,
+        enchantVar.signal.changes.mapTo(stateVar.now()) -->
+          Errors.validator(config, stateVar),
+        child <--
+          enchantVar
+            .signal
+            .combineWith(optionsSignal)
+            .map { (selectedId, options) =>
+              options
+                .find(_.id == selectedId)
+                .map(renderEnchant(_, isSelected = true))
+                .getOrElse(span("Select an enchant..."))
+            },
+      ),
+      div(
+        cls := "custom-select-dropdown",
+        display <--
+          isDropdownVisible
+            .signal
+            .map(
+              if (_)
+                "block"
+              else
+                "none"
+            ),
+        children <--
+          optionsSignal.map(
+            _.map { enchant =>
+              div(
+                cls := "enchant-option-wrapper",
+                onClick --> { _ =>
+                  enchantVar.set(enchant.id)
+                  isDropdownVisible.set(false)
+                },
+                renderEnchant(
+                  enchant,
+                  isSelected = false,
+                  cls := s"enchant-group-${enchant.group}",
+                ),
               )
-            })
-          } else {
-            sortedMagicEnchants.map(enchant => {
-              option(
-                value := enchant.id,
-                selected <-- enchantVar.signal.map(_ == enchant.id),
-                cls := s"enchant-group-${enchant.group}",
-                enchant.value,
-              )
-            })
-          }
-        }),
+            }
+          ),
+      ),
     )
   }
   def enchantmentsSelect(

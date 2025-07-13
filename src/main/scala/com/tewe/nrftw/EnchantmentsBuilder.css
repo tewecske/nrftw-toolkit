@@ -19,6 +19,17 @@
     background-color: var(--color-bg-item);
   }
 
+  .custom-select-container {
+    background-color: var(--color-bg-item);
+    border: 1px solid var(--color-border-dark);
+    padding: 4px;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
+    outline: none;
+  }
+
   select {
     background-color: var(--color-bg-item);
     border: 1px solid var(--color-border-dark);
@@ -101,4 +112,211 @@
     font-size: 0.8em;
   }
 
+}
+
+.enchant-display {
+  display: flex;
+  align-items: center;
+}
+
+.ui-font-icons {
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
+
+  background-image: url('/images/uiFontIcons.png');
+  background-repeat: no-repeat;
+
+  background-size: 256px 256px;
+
+
+  --ui-font-icon-2nd: -128px;
+  --sprite-small: 16px;
+
+  &.icon-StatPhysicalDamage {
+    background-position: calc(var(--sprite-small) * -5) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 3));
+  }
+
+  &.icon-StatDamage {
+    background-position: calc(var(--sprite-small) * 0) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 3));
+  }
+
+  &.icon-StatDamageTaken {
+    background-position: calc(var(--sprite-small) * 0) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 4));
+  }
+
+  &.icon-StatFireArmor {
+    background-position: calc(var(--sprite-small) * -1) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 4));
+  }
+
+  &.icon-StatColdArmor {
+    background-position: calc(var(--sprite-small) * -2) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 4));
+  }
+
+  &.icon-StatLightningArmor {
+    background-position: calc(var(--sprite-small) * -3) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 4));
+  }
+
+  &.icon-StatPlagueArmor {
+    background-position: calc(var(--sprite-small) * -4) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 4));
+  }
+
+  &.icon-StatStaggerResistance {
+    background-position: calc(var(--sprite-small) * -7) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 4));
+  }
+
+  &.icon-StatMaxHealth {
+    background-position: calc(var(--sprite-small) * 0) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 0));
+  }
+
+  &.icon-StatHealthRegen {
+    background-position: calc(var(--sprite-small) * -1) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 0));
+  }
+
+  &.icon-StatHealth {
+    background-position: calc(var(--sprite-small) * -4) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 0));
+  }
+
+  &.icon-StatHealing {
+    background-position: calc(var(--sprite-small) * -2) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 0));
+  }
+
+  &.icon-StatPoiseDefense {
+    background-position: calc(var(--sprite-small) * -1) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 5));
+  }
+
+  &.icon-StatMaxStamina {
+    background-position: calc(var(--sprite-small) * 0) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 2));
+  }
+
+  &.icon-StatStaminaRegen {
+    background-position: calc(var(--sprite-small) * -1) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 2));
+  }
+
+  &.icon-StatHealthRally {
+    background-position: calc(var(--sprite-small) * -2) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 2));
+  }
+
+  &.icon-StatStaminaCost {
+    background-position: calc(var(--sprite-small) * -3) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 2));
+  }
+
+  &.icon-StatStamina {
+    background-position: calc(var(--sprite-small) * -4) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 2));
+  }
+
+  &.icon-StatArmor {
+    background-position: calc(var(--sprite-small) * 0) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 5));
+  }
+
+  &.icon-StatWeight {
+    background-position: calc(var(--sprite-small) * -5) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 5));
+  }
+
+  &.icon-StatAttackSpeed {
+    background-position: calc(var(--sprite-small) * -3) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 5));
+  }
+
+  &.icon-StatStaggerDamage {
+    background-position: calc(var(--sprite-small) * -7) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 3));
+  }
+
+  &.icon-StatFocusGain {
+    background-position: calc(var(--sprite-small) * -2) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 1));
+  }
+
+  &.icon-StatFocusCost {
+    background-position: calc(var(--sprite-small) * -3) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 1));
+  }
+
+  &.icon-StatFocus {
+    background-position: calc(var(--sprite-small) * -4) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 1));
+  }
+
+  &.icon-StatMovementSpeed {
+    background-position: calc(var(--sprite-small) * -4) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 5));
+  }
+
+  &.icon-StatDurability {
+    background-position: calc(var(--sprite-small) * -6) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 5));
+  }
+
+  &.icon-StatFireDamage {
+    background-position: calc(var(--sprite-small) * -1) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 3));
+  }
+
+  &.icon-StatColdDamage {
+    background-position: calc(var(--sprite-small) * -2) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 3));
+  }
+
+  &.icon-StatLightningDamage {
+    background-position: calc(var(--sprite-small) * -3) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 3));
+  }
+
+  &.icon-StatPlagueDamage {
+    background-position: calc(var(--sprite-small) * -4) calc(var(--ui-font-icon-2nd) - (var(--sprite-small) * 3));
+  }
+}
+
+.enchant-group-sprite {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+
+  background-image: url('/images/uiEnchantmentGroupAtlas.png');
+  background-repeat: no-repeat;
+
+  background-size: 64px 64px;
+
+  &.sprite-Other {
+    background-position: 0px 0px;
+  }
+
+  &.sprite-Attack {
+    background-position: -16px 0px;
+  }
+
+  &.sprite-Stamina {
+    background-position: -48px 0px;
+  }
+
+  .sprite-Durability {
+    background-position: 0px 0px;
+  }
+
+  &.sprite-Healing {
+    background-position: -32px -16px;
+  }
+
+  .sprite-Weight {
+    background-position: 0px 0px;
+  }
+
+  &.sprite-Focus {
+    background-position: -32px 0px;
+  }
+
+  &.sprite-Defense {
+    background-position: -16px -16px;
+  }
+
+  .sprite-Indestructible {
+    background-position: 0px 0px;
+  }
+
+  &.sprite-Infusion {
+    background-position: 0px -16px;
+  }
+
+  .sprite-Resistance {
+    background-position: 0px 0px;
+  }
+
+  &.sprite-Movement {
+    background-position: -48px -16px;
+  }
+
+  .sprite-Downside {
+    background-position: 0px 0px;
+  }
 }

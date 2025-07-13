@@ -148,6 +148,7 @@ body {
 }
 
 div.x-hasError,
+.custom-select-display.x-hasError,
 select.x-hasError {
   background-color: var(--color-error-bg) !important;
 }

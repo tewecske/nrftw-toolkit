@@ -1,5 +1,7 @@
 package com.tewe.nrftw
 
+import com.raquo.laminar.api.L.{*, given}
+import com.raquo.laminar.DomApi
 import com.tewe.nrftw.EnchantGroup
 
 object EnchantmentData {
@@ -158,7 +160,19 @@ object EnchantmentData {
     rawText: String,
     effects: List[EnchantmentEffect],
   ) {
-    val value = rawText
+    lazy val groupIcon = img(cls("enchant-group-icon"), src := s"/images/uiEnchantmentGroupAtlas.png")
+    val value = s"""<div class="enchant-display">$rawText</span>"""
+    val finalValue = value.replaceFirst("""\[(Stat\w+)\]""", s"""<div class="ui-font-icons icon-$$1"></div>""")
+    def htmlDisplay() = div(
+      cls("enchant-display"),
+      div(cls(s"enchant-group-sprite sprite-${group}")),
+      value match {
+        case s"Deal $p0 [$stat] [!$tagStart]Damage[/s] on $action" =>
+          div(s"Deal 000 $stat $tagStart Damage on $action")
+        case _ =>
+          foreignHtmlElement(DomApi.unsafeParseHtmlString(finalValue))
+      },
+    )
   }
 
   val armorDecreased = Enchantment("down_ad", EnchantGroup.Downside, "enchantment.armorDecreased",
