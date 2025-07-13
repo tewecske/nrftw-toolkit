@@ -14,9 +14,9 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/projects/scala-projects/nrftw-toolkit
-badd +55 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+badd +50 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +1 src/main/scala/com/tewe/nrftw/Items.scala
-badd +60 src/main/scala/com/tewe/nrftw/Main.scala
+badd +82 src/main/scala/com/tewe/nrftw/Main.scala
 badd +17 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
@@ -77,19 +77,27 @@ badd +62 src/main/scala/com/tewe/nrftw/UtilityBuilder.scala
 badd +1 build.sbt
 badd +7 ~/projects/scala-projects/nrftw-toolkit/target/scala-3.5.2/src_managed/main/sbt-buildinfo/BuildInfo.scala
 badd +269 src/main/scala/com/tewe/nrftw/items/Enchantments.scala
-badd +176 src/main/scala/com/tewe/nrftw/items/EnchantmentData.scala
+badd +1437 src/main/scala/com/tewe/nrftw/items/EnchantmentData.scala
 badd +1 GEMINI.md
 badd +1 ~/projects/scala-projects/nrftw-data/try3-claude/EnchantmentModel.scala
 badd +600 ~/projects/scala-projects/nrftw-toolkit/.metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/DomApi.scala
 badd +191 ~/projects/scala-projects/nrftw-toolkit/.metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/api/Laminar.scala
 badd +17 ~/projects/scala-projects/nrftw-toolkit/.metals/readonly/dependencies/scalajs-dom_sjs1_3-2.8.0-sources.jar/org/scalajs/dom/HTMLDivElement.scala
 badd +18 index.html
+badd +476 ~/projects/scala-projects/nrftw-toolkit/.metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Option.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit Config.scala
+edit src/main/scala/com/tewe/nrftw/ItemBuilder.scala
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 argglobal
-balt src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
+balt ~/projects/scala-projects/nrftw-toolkit/.metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Option.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -113,6 +121,8 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)

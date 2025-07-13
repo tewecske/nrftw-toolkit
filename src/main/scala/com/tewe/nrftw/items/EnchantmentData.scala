@@ -1136,12 +1136,12 @@ object EnchantmentData {
     StatModifier(StatType.Damage, ValueRange(15, 25, ValueType.Percentage), ModificationType.Increase, ActionCondition(ActionType.ChargedAttack), Some(ValueRange(5, 5, ValueType.Duration)))
   )
   
-  val onlyHeavyRoll = Enchantment("", EnchantGroup.Other, "enchantment.onlyHeavyRoll",
+  val onlyHeavyRoll = Enchantment("down_hr", EnchantGroup.Downside, "enchantment.onlyHeavyRoll",
     "<b>Heavy Roll</b> only",
     OnlyHeavyRoll
   )
   
-  val parryDisabled = Enchantment("", EnchantGroup.Other, "enchantment.parryDisabled",
+  val parryDisabled = Enchantment("down_pd", EnchantGroup.Downside, "enchantment.parryDisabled",
     "<b>Parry</b> disabled",
     ParryDisabled
   )

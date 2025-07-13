@@ -40,8 +40,14 @@ object ItemBuilder {
         List(firstEnchant, firstEnchant, firstEnchant, firstEnchant)
     }
 
+    val firstDownside = sortedEnchantDownsides.headOption.map(_.id)
+
     def safeEnchant(id: String): String = {
       sortedEnchants.find(_.id == id).map(_.id).getOrElse(firstEnchant)
+    }
+
+    def safeDownside(id: String): Option[String] = {
+      sortedEnchantDownsides.find(_.id == id).map(_.id).orElse(firstDownside)
     }
 
     initState
@@ -63,7 +69,7 @@ object ItemBuilder {
                 safeEnchant(e3),
                 safeEnchant(e4),
               ),
-              Option(d),
+              safeDownside(d),
               gemOption = gems.find(_.id == g),
             )
           case s"RY-$r-ENH-$e1-$e2-$e3-$e4-$d" =>
@@ -75,7 +81,7 @@ object ItemBuilder {
                 safeEnchant(e3),
                 safeEnchant(e4),
               ),
-              Option(d),
+              safeDownside(d),
             )
           case s"RY-$r-ENH-$e1-$e2-$e3-$g" =>
             ItemState(
@@ -107,7 +113,7 @@ object ItemBuilder {
                 safeEnchant(e3),
                 safeEnchant(e4),
               ),
-              Option(d),
+              safeDownside(d),
               gemOption = gems.find(_.id == g),
             )
           case s"$e1-$e2-$e3-$e4-$d" =>
@@ -119,7 +125,7 @@ object ItemBuilder {
                 safeEnchant(e3),
                 safeEnchant(e4),
               ),
-              Option(d),
+              safeDownside(d),
             )
           case _ =>
             ItemState(
