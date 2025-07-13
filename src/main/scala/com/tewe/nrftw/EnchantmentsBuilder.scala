@@ -163,6 +163,11 @@ object EnchantmentsBuilder {
       )
       .foreach(_ => isDropdownVisible.set(false))(unsafeWindowOwner)
 
+    // Close dropdown on scroll
+    windowEvents(_.onScroll)
+      .filter(_ => isDropdownVisible.now())
+      .foreach(_ => isDropdownVisible.set(false))(unsafeWindowOwner)
+
     customSelectContainer
   }
   def enchantmentsSelect(

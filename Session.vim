@@ -36,13 +36,13 @@ badd +82 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +65 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
-badd +95 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +161 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
 badd +47 src/main/scala/com/tewe/nrftw/GemsBuilder.scala
 badd +132 src/main/scala/com/tewe/nrftw/Errors.scala
-badd +29 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
+badd +34 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 badd +65 src/main/scala/com/tewe/nrftw/StatsBuilder.css
 badd +14 src/main/scala/com/tewe/nrftw/GemsBuilder.css
 badd +27 src/main/scala/com/tewe/nrftw/ItemBuilder.css
@@ -84,7 +84,7 @@ badd +600 ~/projects/scala-projects/nrftw-toolkit/.metals/readonly/dependencies/
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+edit src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 wincmd t
 let s:save_winminheight = &winminheight
 let s:save_winminwidth = &winminwidth
@@ -93,7 +93,7 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-balt src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
+balt src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
