@@ -180,7 +180,7 @@ object EnchantmentData {
         (EffectValue.extractValue(value), duration.map(EffectValue.extractValue).getOrElse(""))
       case ActionTrigger(action, value, condition, chance) =>
         (EffectValue.extractValue(value), chance.map(EffectValue.extractValue).getOrElse(""))
-      case ActionModifier(action, modificationType, chance) => ("", "")
+      case ActionModifier(action, modificationType, chance) => (EffectValue.extractValue(chance), "")
       case ElementalDamage(element, value, condition) => (EffectValue.extractValue(value), "")
       case StatusInfliction(effect, duration) => ("", "")
       case ResourceGain(resource, value, condition) => (EffectValue.extractValue(value), "")

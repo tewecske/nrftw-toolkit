@@ -18,6 +18,14 @@ object EnchantmentsBuilder {
 
   val _ = Stylesheet // Use import to prevent DCE
 
+  def renderEnchant(
+    enchant: Enchantment,
+    isSelected: Boolean,
+    mods: Modifier[HtmlElement]*
+  ): HtmlElement = {
+    div(enchant.htmlDisplay(), mods)
+  }
+
   def enchantmentsCompact(
     enchantments: List[String],
     enchantDownsides: List[String],
@@ -70,8 +78,6 @@ object EnchantmentsBuilder {
           .mkString(",")}"
     )
 
-    val isDropdownVisible = Var(false)
-
     val optionsSignal = itemRaritySignal.map { itemRarity =>
       if (itemRarity == ItemRarity.Plagued)
         sortedEnchants
@@ -86,33 +92,51 @@ object EnchantmentsBuilder {
         false
     }
 
-    def renderEnchant(
-      enchant: Enchantment,
-      isSelected: Boolean,
-      mods: Modifier[HtmlElement]*
-    ): HtmlElement = {
-      div(enchant.htmlDisplay(), mods)
-    }
+    customSelectComponent[Enchantment](
+      enchantVar,
+      _.id,
+      enchant =>
+        renderEnchant(
+          enchant,
+          isSelected = false,
+          cls := s"enchant-group-${enchant.group}",
+        ),
+      optionsSignal,
+      (enchant, selected) => renderEnchant(enchant, isSelected = selected),
+      cls("x-hasError") <-- singleEnchantErrorSignal,
+      cls("enchant-text"),
+      enchantVar.signal.changes.mapTo(stateVar.now()) -->
+        Errors.validator(config, stateVar),
+    )
+  }
+
+  def customSelectComponent[A](
+    valueVar: Var[String],
+    valueFn: A => String,
+    valueDisplayFn: A => HtmlElement,
+    optionsSignal: Signal[List[A]],
+    optionDisplayFn: (a: A, selected: Boolean) => HtmlElement,
+    mods: Modifier[HtmlElement]*
+  ) = {
+    val isDropdownVisible = Var(false)
 
     val customSelectContainer = div(
       cls := "custom-select-container",
       div(
-        cls := "custom-select-display enchant-text",
-        cls("x-hasError") <-- singleEnchantErrorSignal,
+        cls := "custom-select-display",
+        mods,
         onClick --> { _ =>
           isDropdownVisible.update(!_)
         },
-        enchantVar.signal.changes.mapTo(stateVar.now()) -->
-          Errors.validator(config, stateVar),
         child <--
-          enchantVar
+          valueVar
             .signal
             .combineWith(optionsSignal)
             .map { (selectedId, options) =>
               options
-                .find(_.id == selectedId)
-                .map(renderEnchant(_, isSelected = true))
-                .getOrElse(span("Select an enchant..."))
+                .find(valueFn(_) == selectedId)
+                .map(optionDisplayFn(_, selected = true))
+                .getOrElse(span("Select..."))
             },
       ),
       div(
@@ -121,14 +145,32 @@ object EnchantmentsBuilder {
           styleAttr <--
             isDropdownVisible
               .signal
-              .map {
-                if (_) {
+              .combineWith(optionsSignal)
+              .map { (visible, options) =>
+                if (visible) {
+                  val dropdown = thisNode
+                    .ref
+                    .parentNode
+                    .asInstanceOf[HTMLDivElement]
+                  val dropdownRect = dropdown.getBoundingClientRect()
+                  val spaceBelow =
+                    org.scalajs.dom.window.innerHeight - dropdownRect.bottom
+                  val spaceAbove = dropdownRect.top
+                  println(dropdown.offsetHeight)
+                  val top = {
+                    if (spaceBelow < 300 && spaceAbove > spaceBelow) {
+                      dropdownRect.top - 300
+                    } else {
+                      dropdownRect.bottom
+                    }
+                  }
+
                   val rect = thisNode
                     .ref
                     .parentNode
                     .asInstanceOf[HTMLDivElement]
                     .getBoundingClientRect()
-                  s"top: ${rect.bottom}px; left: ${rect.left}px; width: ${rect
+                  s"top: ${top}px; left: ${rect.left}px; width: ${rect
                       .width}px; display: block;"
                 } else {
                   "display: none;"
@@ -137,18 +179,14 @@ object EnchantmentsBuilder {
         },
         children <--
           optionsSignal.map(
-            _.map { enchant =>
+            _.map { value =>
               div(
-                cls := "enchant-option-wrapper",
+                cls := "custom-option-wrapper",
                 onClick --> { _ =>
-                  enchantVar.set(enchant.id)
+                  valueVar.set(valueFn(value))
                   isDropdownVisible.set(false)
                 },
-                renderEnchant(
-                  enchant,
-                  isSelected = false,
-                  cls := s"enchant-group-${enchant.group}",
-                ),
+                valueDisplayFn(value),
               )
             }
           ),
@@ -170,6 +208,7 @@ object EnchantmentsBuilder {
 
     customSelectContainer
   }
+
   def enchantmentsSelect(
     config: ItemBuilderConfig,
     stateVar: Var[ItemState],
@@ -233,18 +272,27 @@ object EnchantmentsBuilder {
       child <--
         itemRaritySignal.map { itemRarity =>
           if (itemRarity == ItemRarity.Plagued) {
-            select(
-              cls := "downside-text",
-              value <-- downsideVar,
-              onChange.mapToValue --> downsideVar,
-              sortedEnchantDownsides.map(enchant => {
-                option(
-                  value := enchant.id,
-                  cls := s"enchant-group-${enchant.group}",
-                  enchant.value,
-                )
-              }),
+            customSelectComponent[Enchantment](
+              downsideVar,
+              _.id,
+              enchant => renderEnchant(enchant, isSelected = false),
+              Signal.fromValue(sortedEnchantDownsides),
+              (enchant, selected) =>
+                renderEnchant(enchant, isSelected = selected),
+              cls("downside-text"),
             )
+            // select(
+            //   cls := "downside-text",
+            //   value <-- downsideVar,
+            //   onChange.mapToValue --> downsideVar,
+            //   sortedEnchantDownsides.map(enchant => {
+            //     option(
+            //       value := enchant.id,
+            //       cls := s"enchant-group-${enchant.group}",
+            //       enchant.value,
+            //     )
+            //   }),
+            // )
           } else {
             div()
           }
