@@ -79,6 +79,13 @@ body {
   --color-enchant-resistance: #12650e;
   --color-enchant-movement: #1d284b;
   --color-enchant-downside: #000000;
+
+  /* Enchant tag colors */
+  --color-enchant-tag-sPhysical: #fdfdfd;
+  --color-enchant-tag-sFire: #e59534;
+  --color-enchant-tag-sIce: #78ecff;
+  --color-enchant-tag-sLightning: #070602;
+  --color-enchant-tag-sPlague: #523b9e;
 }
 
 .grid-container {
@@ -86,7 +93,7 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
   gap: 10px;
-  width: 1400px;
+  width: 1500px;
 }
 
 .grid-item {

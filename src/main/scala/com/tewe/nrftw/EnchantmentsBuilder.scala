@@ -88,17 +88,7 @@ object EnchantmentsBuilder {
       isSelected: Boolean,
       mods: Modifier[HtmlElement]*
     ): HtmlElement = {
-      div(
-        cls :=
-          (if (isSelected)
-             "selected-enchant"
-           else
-             "enchant-option"),
-        // Image can be added here in the future, e.g.:
-        // img(src := s"/images/enchants/${enchant.id}.png"),
-        enchant.htmlDisplay(),
-        mods,
-      )
+      div(enchant.htmlDisplay(), mods)
     }
 
     div(
