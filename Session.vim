@@ -17,7 +17,7 @@ badd +1 ~/projects/scala-projects/nrftw-toolkit
 badd +55 src/main/scala/com/tewe/nrftw/ItemBuilder.scala
 badd +1 src/main/scala/com/tewe/nrftw/Items.scala
 badd +60 src/main/scala/com/tewe/nrftw/Main.scala
-badd +95 style.css
+badd +93 style.css
 badd +29 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/mutable/LinkedHashMap.scala
 badd +43 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/BuildFrom.scala
 badd +391 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Factory.scala
@@ -36,13 +36,13 @@ badd +82 src/main/scala/com/tewe/nrftw/RingBuilder.scala
 badd +65 src/main/scala/com/tewe/nrftw/Modal.scala
 badd +144 .metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/defs/attrs/HtmlAttrs.scala
 badd +37 Session.vim
-badd +161 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
+badd +159 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.scala
 badd +51 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/Product.scala
 badd +222 .metals/readonly/dependencies/scala-library-2.13.14-sources.jar/scala/collection/Iterable.scala
 badd +153 src/main/scala/com/tewe/nrftw/StatsBuilder.scala
 badd +47 src/main/scala/com/tewe/nrftw/GemsBuilder.scala
 badd +132 src/main/scala/com/tewe/nrftw/Errors.scala
-badd +13 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
+badd +5 src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 badd +65 src/main/scala/com/tewe/nrftw/StatsBuilder.css
 badd +14 src/main/scala/com/tewe/nrftw/GemsBuilder.css
 badd +27 src/main/scala/com/tewe/nrftw/ItemBuilder.css
@@ -77,14 +77,14 @@ badd +62 src/main/scala/com/tewe/nrftw/UtilityBuilder.scala
 badd +1 build.sbt
 badd +7 ~/projects/scala-projects/nrftw-toolkit/target/scala-3.5.2/src_managed/main/sbt-buildinfo/BuildInfo.scala
 badd +269 src/main/scala/com/tewe/nrftw/items/Enchantments.scala
-badd +188 src/main/scala/com/tewe/nrftw/items/EnchantmentData.scala
+badd +102 src/main/scala/com/tewe/nrftw/items/EnchantmentData.scala
 badd +1 GEMINI.md
 badd +1 ~/projects/scala-projects/nrftw-data/try3-claude/EnchantmentModel.scala
 badd +600 ~/projects/scala-projects/nrftw-toolkit/.metals/readonly/dependencies/laminar_sjs1_3-17.2.0-sources.jar/com/raquo/laminar/DomApi.scala
 argglobal
 %argdel
 $argadd ~/projects/scala-projects/nrftw-toolkit
-edit style.css
+edit src/main/scala/com/tewe/nrftw/items/EnchantmentData.scala
 argglobal
 balt src/main/scala/com/tewe/nrftw/EnchantmentsBuilder.css
 setlocal foldmethod=manual
@@ -97,12 +97,12 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 21) / 43)
+let s:l = 102 - ((10 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
-normal! 0
+keepjumps 102
+normal! 017|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

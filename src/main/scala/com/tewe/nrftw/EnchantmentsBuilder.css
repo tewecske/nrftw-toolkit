@@ -2,6 +2,10 @@
   padding: 6px 15px;
   border-top: 1px solid var(--color-border);
 
+  .color-max {
+    color: var(--color-enchant-value);
+  }
+
   .enchantment-header {
     display: flex;
     justify-content: space-between;

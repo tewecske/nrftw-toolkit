@@ -102,13 +102,13 @@ object EnchantmentData {
     def extractValue(value: EffectValue): String =
       value match {
         case ValueRange(min, max, ValueType.Percentage) =>
-          s"${min.toInt}% - ${max.toInt}%"
+          s"""${min.toInt}%-<span class="color-max">${max.toInt}%</span>"""
         case ValueRange(min, max, ValueType.Flat) =>
-          s"${min.toInt} - ${max.toInt}"
+          s"""${min.toInt}-<span class="color-max">${max.toInt}</span>"""
         case ValueRange(min, max, ValueType.Duration) =>
-          s"${min.toInt} seconds"
+          s"""<span class="color-max">${min.toInt}</span>"""
         case ScalingValue(ValueRange(min, max, ValueType.Percentage), stat) =>
-          s"up to ${min.toInt} - ${max.toInt}% based on $stat"
+          s"""${min.toInt}-<span class="color-max">${max.toInt}%</span>"""
         case _ => "Unknown value"
       }
 
@@ -176,8 +176,10 @@ object EnchantmentData {
     effect: EnchantmentEffect,
   ) {
     val (p0, p1) = effect match
-      case StatModifier(stat, value, modificationType, condition, duration) => (EffectValue.extractValue(value), duration.map(EffectValue.extractValue).getOrElse(""))
-      case ActionTrigger(action, value, condition, chance) => (EffectValue.extractValue(value), chance.map(EffectValue.extractValue).getOrElse(""))
+      case StatModifier(stat, value, modificationType, condition, duration) =>
+        (EffectValue.extractValue(value), duration.map(EffectValue.extractValue).getOrElse(""))
+      case ActionTrigger(action, value, condition, chance) =>
+        (EffectValue.extractValue(value), chance.map(EffectValue.extractValue).getOrElse(""))
       case ActionModifier(action, modificationType, chance) => ("", "")
       case ElementalDamage(element, value, condition) => (EffectValue.extractValue(value), "")
       case StatusInfliction(effect, duration) => ("", "")
@@ -196,12 +198,7 @@ object EnchantmentData {
     def htmlDisplay() = div(
       cls("enchant-display"),
       div(cls(s"enchant-group-sprite sprite-${group}")),
-      value match {
-        case s"Deal $p0 [$stat] [!$tagStart]Damage[/s] on $action" =>
-          div(s"Deal 000 $stat $tagStart Damage on $action")
-        case _ =>
-          foreignHtmlElement(DomApi.unsafeParseHtmlString(finalValue))
-      },
+      foreignHtmlElement(DomApi.unsafeParseHtmlString(finalValue)),
     )
   }
 
