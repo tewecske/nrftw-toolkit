@@ -1,11 +1,14 @@
 package com.tewe.nrftw
 
 import com.raquo.laminar.api.L.{*, given}
+import org.scalajs.dom
+import org.scalajs.dom.html
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 import com.raquo.airstream.state.Var
 import com.tewe.nrftw.EnchantmentData.Enchantment
+import org.scalajs.dom.HTMLDivElement
 
 object EnchantmentsBuilder {
 
@@ -91,7 +94,7 @@ object EnchantmentsBuilder {
       div(enchant.htmlDisplay(), mods)
     }
 
-    div(
+    val customSelectContainer = div(
       cls := "custom-select-container",
       div(
         cls := "custom-select-display enchant-text",
@@ -114,15 +117,24 @@ object EnchantmentsBuilder {
       ),
       div(
         cls := "custom-select-dropdown",
-        display <--
-          isDropdownVisible
-            .signal
-            .map(
-              if (_)
-                "block"
-              else
-                "none"
-            ),
+        inContext { thisNode =>
+          styleAttr <--
+            isDropdownVisible
+              .signal
+              .map {
+                if (_) {
+                  val rect = thisNode
+                    .ref
+                    .parentNode
+                    .asInstanceOf[HTMLDivElement]
+                    .getBoundingClientRect()
+                  s"top: ${rect.bottom}px; left: ${rect.left}px; width: ${rect
+                      .width}px; display: block;"
+                } else {
+                  "display: none;"
+                }
+              }
+        },
         children <--
           optionsSignal.map(
             _.map { enchant =>
@@ -142,6 +154,16 @@ object EnchantmentsBuilder {
           ),
       ),
     )
+
+    // Close dropdown when clicking outside
+    windowEvents(_.onClick)
+      .filter(_ => isDropdownVisible.now())
+      .filterNot(ev =>
+        customSelectContainer.ref.contains(ev.target.asInstanceOf[dom.Node])
+      )
+      .foreach(_ => isDropdownVisible.set(false))(unsafeWindowOwner)
+
+    customSelectContainer
   }
   def enchantmentsSelect(
     config: ItemBuilderConfig,
